@@ -185,6 +185,204 @@ button:focus-visible{outline:4px solid #F2A900; outline-offset:3px}
 @media (prefers-reduced-motion: reduce){
   *{animation:none !important; transition:none !important}
 }
+
+/* Build the word: Undo */
+.undo-row{margin:0 0 6px}
+.btn.undo{min-height:72px; font-size:26px; padding:8px 26px; gap:12px}
+.btn.undo svg{width:42px; height:30px}
+.boxes.many{flex-wrap:wrap}
+/* Pictures (emoji or a small photo) */
+.picimg{height:1em; width:auto; max-width:2.4em; border-radius:.14em; vertical-align:middle; object-fit:cover}
+/* Math: scaled dots, added dots, crossed-out dots */
+.dotgrp.addgrp{background:#FDEBD6}
+.dotc.add{background:var(--dot-plus)}
+.dotc.gone{background:#AFC3DA; position:relative}
+.dotc.gone::before, .dotc.gone::after{content:""; position:absolute; left:-4px; right:-4px; top:50%; height:4px; margin-top:-2px; border-radius:2px; background:#444}
+.dotc.gone::before{transform:rotate(45deg)}
+.dotc.gone::after{transform:rotate(-45deg)}
+.dots-sm .dotc{width:20px; height:20px}
+.dots-sm .dotc.plus{width:28px; height:28px}
+.dots-sm .dotrow, .dots-sm .dotgrp{gap:5px}
+.dots-sm .dotrows{gap:5px}
+.problem.long{font-size:clamp(46px, 13.5vw, 90px)}
+
+/* Grown-up check */
+.gate{max-width:460px; margin:10px auto 0}
+.gate label{display:block; font-size:28px; font-weight:700; margin:6px 0 10px; letter-spacing:.06em}
+.gate input{font-family:inherit; font-size:40px; font-weight:700; text-align:center; width:170px; padding:6px 10px; border:3px solid var(--line); border-radius:16px; background:#fff; color:var(--ink); letter-spacing:.08em}
+.gate input:focus{outline:4px solid #F2A900; border-color:#F2A900}
+
+/* Edit words & math */
+.ed{font-size:18px; line-height:1.55; letter-spacing:.05em; text-align:left}
+.ed h2{font-size:25px; margin:22px 0 6px; line-height:1.3}
+.ed .lbl{display:block; font-weight:700; margin:12px 0 4px}
+.ed .hint{font-size:16px; color:var(--ink-soft); margin:4px 0 0}
+.ed input[type=text], .ed select, .ed textarea{font-family:inherit; font-size:20px; letter-spacing:.05em; width:100%; padding:8px 12px; border:3px solid var(--line); border-radius:14px; background:#fff; color:var(--ink); min-height:54px}
+.ed textarea{min-height:96px; font-size:15px; letter-spacing:0; line-height:1.4; font-family:ui-monospace, Menlo, Consolas, monospace; resize:vertical}
+.ed textarea.plain{font-family:inherit; font-size:19px; letter-spacing:.05em}
+.ed input:focus, .ed select:focus, .ed textarea:focus{outline:3px solid #F2A900; border-color:#F2A900}
+.smallbtn{min-height:52px; padding:6px 14px; font-size:18px; font-weight:700; border-radius:14px; border:3px solid #BFAF8A; background:#fff; box-shadow:0 3px 0 #BFAF8A; letter-spacing:.04em; display:inline-flex; align-items:center; gap:6px; white-space:nowrap}
+.smallbtn:active{transform:translateY(2px); box-shadow:0 1px 0 #BFAF8A}
+.smallbtn .emoji{font-size:22px}
+.wrow{background:#fff; border:3px solid var(--line); border-radius:18px; padding:10px; margin:10px 0}
+.wrow.bad{border-color:#D69A1E; background:#FFF7E0}
+.wrow-top, .wrow-mid{display:flex; gap:8px; align-items:center}
+.wrow-mid{margin:8px 0}
+.wnum{font-weight:700; color:var(--ink-soft); min-width:1.7em; text-align:right}
+.ed .wrow input.w{flex:1 1 auto; min-width:0; font-size:28px; font-weight:700; letter-spacing:.14em; padding:4px 12px}
+.ed .wrow input.p{flex:0 1 7em; min-width:0; text-align:center; font-family:var(--emoji); font-size:24px; letter-spacing:0}
+.picprev{flex:0 0 auto; width:58px; height:54px; font-size:40px; line-height:54px; text-align:center}
+.picprev .none{font-size:13px; line-height:1.2; color:var(--ink-soft); display:inline-block; letter-spacing:0}
+.filebtn{position:relative; overflow:hidden; cursor:pointer}
+.filebtn input{position:absolute; left:0; top:0; width:1px; height:1px; opacity:0}
+.optrow{display:flex; gap:10px}
+.opt{flex:1; min-height:60px; font-size:22px; font-weight:700; border-radius:16px; border:3px solid #BFAF8A; background:#fff; box-shadow:0 4px 0 #BFAF8A}
+.opt.on{background:var(--vowel-bg); border-color:var(--btn); box-shadow:0 4px 0 var(--btn); color:#173F73}
+.inline3{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:10px}
+.preview{background:#fff; border:2px dashed var(--line); border-radius:14px; padding:8px 12px; margin:10px 0 0; font-size:17px}
+.edmsg{border-radius:14px; padding:10px 14px; margin:12px 0 0; font-weight:700; font-size:18px}
+.edmsg:empty{display:none}
+.edmsg.ok{background:var(--good-bg); color:#1D5A21}
+.edmsg.err{background:var(--gentle-bg); color:var(--gentle)}
+.edmsg ul{margin:4px 0 0; padding-left:1.2em; font-weight:400}
+.savebar{position:sticky; bottom:0; background:var(--bg); padding:10px 0 8px; margin-top:18px; border-top:2px solid var(--line); z-index:5}
+.savebar .row{margin:0}
+.dirty{font-size:16px; color:var(--gentle); text-align:center; margin:4px 0 0; min-height:1.4em}
+
+/* ---------- Blocky mining theme (original pixel art drawn in CSS/SVG; reading text stays Andika on cream) ---------- */
+:root{ --grass:#5DA83A; --grass-dark:#3F7F2A; --dirt:#8B5A2B; --dirt-dark:#6B4222; --radius:10px }
+.px{display:block; image-rendering:pixelated}
+.grassband{height:30px; margin:-12px -16px 10px; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 10' shape-rendering='crispEdges'%3E%3Crect width='16' height='10' fill='%238B5A2B'/%3E%3Crect x='0' width='1' height='5' fill='%234E9632'/%3E%3Crect x='1' width='1' height='4' fill='%235DA83A'/%3E%3Crect x='2' width='1' height='5' fill='%234E9632'/%3E%3Crect x='3' width='1' height='5' fill='%236DBB45'/%3E%3Crect x='4' width='1' height='5' fill='%236DBB45'/%3E%3Crect x='5' width='1' height='4' fill='%235DA83A'/%3E%3Crect x='6' width='1' height='3' fill='%235DA83A'/%3E%3Crect x='7' width='1' height='3' fill='%235DA83A'/%3E%3Crect x='8' width='1' height='4' fill='%236DBB45'/%3E%3Crect x='9' width='1' height='4' fill='%234E9632'/%3E%3Crect x='10' width='1' height='4' fill='%235DA83A'/%3E%3Crect x='11' width='1' height='4' fill='%235DA83A'/%3E%3Crect x='12' width='1' height='4' fill='%235DA83A'/%3E%3Crect x='13' width='1' height='3' fill='%236DBB45'/%3E%3Crect x='14' width='1' height='3' fill='%236DBB45'/%3E%3Crect x='15' width='1' height='4' fill='%236DBB45'/%3E%3Crect x='9' y='6' width='1' height='1' fill='%237A4E24'/%3E%3Crect x='7' y='5' width='1' height='1' fill='%236B4222'/%3E%3Crect x='9' y='9' width='1' height='1' fill='%23A87440'/%3E%3Crect x='10' y='8' width='1' height='1' fill='%23A87440'/%3E%3Crect x='2' y='5' width='1' height='1' fill='%236B4222'/%3E%3Crect x='13' y='6' width='1' height='1' fill='%23A87440'/%3E%3Crect x='4' y='8' width='1' height='1' fill='%23A87440'/%3E%3Crect x='1' y='5' width='1' height='1' fill='%236B4222'/%3E%3Crect x='10' y='7' width='1' height='1' fill='%236B4222'/%3E%3Crect x='11' y='9' width='1' height='1' fill='%23A87440'/%3E%3Crect x='14' y='5' width='1' height='1' fill='%237A4E24'/%3E%3Crect x='8' y='8' width='1' height='1' fill='%236B4222'/%3E%3Crect x='2' y='5' width='1' height='1' fill='%236B4222'/%3E%3Crect x='9' y='9' width='1' height='1' fill='%236B4222'/%3E%3Crect x='14' y='7' width='1' height='1' fill='%236B4222'/%3E%3Crect x='12' y='7' width='1' height='1' fill='%237A4E24'/%3E%3Crect x='14' y='7' width='1' height='1' fill='%237A4E24'/%3E%3Crect x='3' y='8' width='1' height='1' fill='%237A4E24'/%3E%3Crect x='6' y='7' width='1' height='1' fill='%237A4E24'/%3E%3Crect x='7' y='8' width='1' height='1' fill='%23A87440'/%3E%3Crect x='15' y='5' width='1' height='1' fill='%237A4E24'/%3E%3Crect x='14' y='8' width='1' height='1' fill='%236B4222'/%3E%3C/svg%3E") repeat-x; background-size:48px 30px; image-rendering:pixelated}
+.hello, .title, .end h2, .craftcard h2{text-shadow:2px 2px 0 #D7E8C4}
+.hello{text-shadow:3px 3px 0 #CFE3B5}
+.home-btn{border-radius:10px; box-shadow:0 3px 0 var(--line)}
+.stars{border-radius:10px; border-color:var(--dirt); box-shadow:0 3px 0 var(--dirt-dark)}
+.stars .pxstar{width:26px; height:26px}
+.fly.pxfly svg, .fly .pxstar{width:44px; height:44px}
+.starrow .pxstar{width:34px; height:34px; display:inline-block}
+.card{border-radius:16px}
+.mode{border-radius:10px; border:4px solid rgba(0,0,0,.26); box-shadow:inset 0 5px 0 rgba(255,255,255,.45), inset 0 -6px 0 rgba(0,0,0,.08), 0 6px 0 rgba(0,0,0,.26)}
+.mode:active{box-shadow:inset 0 5px 0 rgba(255,255,255,.45), 0 2px 0 rgba(0,0,0,.26)}
+.m-learn{background:#CDEBB5}.m-build{background:#F0DAB8}.m-hunt{background:#DEDED8}.m-math{background:#CBEFF6}.m-quiz{background:#FFE9A8}
+.m-game{background:linear-gradient(#6DBB45 0 18px, #4E9632 18px 22px, #E2BC8A 22px)}
+.m-game .px{width:62px; height:62px; margin-top:8px}
+.btn, .choice, .answer, .tile, .box, .seg, .opt, .smallbtn{border-radius:10px}
+.hello-row{display:flex; align-items:flex-end; justify-content:space-between; gap:8px}
+.hello-row .avatar{width:92px; flex:0 0 auto; margin:-6px 0 -2px}
+.crafts-link{display:flex; align-items:center; gap:8px; margin:18px auto 0; background:#fff; border:3px solid var(--dirt); box-shadow:0 4px 0 var(--dirt-dark); border-radius:10px; padding:6px 16px; font-size:20px; font-weight:700; min-height:56px}
+.crafts-link .px{width:30px; height:30px}
+.grown-link{margin-top:14px}
+
+/* Avatar */
+.avatar{width:84px; line-height:0}
+.avatar svg{width:100%; height:auto; overflow:visible; display:block}
+.avatar.big{width:120px; margin:0 auto 4px}
+.av-armL, .av-armR{transition:transform .2s ease}
+.avatar.hold .av-armR{transform:rotate(-30deg)}
+.avatar.swing .av-armR{animation:swing .45s ease-in-out}
+@keyframes swing{0%{transform:rotate(-30deg)}35%{transform:rotate(-165deg)}70%{transform:rotate(-15deg)}100%{transform:rotate(-30deg)}}
+.avatar.cheer .av-armL{transform:rotate(155deg)}
+.avatar.cheer .av-armR{transform:rotate(-155deg)}
+.avatar.cheer svg{animation:hop .5s ease-in-out 2}
+@keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.home-av .av-armR{animation:wave 5s ease-in-out infinite 1s}
+@keyframes wave{0%,70%,100%{transform:rotate(0)}76%{transform:rotate(-150deg)}82%{transform:rotate(-125deg)}88%{transform:rotate(-150deg)}94%{transform:rotate(0)}}
+
+/* Block Mine */
+.minebar{display:flex; justify-content:center; gap:5px; margin:0 0 6px}
+.minebar .mb{width:26px; height:26px; background:#D9D2C0; border:3px solid #BFB39A; border-radius:4px; display:flex; align-items:center; justify-content:center; padding:1px}
+.minebar .mb.now{border-color:var(--grass-dark); background:#E9F4DE}
+.minebar .mb.done{background:#fff; border-color:var(--dirt)}
+.minebar .mb svg{width:100%; height:100%}
+.gtop{display:flex; align-items:center; gap:10px; min-height:112px}
+.gtop .avatar{width:92px; flex:0 0 auto}
+.gask{flex:1; display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center}
+.gask .problem{font-size:clamp(40px, 11vw, 78px); margin:0}
+.gask .problem.long{font-size:clamp(34px, 9vw, 70px)}
+.gsay{font-size:22px; font-weight:700; margin:0; line-height:1.3; text-align:center}
+.quarry{position:relative; display:flex; justify-content:space-around; align-items:center; gap:8px; padding:18px 8px 26px; margin-top:6px; border-radius:12px; overflow:hidden;
+  background:linear-gradient(transparent calc(100% - 18px), #6B4222 calc(100% - 18px)), linear-gradient(#E6F2FA, #F5EEDC)}
+.oreblock{position:relative; padding:0; border:0; background:none; box-shadow:0 7px 0 rgba(0,0,0,.28); border-radius:3px; line-height:0}
+.oreblock .block, .oreblock .crack{position:absolute; inset:0; width:100%; height:100%}
+.oreblock .block{outline:3px solid rgba(0,0,0,.28); outline-offset:-3px}
+.oreblock .cs{opacity:0}
+.oreblock.c1 .cs1, .oreblock.c2 .cs1, .oreblock.c2 .cs2, .oreblock.c3 .cs{opacity:1}
+.oreblock .plate{position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); background:#FFF8E7; color:var(--ink); border:3px solid #3B3B3B; border-radius:6px; padding:6px 7px; font-weight:700; letter-spacing:.08em; line-height:1.1; white-space:nowrap; max-width:96%}
+.oreblock:active{transform:translateY(3px); box-shadow:0 4px 0 rgba(0,0,0,.28)}
+.oreblock.shake{animation:shake .55s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+.oreblock.glow{box-shadow:0 0 0 5px #FFD23F, 0 0 22px 8px rgba(255,210,63,.85)}
+.oreblock.glow .plate{border-color:#C98A00}
+.oreblock.mined{visibility:hidden}
+.shard{position:absolute; z-index:4; pointer-events:none; animation:shard .9s ease-out forwards}
+@keyframes shard{0%{transform:translate(0,0)}55%{transform:translate(var(--px), var(--py))}100%{transform:translate(var(--px), calc(var(--py) + 90px)); opacity:0}}
+.gfeedback{min-height:56px}
+.hotbar{position:sticky; bottom:0; z-index:6; margin:12px -6px 0; padding:8px 8px 10px; background:#4A4A4A; border:4px solid #2E2E2E; border-radius:8px; box-shadow:inset 0 3px 0 #6A6A6A; color:#fff}
+.hotbar .slots{display:flex; justify-content:center; gap:6px}
+.hotbar .slot{position:relative; width:48px; height:48px; background:#8B8B8B; border:3px solid #BDBDBD; border-right-color:#5A5A5A; border-bottom-color:#5A5A5A; padding:5px}
+.hotbar .slot.empty svg{opacity:.35; filter:grayscale(1)}
+.hotbar .slot svg{width:100%; height:100%}
+.hotbar .slot b{position:absolute; right:1px; bottom:-3px; font-size:17px; letter-spacing:0; color:#fff; text-shadow:2px 2px 0 #222}
+.craftmeter{display:flex; align-items:center; justify-content:center; gap:7px; margin-top:6px; font-size:16px; letter-spacing:.04em; flex-wrap:wrap}
+.craftmeter .px.mini{width:24px; height:24px}
+.craftmeter .meter{display:inline-block; width:90px; height:12px; background:#2E2E2E; border:2px solid #BDBDBD}
+.craftmeter .meter i{display:block; height:100%; background:#6DBB45}
+.px.mini{width:26px; height:26px; display:inline-block; vertical-align:middle}
+.recipe{display:flex; justify-content:center; flex-wrap:wrap; gap:4px; margin:8px 0}
+.recipe svg{width:28px; height:28px}
+.craftpop{position:fixed; inset:0; z-index:60; background:rgba(40,30,20,.55); display:flex; align-items:center; justify-content:center; padding:16px}
+.craftcard{background:var(--card); border:4px solid var(--dirt); border-radius:14px; box-shadow:0 8px 0 var(--dirt-dark); padding:16px; max-width:420px; width:100%; text-align:center}
+.craftcard h2{font-size:34px; margin:0 0 4px}
+.craftcard p{font-size:24px; margin:6px 0}
+.craftarrow{font-size:26px; color:var(--dirt); letter-spacing:0; line-height:1}
+.bigitem svg{width:140px; height:140px; margin:4px auto; animation:craftin .6s ease-out}
+@keyframes craftin{0%{transform:scale(.2) rotate(-30deg)}70%{transform:scale(1.15) rotate(6deg)}100%{transform:scale(1) rotate(0)}}
+.confetti{position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:40}
+.confetti i{position:absolute; width:12px; height:12px; animation:fall 3.2s ease-in forwards}
+@keyframes fall{0%{transform:translateY(-70vh) rotate(0); opacity:1}85%{opacity:1}100%{transform:translateY(60vh) rotate(360deg); opacity:0}}
+.shelves{margin:14px 0 0}
+.shelf{display:flex; justify-content:center; gap:10px; padding:10px 8px 0; border-bottom:14px solid #9A6534; box-shadow:0 5px 0 #6B4222; margin:0 0 22px; background:#F5EAD5; border-radius:8px 8px 0 0}
+.craft{width:25%; max-width:110px; text-align:center; font-size:17px; font-weight:700; letter-spacing:.04em}
+.craft svg{width:100%; max-width:84px; height:auto; aspect-ratio:1; margin:0 auto}
+@media (prefers-reduced-motion: reduce){ .avatar.cheer svg{animation:none} }
+
+/* ---------- Write It ---------- */
+.m-write{background:#E9DDF7}
+.wtop{display:flex; align-items:center; gap:10px; margin:4px 0 8px}
+.wtop .avatar{width:64px; flex:0 0 auto; margin-left:auto}
+.wmode{display:flex; flex-direction:column; align-items:flex-start; gap:6px; font-size:19px; line-height:1.3}
+.btn.toggle{min-height:52px; font-size:18px; padding:4px 12px; box-shadow:0 4px 0 #BFAF8A}
+.btn.toggle[aria-pressed="true"]{background:var(--vowel-bg); border-color:var(--btn); color:#173F73; box-shadow:0 4px 0 var(--btn)}
+.wpad{position:relative; width:100%; height:clamp(190px, 60vw, 320px); border:3px solid var(--line); border-radius:12px; background:#FFFDF7; overflow:hidden;
+  touch-action:none; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none}
+.wpad canvas{position:absolute; left:0; top:0; display:block}
+.wpad .wp-ink{touch-action:none; cursor:crosshair}
+.wpad.locked .wp-ink{cursor:default}
+.wtools{margin-top:10px}
+.wtools .btn{min-height:60px; font-size:20px}
+.wtools .btn svg{width:34px; height:24px}
+.wreveal{position:relative; width:100%; height:clamp(110px, 32vw, 170px); border:3px solid #9DC39A; border-radius:12px; overflow:hidden; background:#FFFDF7}
+.wreveal canvas{display:block; max-width:100%}
+.wreveal.small{height:80px; border-width:2px}
+.wrev{background:#fff; border:3px solid var(--line); border-radius:14px; padding:10px; margin:12px 0}
+.wrev-pair{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:8px; align-items:end}
+.wrev-cell{min-width:0}
+.wrev-cell .wreveal{height:84px}
+.wrev-cell img{display:block; width:100%; height:84px; box-sizing:border-box; object-fit:contain; background:#FFFDF7; border:2px solid var(--line); border-radius:10px}
+.wrev-lbl{display:block; white-space:nowrap; font-size:15px; color:var(--ink-soft); margin:0 0 2px}
+.wrev-btns{margin-top:8px}
+.wrev-btns{flex-wrap:nowrap}
+.wrev-btns .btn{min-height:56px; font-size:19px; flex:1 1 0; min-width:0; white-space:nowrap; padding:8px 10px}
+.wrev-btns .btn.on[data-mark="got"]{background:var(--good-bg); border-color:var(--good); box-shadow:0 4px 0 var(--good)}
+.wrev-btns .btn.on[data-mark="again"]{background:var(--gentle-bg); border-color:#D69A1E; box-shadow:0 4px 0 #D69A1E}
+.wsum{text-align:left; font-size:19px; margin-top:12px}
+[hidden]{display:none !important}
+.wtools{flex-wrap:nowrap; gap:10px; margin-top:10px}
+.wtools .btn{flex:1 1 0; min-width:0; font-size:18px; min-height:56px; padding:8px 8px; gap:6px; white-space:nowrap}
+.wtools .btn svg, .wtools .btn .emoji{flex:0 0 auto}
+.wtools + .feedback:empty{min-height:0; padding:0; margin:4px 0 0}
+.wgot .btn{font-size:23px; padding:10px 12px; line-height:1.25}
+.m-write-nav .count{font-size:17px; white-space:nowrap}
 </style>
 </head>
 <body>
@@ -195,19 +393,24 @@ button:focus-visible{outline:4px solid #F2A900; outline-offset:3px}
 (function(){
 'use strict';
 
-/* ---------------- Content for this week ---------------- */
-var WORDS = [
-  {w:'bag', pic:'👜', rime:'ag',  s:'I put my toys in a bag.'},
-  {w:'cap', pic:'🧢', rime:'app', s:'Dad wears a red cap.'},
-  {w:'fan', pic:'🪭', rime:'an',  s:'The fan keeps us cool.', nasal:true},
-  {w:'jam', pic:'🍓🫙', rime:'am', s:'I like jam on my toast.', nasal:true},
-  {w:'nap', pic:'😴', rime:'app', s:'The baby takes a nap.'},
-  {w:'pad', pic:'📝', rime:'ad',  s:'I draw on a pad of paper.'},
-  {w:'pan', pic:'🍳', rime:'an',  s:'Mom cooks eggs in a pan.', nasal:true},
-  {w:'rag', pic:'🧽', rime:'ag',  s:'Wipe the table with a rag.'},
-  {w:'wax', pic:'🕯️', rime:'ax',  s:'The candle is made of wax.'},
-  {w:'yam', pic:'🍠', rime:'am',  s:'I ate a yam for dinner.', nasal:true}
+/* ---------------- This week's default content (a grown-up can change it on the Edit screen) ---------------- */
+var DEFAULT_TITLE = 'Unit 1 · Short A · Week 1';
+var DEFAULT_PATTERN = 'a';
+var DEFAULT_WORDS = [
+  {w:'bag', pic:'👜', s:'I put my toys in a bag.'},
+  {w:'cap', pic:'🧢', s:'Dad wears a red cap.'},
+  {w:'fan', pic:'🪭', s:'The fan keeps us cool.'},
+  {w:'jam', pic:'🍓🫙', s:'I like jam on my toast.'},
+  {w:'nap', pic:'😴', s:'The baby takes a nap.'},
+  {w:'pad', pic:'📝', s:'I draw on a pad of paper.'},
+  {w:'pan', pic:'🍳', s:'Mom cooks eggs in a pan.'},
+  {w:'rag', pic:'🧽', s:'Wipe the table with a rag.'},
+  {w:'wax', pic:'🕯️', s:'The candle is made of wax.'},
+  {w:'yam', pic:'🍠', s:'I ate a yam for dinner.'}
 ];
+/* Word-family chunks for "Sound it out" (spelled so device voices say them well) */
+var RIME = {bag:'ag', cap:'app', fan:'an', jam:'am', nap:'app', pad:'ad', pan:'an', rag:'ag', wax:'ax', yam:'am'};
+var FAMILY = {ag:'ag', ap:'app', an:'an', am:'am', ad:'ad', ax:'ax', at:'at'};
 /* Hand-picked near-miss spellings (safe, kid-friendly) for Word Hunt */
 var NEAR = {
   bag:['dag','beg','gab','bog'], cap:['cup','cab','pac','cop'], fan:['fun','fin','fam','van'],
@@ -215,8 +418,12 @@ var NEAR = {
   pan:['pen','pin','nap','pam'], rag:['rug','gar','rog','wag'], wax:['wox','max','wak','xaw'],
   yam:['yum','may','yan','yem']
 };
-/* +1 facts, in the order on the practice sheet */
-var MATH = [8,1,11,5,6,12,7,2,9,3,10,4];
+/* Generated near-misses must never spell something unkind */
+var BAD_EXACT = /^(ass|fag|fuk|fuc|fck|sex|tit|cum|gay|jew|nig|poo|pee|wee|die|kill|dead|hate|damn|hell|crap|butt|poop|arse|piss|dick|cock|cunt|twat|wank|slut|porn|nazi|hoe|ho)$/;
+var BAD_PART = /(fuck|shit|cunt|dick|cock|piss|slut|porn|nigg|fag|whore|bitch|rape)/;
+var DEFAULT_MATH = {op:'+', k:1, from:1, to:12, custom:''};
+var SHEET_ORDER = [8,1,11,5,6,12,7,2,9,3,10,4]; /* +1 facts, in the order on the practice sheet */
+var MAX_NUM = 20, MAX_WORDS = 20, MAX_CUSTOM = 30;
 
 /* Letter sounds for read-aloud (device voices can't make pure phonemes; these are close) */
 var SOUND = {b:'buh', c:'kuh', d:'duh', f:'fuh', g:'guh', h:'huh', j:'juh', k:'kuh', l:'luh', m:'muh',
@@ -233,15 +440,29 @@ function $(sel, root){ return (root||document).querySelector(sel); }
 function $all(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); }
 function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
 function shuffle(a){ a = a.slice(); for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
-function isVowel(c){ return 'aeiou'.indexOf(c) >= 0; }
-function colorWord(w){ return w.split('').map(function(c){ return isVowel(c) ? '<span class="v">'+c+'</span>' : c; }).join(''); }
-function wordObj(w){ for (var i=0;i<WORDS.length;i++) if (WORDS[i].w===w) return WORDS[i]; return null; }
+function range(n){ var r = []; for (var i=0;i<n;i++) r.push(i); return r; }
+function clone(x){ return JSON.parse(JSON.stringify(x)); }
+function isVowel(c){ return !!c && 'aeiou'.indexOf(c) >= 0; }
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function later(fn, ms){ var id = setTimeout(fn, ms); timers.push(id); return id; }
 var timers = [];
 function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+function viewW(){ return Math.min(window.innerWidth || document.documentElement.clientWidth || 390, 760); }
+
+/* Blue letters: the week's vowel/pattern (e.g. "a", "ee", "sh"). Blank pattern = every vowel. */
+function hiPositions(w){
+  var p = LIST.pattern, out = {}, i;
+  if (!p){ for (i=0;i<w.length;i++) if (isVowel(w[i])) out[i] = 1; return out; }
+  i = w.indexOf(p);
+  while (i >= 0){ for (var k=0;k<p.length;k++) out[i+k] = 1; i = w.indexOf(p, i + p.length); }
+  return out;
+}
+function isHiLetter(c){ if (!c) return false; return LIST.pattern ? LIST.pattern.indexOf(c) >= 0 : isVowel(c); }
+function colorWord(w, pos){ pos = pos || hiPositions(w); return w.split('').map(function(c, i){ return pos[i] ? '<span class="v">'+c+'</span>' : c; }).join(''); }
+function wordObj(w){ for (var i=0;i<WORDS.length;i++) if (WORDS[i].w===w) return WORDS[i]; return null; }
 
 /* Emoji fallback for older devices that lack newer emoji (🪭 needs iOS 16.4+, 🫙 iOS 14.5+) */
+var EMOJI_FIX = {};
 function emojiSupported(ch){
   try {
     var c = document.createElement('canvas'); c.width = c.height = 32;
@@ -254,14 +475,279 @@ function emojiSupported(ch){
   } catch(e){ return true; }
 }
 function fixEmoji(){
-  if (!emojiSupported('🪭')) wordObj('fan').pic = '🌬️';
-  if (!emojiSupported('🫙')) wordObj('jam').pic = '🍓🍞';
+  if (!emojiSupported('🪭')) EMOJI_FIX['🪭'] = '🌬️';
+  if (!emojiSupported('🫙')) EMOJI_FIX['🫙'] = '🍞';
+}
+var IMG_RE = /^data:image\/(png|jpeg|gif|webp);base64,[A-Za-z0-9+\/=]+$/;
+function isImg(p){ return !!p && IMG_RE.test(p); }
+function picHTML(p){
+  if (!p) return '';
+  if (isImg(p)) return '<img class="picimg" src="'+p+'" alt="">';
+  for (var k in EMOJI_FIX) p = p.split(k).join(EMOJI_FIX[k]);
+  return esc(p);
+}
+
+/* ---------------- Pixel art (all original, drawn here in code) ---------------- */
+function pix(rows, pal, ox, oy){
+  /* rows of letters -> SVG rects (one rect per run of the same color) */
+  var r = '';
+  ox = ox || 0; oy = oy || 0;
+  for (var y=0;y<rows.length;y++){
+    var row = rows[y], x = 0;
+    while (x < row.length){
+      var c = row[x];
+      if (!pal[c]){ x++; continue; }
+      var x2 = x; while (x2 + 1 < row.length && row[x2+1] === c) x2++;
+      r += '<rect x="'+(ox+x)+'" y="'+(oy+y)+'" width="'+(x2-x+1)+'" height="1" fill="'+pal[c]+'"/>';
+      x = x2 + 1;
+    }
+  }
+  return r;
+}
+function pixSVG(rows, pal, cls){ return '<svg class="px '+(cls||'')+'" viewBox="0 0 '+rows[0].length+' '+rows.length+'" shape-rendering="crispEdges" aria-hidden="true" focusable="false">'+pix(rows, pal)+'</svg>'; }
+var ITEM_ART = {
+  pickaxe: [["...GGGGGG...",".GGwwggggGG.","GgG..dd..GgG","Gg...dd...gG","G....dd....G",".....dd.....",".....dd.....",".....dd.....",".....dd.....",".....dd.....",".....dd.....",".....DD....."],
+            {G:'#1F9AAE', g:'#5EE0F0', w:'#C8F8FF', d:'#9A6534', D:'#6B4222'}],
+  sword:   [["..........Ww",".........WgW","........WgW.",".......WgW..","......WgW...",".....WgW....","..D.WgW.....","..DDgW......","...DD.......","..dDD.......",".dd..D......","dd.........."],
+            {W:'#1F9AAE', w:'#C8F8FF', g:'#5EE0F0', D:'#6B4222', d:'#9A6534'}],
+  helmet:  [["............","...GGGGGG...","..GgwwgggG..",".GgwgggggGG.",".GggggggggG.",".GgGGGGGGgG.",".Gg......gG.",".Gg......gG.",".GG......GG.","............","............","............"],
+            {G:'#1F9AAE', g:'#5EE0F0', w:'#C8F8FF'}],
+  house:   [[".....RR.....","....RrrR....","...RrrrrR...","..RrrrrrrR..",".RrrrrrrrrR.","RRRRRRRRRRRR",".pPpPpPpPpP.",".pwwpPpDDpP.",".pwwpPpDDpP.",".pPpPpPDkpP.",".pPpPpPDDpP.","gggggggggggg"],
+            {R:'#8E2F22', r:'#C8503C', p:'#C9955A', P:'#B07D45', w:'#9FE3F5', D:'#6B4222', k:'#F5C542', g:'#5DA83A'}],
+  axe:     [[".....GGG....","....GgggG...","...GgwggdG..","...GgggddG..","....GGGdd...","......dd....",".....dd.....","....dd......","...dd.......","..dd........",".dd.........","DD.........."],
+            {G:'#8A8A8A', g:'#C9C9C9', w:'#EFEFEF', d:'#9A6534', D:'#6B4222'}],
+  torch:   [["....yy......","...yooy.....","..yoOOoy....","...yooy.....","....dd......","....dd......","....dd......","....dd......","....dd......","....dd......","....DD......","............"],
+            {y:'#FFE27A', o:'#F59A23', O:'#E0473E', d:'#9A6534', D:'#6B4222'}]
+};
+var ITEM_NAME = {pickaxe:'Pickaxe', sword:'Sword', helmet:'Helmet', house:'House', axe:'Axe', torch:'Torch'};
+var CRAFT_ORDER = ['pickaxe', 'sword', 'helmet', 'house', 'axe', 'torch'];
+function itemSVG(id, cls){ var a = ITEM_ART[id]; return pixSVG(a[0], a[1], cls); }
+var STAR_SVG = pixSVG(["....y....","...yYy...","...yYy...","yyyyYyyyy",".yYYYYYy.","..yYYYy..","..yYyYy..",".yYy.yYy.",".yy...yy."], {y:'#C98A00', Y:'#FFD23F'}, 'pxstar');
+var GEM_ROWS = ["..GGGG..",".GwwggG.","GwwgggGG","GggggggG",".GgggGG.","..GggG..","...GG...","........"];
+
+/* Ore blocks: a stone (or grass) texture with ore specks, drawn from a seeded pattern */
+var ORES = [
+  {id:'stone', name:'stone'},
+  {id:'gold',  name:'gold',      ore:['#A87A0A', '#F5C542', '#FFF0A8']},
+  {id:'gem',   name:'blue gem',  ore:['#1F9AAE', '#5EE0F0', '#D2FAFF']},
+  {id:'green', name:'green gem', ore:['#1E8A48', '#4CD27A', '#C4F7D4']},
+  {id:'ruby',  name:'red gem',   ore:['#8E2020', '#E0473E', '#FFB3AC']},
+  {id:'grass', name:'grass block'}
+];
+function oreById(id){ for (var i=0;i<ORES.length;i++) if (ORES[i].id === id) return ORES[i]; return ORES[0]; }
+function seeded(seed){ var s = seed; return function(){ s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; }; }
+var BLOCK_CACHE = {};
+function blockRows(o){
+  var rnd = seeded(7 + o.id.charCodeAt(0) * 31 + o.id.length), rows = [], x, y;
+  for (y=0;y<12;y++){ var r = ''; for (x=0;x<12;x++){
+    if (o.id === 'grass'){ r += y < 2 ? (rnd() < .5 ? 'g' : 'G') : (y < 4 && rnd() < .55) ? 'h' : (rnd() < .2 ? 'e' : rnd() < .3 ? 'D' : 'd'); }
+    else r += rnd() < .12 ? '3' : rnd() < .3 ? '1' : rnd() < .25 ? '2' : '0';
+  } rows.push(r); }
+  if (o.ore){
+    var cl = [".cb", "cba", ".aa"], spots = [[1,1],[8,0],[0,8],[8,8],[5,4]];
+    spots.forEach(function(p){ for (y=0;y<3;y++) for (x=0;x<3;x++){ var ch = cl[y][x]; if (ch === '.') continue; var yy = p[1]+y, xx = p[0]+x; if (yy < 12 && xx < 12) rows[yy] = rows[yy].slice(0, xx) + ch + rows[yy].slice(xx+1); } });
+  }
+  return rows;
+}
+function blockPal(o){
+  if (o.id === 'grass') return {g:'#6DBB45', G:'#5DA83A', h:'#4E9632', d:'#9A6534', D:'#86572A', e:'#6B4222'};
+  var p = {'0':'#8F8F8F', '1':'#7E7E7E', '2':'#A3A3A3', '3':'#686868'};
+  if (o.ore){ p.a = o.ore[0]; p.b = o.ore[1]; p.c = o.ore[2]; }
+  return p;
+}
+function blockSVG(id, cls){
+  if (!BLOCK_CACHE[id]){ var o = oreById(id); BLOCK_CACHE[id] = pixSVG(blockRows(o), blockPal(o), 'block'); }
+  return cls ? BLOCK_CACHE[id].replace('class="px block"', 'class="px block '+cls+'"') : BLOCK_CACHE[id];
+}
+/* what you collect from each block (shown in the hotbar) */
+function dropSVG(id){
+  var o = oreById(id);
+  if (!o.ore) return blockSVG(id, 'drop');
+  return pixSVG(GEM_ROWS, {G:o.ore[0], g:o.ore[1], w:o.ore[2]}, 'drop');
+}
+var CRACKS = [[[5,5],[6,5],[6,6],[4,4]], [[3,3],[7,6],[8,7],[4,6],[3,7],[6,3],[7,2]], [[2,2],[9,8],[10,9],[2,8],[1,9],[8,3],[9,2],[5,8],[5,9],[6,1]]];
+function crackSVG(){
+  var s = '<svg class="crack" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">';
+  CRACKS.forEach(function(stage, k){ s += '<g class="cs cs'+(k+1)+'">' + stage.map(function(p){ return '<rect x="'+p[0]+'" y="'+p[1]+'" width="1" height="1" fill="rgba(20,20,20,.7)"/>'; }).join('') + '</g>'; });
+  return s + '</svg>';
+}
+
+/* Luke's blocky avatar (drawn from a description: auburn swept hair, blue eyes, big smile, navy polo, khaki shorts) */
+var AV_BODY = [
+  "....hhhhhhhh....", "....hhHhhHHh....", "....hHhhhhhH....", "....hhsssHhh....", "....hssssssh....",
+  "....sWBssBWs....", "....ssssssss....", "....psskksps....", "....smwwwwms....", "....ssmmmmss....",
+  "....nnCssCnn....", "....nnnCsnnn....", "....nnnnbnnn....", "....nnnnbnnn....", "....nnnnnnnn....",
+  "....nnnnnnnn....", "....nnnnnnnn....", "....nnnnnnnn....", "....NnnnnnnN....", "....NNNNNNNN....",
+  "....ttttTttt....", "....ttttTttt....", "....tttTTttt....", "....tttTTttt....", "....tttTTttt....",
+  "....TTT..TTT....", "....sss..sss....", "....sss..sss....", "....ssk..ssk....", "....sss..sss....",
+  "....ggg..ggg....", "...GGGG..GGGG..."];
+var AV_ARM = ["nnnn", "nnnn", "nnnn", "NNNN", "ssss", "ssss", "ssss", "sssk", "ssss", "ssss", "ssss", "SSSS"];
+var AV_PAL = {h:'#A5562B', H:'#C8773F', s:'#F6CFB0', k:'#E3AE8C', p:'#F2A9A0', W:'#FFFFFF', B:'#2F7FD8', m:'#8E3B2E', w:'#FFFFFF',
+  n:'#1E2638', N:'#121722', C:'#3A4866', b:'#5A6A8A', t:'#C2B68C', T:'#A69A72', g:'#5B4B3B', G:'#D8D8D8', S:'#E3AE8C'};
+var AV_HELMET = ["GGGGGGGGGG", "GgwwgggggG", "GgggggggggG".slice(0, 10), "Gg......gG", "Gg......gG", "GG......GG"];
+function avatarSVG(opt){
+  opt = opt || {};
+  var d = load().mine || {}, hasHelmet = (d.crafts || []).some(function(c){ return c.item === 'helmet'; });
+  var helmet = hasHelmet && d.wear !== false;
+  var tool = '';
+  if (opt.pickaxe){
+    var owned = (d.crafts || []).some(function(c){ return c.item === 'pickaxe'; });
+    var pal = owned ? ITEM_ART.pickaxe[1] : {G:'#5E5E5E', g:'#A3A3A3', w:'#CFCFCF', d:'#9A6534', D:'#6B4222'};
+    /* handle end sits in the hand, tilted out and away from the body */
+    tool = '<g transform="translate(2 11) rotate(40) translate(-5.5 -11)">' + pix(ITEM_ART.pickaxe[0], pal) + '</g>';
+  }
+  var arm = pix(AV_ARM, AV_PAL);
+  var vb = opt.pickaxe ? '-5 -5 34 38' : '-5 -5 26 38';
+  return '<svg class="avatar-svg" viewBox="'+vb+'" shape-rendering="crispEdges" aria-hidden="true" focusable="false">' +
+    '<g transform="translate(2 10)"><g class="av-armL"><g transform="translate(-2 0)">' + arm + '</g></g></g>' +
+    pix(AV_BODY, AV_PAL) + (helmet ? pix(AV_HELMET, ITEM_ART.helmet[1], 3, -1) : '') +
+    '<g transform="translate(14 10)"><g class="av-armR"><g transform="translate(-2 0)">' + arm + tool + '</g></g></g>' +
+    '</svg>';
+}
+function avatarHTML(cls, opt){ return '<div class="avatar '+(cls||'')+'" role="img" aria-label="Luke’s block character">' + avatarSVG(opt) + '</div>'; }
+function cheer(el){ if (!el) return; el.classList.remove('cheer', 'swing'); void el.offsetWidth; el.classList.add('cheer'); }
+
+/* ---------------- The word list + math set (saved separately from progress) ---------------- */
+var LIST_KEY = 'lukeStudyApp.list.v1';
+var LIST = null, WORDS = [], FACTS = [];
+function defaultList(){
+  return {v:1, title:DEFAULT_TITLE, pattern:DEFAULT_PATTERN,
+    words:DEFAULT_WORDS.map(function(o){ return {w:o.w, s:o.s, pic:o.pic}; }), math:clone(DEFAULT_MATH)};
+}
+function isDefaultMath(m){ return m.op === '+' && m.k === 1 && m.from === 1 && m.to === 12 && !m.custom; }
+function isDefaultList(L){ return JSON.stringify(L) === JSON.stringify(defaultList()); }
+function rimeFor(w){
+  if (RIME[w]) return RIME[w];
+  if (w.length === 3 && !isVowel(w[0]) && FAMILY[w.slice(1)]) return FAMILY[w.slice(1)];
+  return null; /* no word family: "Sound it out" says the first sound, then the word */
+}
+function makeFact(a, op, b){
+  return {a:a, op:op, b:b, ans: op === '+' ? a + b : a - b, id: (op === '+' && b === 1) ? String(a) : a + op + b};
+}
+function factText(f){ return f.a + ' ' + (f.op === '+' ? '+' : '−') + ' ' + f.b; }
+function factSay(f){ return f.a + (f.op === '+' ? ' plus ' : ' minus ') + f.b; }
+function factById(id){ for (var i=0;i<FACTS.length;i++) if (FACTS[i].id === String(id)) return FACTS[i]; return null; }
+function parseCustom(text){
+  var facts = [], bad = [], seen = {};
+  String(text || '').split(/[,;\n]+/).forEach(function(tok){
+    var t = tok.replace(/\s+/g, '').replace(/[−–—]/g, '-').replace(/=\??$/, '');
+    if (!t) return;
+    var m = /^(\d{1,2})([+-])(\d{1,2})(=\d{1,2})?$/.exec(t);
+    if (!m){ bad.push(tok.trim()); return; }
+    var f = makeFact(+m[1], m[2], +m[3]);
+    if (f.a > MAX_NUM || f.b > MAX_NUM || f.ans < 0 || f.ans > MAX_NUM || (m[4] && +m[4].slice(1) !== f.ans)){ bad.push(tok.trim()); return; }
+    if (!seen[f.id]){ seen[f.id] = 1; facts.push(f); }
+  });
+  return {facts:facts, bad:bad};
+}
+function generatedFacts(m){
+  var out = [];
+  if (isDefaultMath(m)) return SHEET_ORDER.map(function(a){ return makeFact(a, '+', 1); });
+  for (var a=m.from; a<=m.to; a++){
+    var f = makeFact(a, m.op, m.k);
+    if (f.ans >= 0 && f.ans <= MAX_NUM) out.push(f);
+  }
+  return out;
+}
+function buildFacts(m){
+  if (m.custom){ var c = parseCustom(m.custom); if (c.facts.length) return c.facts; }
+  return generatedFacts(m);
+}
+function mathTitle(){
+  var m = LIST.math;
+  if (m.custom && parseCustom(m.custom).facts.length) return 'Math Facts';
+  return (m.op === '+' ? '+' : '−') + m.k + ' Math';
+}
+function applyList(L){
+  LIST = L;
+  WORDS = L.words.map(function(o){ return {w:o.w, s:o.s || '', pic:o.pic || '', rime:rimeFor(o.w)}; });
+  FACTS = buildFacts(L.math);
+}
+function toInt(x, dflt){ var n = parseInt(x, 10); return isNaN(n) ? dflt : n; }
+function cleanPic(p){
+  p = p == null ? '' : String(p).trim();
+  if (!p) return '';
+  if (isImg(p)) return p.length <= 150000 ? p : '';
+  if (/^data:/i.test(p) || p.length > 16) return '';
+  return p;
+}
+/* Check and tidy a list (from the editor or an imported code). Returns {list, errors:[{i?, msg}]} */
+function cleanList(raw){
+  var errors = [], out = {v:1};
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return {list:null, errors:[{msg:'That code is not a word list.'}]};
+  out.title = String(raw.title == null ? '' : raw.title).replace(/\s+/g, ' ').trim().slice(0, 60) || 'Spelling words';
+  var pat = String(raw.pattern == null ? '' : raw.pattern).replace(/\s+/g, '').toLowerCase();
+  if (pat && !/^[a-z]{1,4}$/.test(pat)) errors.push({field:'pattern', msg:'Blue letters: use 1 to 4 letters (like a, ee, sh), or leave it blank.'});
+  out.pattern = pat;
+  var words = Array.isArray(raw.words) ? raw.words : [], seen = {};
+  out.words = [];
+  words.forEach(function(o, i){
+    if (typeof o === 'string') o = {w:o};
+    o = o || {};
+    var w = String(o.w == null ? '' : o.w).trim().toLowerCase();
+    var n = 'Word ' + (i+1);
+    if (!w) errors.push({i:i, msg:n + ' is empty. Type a word or delete it.'});
+    else if (!/^[a-z]+$/.test(w)) errors.push({i:i, msg:n + ' (“' + w + '”): please use only the letters a to z.'});
+    else if (w.length < 2 || w.length > 10) errors.push({i:i, msg:n + ' (“' + w + '”): words need 2 to 10 letters.'});
+    else if (seen[w]) errors.push({i:i, msg:n + ' (“' + w + '”) is already in the list.'});
+    if (w) seen[w] = true;
+    out.words.push({w:w, s:String(o.s == null ? '' : o.s).replace(/\s+/g, ' ').trim().slice(0, 120), pic:cleanPic(o.pic)});
+  });
+  if (!out.words.length) errors.push({msg:'Add at least one word.'});
+  if (out.words.length > MAX_WORDS) errors.push({msg:'Please use at most ' + MAX_WORDS + ' words.'});
+  var m = raw.math && typeof raw.math === 'object' ? raw.math : {};
+  var mm = {op: (m.op === '-' || m.op === '−') ? '-' : '+', k: toInt(m.k, 1), from: toInt(m.from, 1), to: toInt(m.to, 12),
+            custom: String(m.custom == null ? '' : m.custom).replace(/[ \t]+/g, ' ').trim().slice(0, 400)};
+  if (mm.k < 1 || mm.k > 10) errors.push({field:'math', msg:'Math: the number to add or take away must be 1 to 10.'});
+  if (mm.from < 0 || mm.from > MAX_NUM || mm.to < 0 || mm.to > MAX_NUM) errors.push({field:'math', msg:'Math: numbers must be 0 to ' + MAX_NUM + '.'});
+  else if (mm.from > mm.to) errors.push({field:'math', msg:'Math: “From” must be smaller than “To”.'});
+  else if (!generatedFacts(mm).length && !mm.custom) errors.push({field:'math', msg:'Math: no problems fit (answers must be 0 to ' + MAX_NUM + ').'});
+  if (mm.custom){
+    var c = parseCustom(mm.custom);
+    if (c.bad.length) errors.push({field:'custom', msg:'Math: I can’t read ' + c.bad.map(function(b){ return '“' + b + '”'; }).join(', ') + '. Write problems like 3+4 or 10-2 (numbers and answers 0 to ' + MAX_NUM + ').'});
+    else if (c.facts.length > MAX_CUSTOM) errors.push({field:'custom', msg:'Math: please use at most ' + MAX_CUSTOM + ' of your own problems.'});
+  }
+  out.math = mm;
+  return {list: out, errors: errors};
+}
+function loadList(){
+  var L = null;
+  try { var raw = localStorage.getItem(LIST_KEY); if (raw){ var r = cleanList(JSON.parse(raw)); if (!r.errors.length) L = r.list; } } catch(e){}
+  applyList(L || defaultList());
+}
+/* Save a (checked) list. Progress for words that were removed is dropped; stars stay. Returns false if storage failed. */
+function commitList(L){
+  var keep = {}; L.words.forEach(function(o){ keep[o.w] = 1; });
+  var d = load(), k;
+  for (k in d.words) if (!keep[k]) delete d.words[k];
+  for (k in d.learned) if (!keep[k]) delete d.learned[k];
+  for (k in d.write) if (!keep[k]) delete d.write[k];
+  save();
+  applyList(L);
+  try {
+    if (isDefaultList(L)) localStorage.removeItem(LIST_KEY); else localStorage.setItem(LIST_KEY, JSON.stringify(L));
+    return true;
+  } catch(e){ return false; }
+}
+function exportCode(L){
+  var o = {app:'luke-study', v:1, title:L.title, pattern:L.pattern, words:L.words.map(function(x){
+    var r = {w:x.w}; if (x.s) r.s = x.s; if (x.pic) r.pic = x.pic; return r; }), math:L.math};
+  return JSON.stringify(o);
+}
+function parseCode(text){
+  text = String(text || '').trim();
+  if (!text) return null;
+  var a = text.indexOf('{'), b = text.lastIndexOf('}');
+  if (a >= 0 && b > a) text = text.slice(a, b + 1);
+  try { return JSON.parse(text); } catch(e){}
+  try { return JSON.parse(text.replace(/[“”„]/g, '"').replace(/[‘’]/g, "'")); } catch(e){}
+  return null;
 }
 
 /* ---------------- Saved progress (localStorage) ---------------- */
 var KEY = 'lukeStudyApp.v1';
 var mem = null;
-function blank(){ return {stars:0, words:{}, math:{}, quiz:[], learned:{}}; }
+function blank(){ return {stars:0, words:{}, math:{}, quiz:[], learned:{}, write:{}, mine:{total:0, inv:{}, crafts:[]}}; }
 function load(){
   if (mem) return mem;
   try { mem = JSON.parse(localStorage.getItem(KEY)) || blank(); } catch(e){ mem = blank(); }
@@ -279,7 +765,7 @@ function addStar(fromEl){
     var p = pill.parentNode; p.classList.remove('pop'); void p.offsetWidth; p.classList.add('pop');
     if (fromEl && fromEl.getBoundingClientRect){
       var a = fromEl.getBoundingClientRect(), b = p.getBoundingClientRect();
-      var f = document.createElement('div'); f.className = 'fly emoji'; f.textContent = '⭐';
+      var f = document.createElement('div'); f.className = 'fly pxfly'; f.innerHTML = STAR_SVG;
       f.style.left = (a.left + a.width/2 - 27) + 'px'; f.style.top = (a.top + a.height/2 - 27) + 'px';
       f.style.setProperty('--dx', (b.left + b.width/2 - (a.left + a.width/2)) + 'px');
       f.style.setProperty('--dy', (b.top + b.height/2 - (a.top + a.height/2)) + 'px');
@@ -346,14 +832,15 @@ document.addEventListener('touchend', Speech.unlock, {capture:true, passive:true
 document.addEventListener('click', Speech.unlock, true);
 
 function speakWord(w){ Speech.say(w); }
-function speakWordSentence(o){ Speech.seq([{text:o.w, gap:450}, {text:o.s, gap:450}, {text:o.w}]); }
+function speakWordSentence(o){ if (!o.s) { Speech.seq([{text:o.w, gap:450}, {text:o.w}]); return; } Speech.seq([{text:o.w, gap:450}, {text:o.s, gap:450}, {text:o.w}]); }
 
 /* ---------------- Screen shell ---------------- */
 var app = document.getElementById('app');
 var ICON_HOME = '<span class="emoji" aria-hidden="true">🏠</span>';
 var SVG_LEFT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 L7 12 L15 20" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var SVG_UNDO = '<svg viewBox="0 0 42 30" aria-hidden="true"><path d="M14 3 H37 a3 3 0 0 1 3 3 V24 a3 3 0 0 1 -3 3 H14 L2 15 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M20 10 L30 20 M30 10 L20 20" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>';
 var SVG_RIGHT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 L17 12 L9 20" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-function starPill(){ return '<div class="stars" aria-label="Stars"><span class="emoji" aria-hidden="true">⭐</span><span id="starCount">'+load().stars+'</span></div>'; }
+function starPill(){ return '<div class="stars" aria-label="Stars"><span aria-hidden="true">'+STAR_SVG+'</span><span id="starCount">'+load().stars+'</span></div>'; }
 function noSpeechNote(){ return '<div class="nospeech'+(Speech.ok?'':' on')+'">Read-aloud is not available in this browser. A grown-up can read the words out loud.</div>'; }
 function shell(title, inner){
   app.innerHTML = '<div class="topbar"><button class="home-btn" data-act="home" aria-label="Home">'+ICON_HOME+'<span>Home</span></button><div class="title">'+title+'</div>'+starPill()+'</div>' + noSpeechNote() + inner;
@@ -366,16 +853,20 @@ function progressDots(i, n){ var h = '<div class="progress" aria-label="Question
 /* ---------------- Home ---------------- */
 function home(){
   app.innerHTML =
+    '<div class="grassband" aria-hidden="true"></div>' +
     '<div class="topbar"><div></div>'+starPill()+'</div>' +
-    '<h1 class="hello">Hi Luke! <span class="emoji" aria-hidden="true">👋</span></h1>' +
+    '<div class="hello-row"><h1 class="hello">Hi Luke!</h1>' + avatarHTML('home-av') + '</div>' +
     '<p class="sub">What do you want to play?</p>' + noSpeechNote() +
     '<div class="modes">' +
       '<button class="mode m-learn" data-go="learn"><span class="emoji" aria-hidden="true">📖</span>Learn Words</button>' +
       '<button class="mode m-build" data-go="build"><span class="emoji" aria-hidden="true">🧩</span>Build the Word</button>' +
       '<button class="mode m-hunt" data-go="hunt"><span class="emoji" aria-hidden="true">🔍</span>Word Hunt</button>' +
-      '<button class="mode m-math" data-go="math"><span class="emoji" aria-hidden="true">🔢</span>+1 Math</button>' +
+      '<button class="mode m-math" data-go="math"><span class="emoji" aria-hidden="true">🔢</span>'+esc(mathTitle())+'</button>' +
+      '<button class="mode m-write" data-go="write"><span class="emoji" aria-hidden="true">✏️</span>Write It</button>' +
+      '<button class="mode m-game" data-go="game">'+itemSVG('pickaxe')+'Block Mine</button>' +
       '<button class="mode m-quiz wide" data-go="quiz"><span class="emoji" aria-hidden="true">🏆</span>Quiz Practice</button>' +
     '</div>' +
+    '<button class="crafts-link" data-go="crafts">'+itemSVG(mineData().crafts.length ? mineData().crafts[mineData().crafts.length-1].item : 'pickaxe')+'My Crafts ('+mineData().crafts.length+')</button>' +
     '<button class="grown-link" data-go="grownups">For grown-ups</button>';
   $all('[data-go]').forEach(function(b){ b.onclick = function(){ go(b.getAttribute('data-go')); }; });
 }
@@ -383,17 +874,27 @@ function home(){
 /* ---------------- 1. Learn Words ---------------- */
 var learnIdx = 0, learnedThisVisit = {};
 function learn(){
-  var o = WORDS[learnIdx];
+  if (learnIdx >= WORDS.length) learnIdx = 0;
+  var o = WORDS[learnIdx], n = o.w.length, pos = hiPositions(o.w);
+  /* Longer custom words: shrink letter boxes so the whole word fits on one line */
+  var dashes = n <= 4, segStyle = '', wordStyle = '';
+  if (n > 3){
+    var avail = viewW() - 66, gaps = dashes ? (n-1)*14 + (2*n-2)*8 : (n-1)*6;
+    var sw = Math.max(28, Math.min(72, Math.floor((avail - gaps) / n)));
+    segStyle = ' style="min-width:0;width:'+sw+'px;padding:0;font-size:'+Math.min(44, Math.round(sw*0.62))+'px;height:'+Math.max(48, Math.min(78, Math.round(sw*1.1)))+'px"';
+    wordStyle = ' style="font-size:clamp(34px, calc(64vw / '+n+'), 150px)"';
+  }
   var segs = o.w.split('').map(function(c, i){
-    return (i ? '<span class="dash" aria-hidden="true">-</span>' : '') + '<button class="seg'+(isVowel(c)?' vowel':'')+'" data-l="'+c+'" aria-label="sound of '+c+'">'+c+'</button>';
+    return (i && dashes ? '<span class="dash" aria-hidden="true">-</span>' : '') + '<button class="seg'+(pos[i]?' vowel':'')+'" data-l="'+c+'" aria-label="sound of '+c+'"'+segStyle+'>'+c+'</button>';
   }).join('');
+  var nasal = LIST.pattern === 'a' && /a[mn]/.test(o.w);
   shell('Learn Words',
     '<div class="card">' +
-      '<div class="pic emoji" aria-hidden="true">'+o.pic+'</div>' +
-      '<div class="bigword" aria-label="'+o.w+'">'+colorWord(o.w)+'</div>' +
-      '<div class="segs">'+segs+'</div>' +
-      '<div class="sentence">'+esc(o.s).replace(new RegExp('\\b'+o.w+'\\b'), '<b>'+o.w+'</b>')+'</div>' +
-      (o.nasal ? '<div class="note"><span class="emoji" aria-hidden="true">👂</span> Listen! The <b class="v">a</b> sounds a little different before <b>m</b> or <b>n</b>.</div>' : '') +
+      (o.pic ? '<div class="pic emoji" aria-hidden="true">'+picHTML(o.pic)+'</div>' : '') +
+      '<div class="bigword" aria-label="'+o.w+'"'+wordStyle+'>'+colorWord(o.w)+'</div>' +
+      '<div class="segs"'+(dashes ? '' : ' style="gap:6px"')+'>'+segs+'</div>' +
+      (o.s ? '<div class="sentence">'+esc(o.s).replace(new RegExp('\\b'+o.w+'\\b', 'i'), '<b>$&</b>')+'</div>' : '') +
+      (nasal ? '<div class="note"><span class="emoji" aria-hidden="true">👂</span> Listen! The <b class="v">a</b> sounds a little different before <b>m</b> or <b>n</b>.</div>' : '') +
     '</div>' +
     '<div class="row">' +
       '<button class="btn speak flex1" data-act="say"><span class="emoji" aria-hidden="true">🔊</span>Hear it</button>' +
@@ -410,15 +911,25 @@ function learn(){
   function lit(idx){ segBtns.forEach(function(b, i){ b.classList.toggle('lit', idx.indexOf(i) >= 0); }); }
   $('[data-act=say]').onclick = function(){ speakWordSentence(o); };
   $('[data-act=sound]').onclick = function(){
-    /* sound out: first sound, then the rest (word family), then blend slowly, then say it */
-    Speech.seq([
-      {text: SOUND[o.w[0]], before:function(){ lit([0]); }, gap:350},
-      {text: o.rime, before:function(){ lit([1,2]); }, gap:350},
-      {text: o.w, rate:0.55, before:function(){ lit([0,1,2]); }, gap:300},
-      {text: o.w, gap:100}
-    ], function(){ lit([]); });
+    var all = range(n), first = {text: SOUND[o.w[0]] || o.w[0], before:function(){ lit([0]); }, gap:350};
+    if (o.rime){
+      /* word family: first sound, then the rest (b… ag…), then blend slowly, then say it */
+      Speech.seq([
+        first,
+        {text: o.rime, before:function(){ lit(all.slice(1)); }, gap:350},
+        {text: o.w, rate:0.55, before:function(){ lit(all); }, gap:300},
+        {text: o.w, gap:100}
+      ], function(){ lit([]); });
+    } else {
+      /* any other word: first sound, then the word slowly, then the word */
+      Speech.seq([
+        first,
+        {text: o.w, rate:0.55, before:function(){ lit(all); }, gap:300},
+        {text: o.w, gap:100}
+      ], function(){ lit([]); });
+    }
   };
-  segBtns.forEach(function(b){ b.onclick = function(){ var c = b.getAttribute('data-l'); lit([segBtns.indexOf(b)]); Speech.say(SOUND[c], null, function(){ lit([]); }); }; });
+  segBtns.forEach(function(b){ b.onclick = function(){ var c = b.getAttribute('data-l'); lit([segBtns.indexOf(b)]); Speech.say(SOUND[c] || c, null, function(){ lit([]); }); }; });
   $('[data-act=read]').onclick = function(e){
     var fb = e.currentTarget;
     if (!learnedThisVisit[o.w]){ learnedThisVisit[o.w] = true; var d = load(); d.learned[o.w] = (d.learned[o.w]||0) + 1; save(); addStar(fb); }
@@ -440,7 +951,7 @@ function runRound(cfg){
     var stage = $('#stage');
     var render = it.type === 'build' ? renderBuild : it.type === 'hunt' ? renderHunt : renderMath;
     render(stage, it.id, cfg, function(res){
-      if (res.correct) got++; else missed.push(it.type === 'math' ? it.id + ' + 1' : it.id);
+      if (res.correct) got++; else missed.push(it.type === 'math' ? factText(factById(it.id)) : it.id);
       var nr = $('#nextRow');
       nr.innerHTML = '<button class="btn go huge" data-act="next">Next <span aria-hidden="true">'+SVG_RIGHT.replace('<svg','<svg width="30" height="30"')+'</span></button>';
       $('[data-act=next]', nr).onclick = function(){ i++; show(); };
@@ -449,15 +960,15 @@ function runRound(cfg){
   }
   function finish(){
     var n = cfg.items.length, stars = '';
-    for (var k=0;k<got;k++) stars += '<span>⭐</span>';
+    for (var k=0;k<got;k++) stars += '<span>'+STAR_SVG+'</span>';
     if (cfg.quiz){ var d = load(); d.quiz.push({date:new Date().toISOString().slice(0,10), kind:cfg.key, got:got, of:n, practice:missed}); if (d.quiz.length > 30) d.quiz = d.quiz.slice(-30); save(); }
     shell(cfg.title,
       '<div class="card end">' +
-        '<div class="pic emoji" aria-hidden="true">🎉</div>' +
+        avatarHTML('cheer big') +
         '<h2>You did it, Luke!</h2>' +
         '<p style="font-size:24px;margin:0">You earned <b>'+got+'</b> '+(got===1?'star':'stars')+'!</p>' +
-        '<div class="starrow emoji" aria-hidden="true">'+(stars || '<span>🌟</span>')+'</div>' +
-        (missed.length ? '<p class="practice-list">Let’s practice these again: <b>'+missed.map(esc).join(', ')+'</b></p>' : '<p class="practice-list">Every single one! Wow!</p>') +
+        '<div class="starrow" aria-hidden="true">'+(stars || '<span class="emoji">🌟</span>')+'</div>' +
+        (missed.length ? '<p class="practice-list">Let’s practice these again: <b>'+missed.map(function(x){ return '<span style="white-space:nowrap">'+esc(x)+'</span>'; }).join(', ')+'</b></p>' : '<p class="practice-list">Every single one! Wow!</p>') +
       '</div>' +
       '<div class="row"><button class="btn go huge" data-act="again">Play again</button><button class="btn alt huge" data-act="home2">'+ICON_HOME+' Home</button></div>'
     );
@@ -475,51 +986,71 @@ function makeTiles(word, extra){
     var c = letters.map(function(l){ return CONFUSE[l]; }).filter(function(x){ return x && letters.indexOf(x) < 0; });
     if (c.length) d.push(pick(c)); /* at most one b/d, p/q or m/n look-alike */
   }
-  var pool = POOL.filter(function(x){ return letters.indexOf(x) < 0 && d.indexOf(x) < 0 && !CONFUSE[x]; });
-  while (d.length < extra){ var p = pick(pool); if (d.indexOf(p) < 0) d.push(p); }
+  var pool = shuffle(POOL.filter(function(x){ return letters.indexOf(x) < 0 && d.indexOf(x) < 0 && !CONFUSE[x]; }));
+  if (pool.length < extra) pool = pool.concat(shuffle('aeiou'.split('').filter(function(x){ return letters.indexOf(x) < 0; })));
+  while (d.length < extra && pool.length) d.push(pool.shift());
   return shuffle(letters.concat(d));
 }
 function renderBuild(stage, w, cfg, done){
-  var o = wordObj(w), tries = 0, finished = false;
+  var o = wordObj(w), n = w.length, tries = 0, finished = false;
   var tiles = makeTiles(w, cfg.quiz ? 3 : 2);
-  var slots = [null, null, null]; /* each: index into tiles */
+  var slots = range(n).map(function(){ return null; }); /* each: index into tiles */
+  var placed = []; /* filled slots in the order they were filled (for Undo) */
+  var boxStyle = '', boxesStyle = '';
+  if (n > 3){ /* longer words: fit the boxes to the screen */
+    var gap = n > 5 ? 6 : 10, bw = Math.max(44, Math.min(92, Math.floor((viewW() - 40 - (n-1)*gap) / n)));
+    boxesStyle = ' style="gap:'+gap+'px"';
+    boxStyle = ' style="width:'+bw+'px;height:'+Math.round(bw*1.13)+'px;font-size:'+Math.round(bw*0.65)+'px"';
+  }
   stage.innerHTML =
     '<p class="prompt">Listen, then build the word.</p>' +
     '<div class="row" style="margin-top:0">' +
       '<button class="btn speak" data-act="say" aria-label="Hear the word"><span class="emoji" aria-hidden="true">🔊</span></button>' +
-      '<button class="btn alt" data-act="sent" style="min-height:88px"><span class="emoji" aria-hidden="true">💬</span>Sentence</button>' +
+      (o.s ? '<button class="btn alt" data-act="sent" style="min-height:88px"><span class="emoji" aria-hidden="true">💬</span>Sentence</button>' : '') +
     '</div>' +
-    (cfg.quiz ? '' : '<div class="pic emoji" style="font-size:56px;text-align:center;margin-top:8px" aria-hidden="true">'+o.pic+'</div>') +
-    '<div class="boxes">' + [0,1,2].map(function(k){ return '<button class="box" data-slot="'+k+'" aria-label="box '+(k+1)+'"></button>'; }).join('') + '</div>' +
-    '<div class="tiles">' + tiles.map(function(c, k){ return '<button class="tile'+(isVowel(c)?' v':'')+'" data-tile="'+k+'">'+c+'</button>'; }).join('') + '</div>' +
+    (cfg.quiz || !o.pic ? '' : '<div class="pic emoji" style="font-size:56px;text-align:center;margin-top:8px" aria-hidden="true">'+picHTML(o.pic)+'</div>') +
+    '<div class="boxes'+(n > 3 ? ' many' : '')+'"'+boxesStyle+'>' + slots.map(function(x, k){ return '<button class="box" data-slot="'+k+'" aria-label="box '+(k+1)+'"'+boxStyle+'></button>'; }).join('') + '</div>' +
+    '<div class="row undo-row"><button class="btn alt undo" data-act="undo" aria-label="Undo, take back the last letter" disabled>'+SVG_UNDO+'<span>Undo</span></button></div>' +
+    '<div class="tiles">' + tiles.map(function(c, k){ return '<button class="tile'+(isHiLetter(c) && w.indexOf(c) >= 0 ?' v':'')+'" data-tile="'+k+'">'+c+'</button>'; }).join('') + '</div>' +
     '<div class="feedback" id="fb" role="status"></div>';
-  var fb = $('#fb', stage);
+  var fb = $('#fb', stage), undoBtn = $('[data-act=undo]', stage);
   function draw(){
     var used = slots.filter(function(x){ return x !== null; });
     $all('.tile', stage).forEach(function(t){ t.classList.toggle('used', used.indexOf(+t.getAttribute('data-tile')) >= 0); });
     $all('.box', stage).forEach(function(b, k){
       var c = slots[k] === null ? '' : tiles[slots[k]];
-      b.textContent = c; b.classList.toggle('filled', !!c); b.classList.toggle('v', isVowel(c));
+      b.textContent = c; b.classList.toggle('filled', !!c); b.classList.toggle('v', isHiLetter(c));
+      b.setAttribute('aria-label', 'box ' + (k+1) + (c ? ', ' + c + ', tap to take it back' : ''));
     });
+    placed = placed.filter(function(k){ return slots[k] !== null; });
+    undoBtn.disabled = finished || !used.length;
+  }
+  function takeBack(k){
+    if (finished || slots[k] === null) return;
+    slots[k] = null; placed = placed.filter(function(x){ return x !== k; });
+    var b = $('.box[data-slot="'+k+'"]', stage); if (b) b.classList.remove('right');
+    draw(); fb.className = 'feedback'; fb.textContent = '';
   }
   $('[data-act=say]', stage).onclick = function(){ speakWord(w); };
-  $('[data-act=sent]', stage).onclick = function(){ speakWordSentence(o); };
+  var sentBtn = $('[data-act=sent]', stage);
+  if (sentBtn) sentBtn.onclick = function(){ speakWordSentence(o); };
   $all('.tile', stage).forEach(function(t){ t.onclick = function(){
     if (finished) return;
+    var ti = +t.getAttribute('data-tile'); if (slots.indexOf(ti) >= 0) return;
     var k = slots.indexOf(null); if (k < 0) return;
-    slots[k] = +t.getAttribute('data-tile'); draw();
-    var c = tiles[slots[k]];
-    if (slots.indexOf(null) < 0) check(); else Speech.say(SOUND[c].split(',')[0]);
+    slots[k] = ti; placed.push(k); draw();
+    var c = tiles[ti];
+    if (slots.indexOf(null) < 0) check(); else Speech.say((SOUND[c] || c).split(',')[0]);
   }; });
-  $all('.box', stage).forEach(function(b){ b.onclick = function(){
-    if (finished) return; var k = +b.getAttribute('data-slot'); if (slots[k] === null) return;
-    slots[k] = null; b.classList.remove('right'); draw(); fb.className = 'feedback'; fb.textContent = '';
-  }; });
+  /* tap a filled box to send that letter back to the tiles */
+  $all('.box', stage).forEach(function(b){ b.onclick = function(){ takeBack(+b.getAttribute('data-slot')); }; });
+  /* Undo: take back the last letter placed */
+  undoBtn.onclick = function(){ if (placed.length) takeBack(placed[placed.length - 1]); };
   function spelled(){ return slots.map(function(x){ return x === null ? '' : tiles[x]; }).join(''); }
   function check(){
     var s = spelled();
     if (s === w){
-      finished = true;
+      finished = true; draw();
       $all('.box', stage).forEach(function(b){ b.classList.add('right'); });
       var msg = pick(PRAISE); fb.className = 'feedback good'; fb.textContent = msg + ' ' + w + '!';
       record('words', w, true, tries === 0); addStar($('.boxes', stage));
@@ -533,11 +1064,12 @@ function renderBuild(stage, w, cfg, done){
       Speech.seq([{text: fb.textContent, gap:300}, {text:w}]);
       /* keep letters that are in the right place, gently return the others */
       $all('.box', stage).forEach(function(b, k){ if (tiles[slots[k]] === w[k]) b.classList.add('right'); });
-      later(function(){ for (var k=0;k<3;k++) if (tiles[slots[k]] !== w[k]) slots[k] = null; draw(); }, 900);
+      later(function(){ if (finished) return; for (var k=0;k<n;k++) if (slots[k] !== null && tiles[slots[k]] !== w[k]) slots[k] = null; draw(); }, 900);
     } else {
       finished = true;
-      /* show the right answer */
-      slots = w.split('').map(function(c){ for (var k=0;k<tiles.length;k++) if (tiles[k] === c) return k; return null; });
+      /* show the right answer (each tile used once, so double letters work) */
+      var usedT = [];
+      slots = w.split('').map(function(c){ for (var k=0;k<tiles.length;k++) if (tiles[k] === c && usedT.indexOf(k) < 0){ usedT.push(k); return k; } return null; });
       draw(); $all('.box', stage).forEach(function(b){ b.classList.add('right'); });
       fb.className = 'feedback show'; fb.innerHTML = 'Good try! This is how we spell <b>'+colorWord(w)+'</b>.';
       record('words', w, false, false);
@@ -554,29 +1086,65 @@ function build(){
 }
 
 /* ---------------- 3. Word Hunt ---------------- */
+function okNear(x, w){ return x && x !== w && !wordObj(x) && !BAD_EXACT.test(x) && !BAD_PART.test(x); }
+/* Near-miss spellings: hand-picked ones for this week's words, otherwise made by changing or swapping a letter */
+function nearMisses(w){
+  var out = [], seen = {};
+  function add(x){ if (!seen[x] && okNear(x, w)){ seen[x] = 1; out.push(x); } }
+  var hand = shuffle((NEAR[w] || []).filter(function(x){ return okNear(x, w); }));
+  hand.forEach(add);
+  if (out.length >= 2) return out;
+  var L = w.split(''), pos = hiPositions(w), gen = [];
+  function rep(i, c){ var a = L.slice(); a[i] = c; return a.join(''); }
+  L.forEach(function(c, i){
+    var inPattern = pos[i] && !isVowel(c); /* keep the blue consonant pattern (e.g. "sh") so it still shows */
+    if (inPattern) return;
+    if (CONFUSE[c]) gen.push(rep(i, CONFUSE[c]));
+    if (isVowel(c)) shuffle('aeiou'.split('').filter(function(v){ return v !== c; })).slice(0, 2).forEach(function(v){ gen.push(rep(i, v)); });
+    else shuffle(POOL.filter(function(p){ return p !== c; })).slice(0, 2).forEach(function(p){ gen.push(rep(i, p)); });
+  });
+  for (var i=0;i<L.length-1;i++){ if (L[i] !== L[i+1]){ var a = L.slice(); a[i] = L[i+1]; a[i+1] = L[i]; gen.push(a.join('')); } }
+  shuffle(gen).forEach(add);
+  /* last resort (very short words): add a letter */
+  for (var g=0; out.length < 2 && g < 60; g++){ add(w + pick('tsdgpn'.split(''))); add(pick('bstp'.split('')) + w); }
+  return out;
+}
 function renderHunt(stage, w, cfg, done){
   var o = wordObj(w), tries = 0, finished = false;
-  var others = shuffle(WORDS.filter(function(x){ return x.w !== w && NEAR[w].indexOf(x.w) < 0; }).map(function(x){ return x.w; }));
-  var near = shuffle(NEAR[w].filter(function(x){ return !wordObj(x); }));
-  var opts = shuffle([w, near[0], Math.random() < 0.5 ? others[0] : near[1]]);
+  var near = nearMisses(w);
+  var others = shuffle(WORDS.filter(function(x){ return x.w !== w && Math.abs(x.w.length - w.length) <= 1 && (NEAR[w] || []).indexOf(x.w) < 0; }).map(function(x){ return x.w; }));
+  var opts = shuffle([w, near[0], (Math.random() < 0.5 && others.length) ? others[0] : near[1]]);
+  /* Color the same letter slot as the real word (so blue letters never give the answer away) */
+  var tpos = hiPositions(w);
+  function colored(x){
+    var pos = hiPositions(x);
+    if (x.length === w.length) for (var k in tpos) if (isVowel(x[k]) && isVowel(w[k])) pos[k] = 1;
+    return colorWord(x, pos);
+  }
+  var maxLen = Math.max.apply(null, opts.map(function(x){ return x.length; })), chStyle = '';
+  if (maxLen > 4){
+    var colW = viewW() >= 700 ? (viewW() - 60) / 3 : viewW() - 44;
+    chStyle = ' style="font-size:'+Math.max(22, Math.min(54, Math.floor(colW / (maxLen * 0.8))))+'px"';
+  }
   stage.innerHTML =
     '<p class="prompt">Listen. Find the word!</p>' +
     '<div class="row" style="margin-top:0">' +
       '<button class="btn speak" data-act="say" aria-label="Hear the word"><span class="emoji" aria-hidden="true">🔊</span></button>' +
-      '<button class="btn alt" data-act="sent" style="min-height:88px"><span class="emoji" aria-hidden="true">💬</span>Sentence</button>' +
+      (o.s ? '<button class="btn alt" data-act="sent" style="min-height:88px"><span class="emoji" aria-hidden="true">💬</span>Sentence</button>' : '') +
     '</div>' +
-    '<div class="choices">' + opts.map(function(x){ return '<button class="choice" data-w="'+x+'">'+colorWord(x)+'</button>'; }).join('') + '</div>' +
+    '<div class="choices">' + opts.map(function(x){ return '<button class="choice" data-w="'+x+'"'+chStyle+'>'+colored(x)+'</button>'; }).join('') + '</div>' +
     '<div class="feedback" id="fb" role="status"></div>';
   var fb = $('#fb', stage);
   $('[data-act=say]', stage).onclick = function(){ speakWord(w); };
-  $('[data-act=sent]', stage).onclick = function(){ speakWordSentence(o); };
+  var sentBtn = $('[data-act=sent]', stage);
+  if (sentBtn) sentBtn.onclick = function(){ speakWordSentence(o); };
   $all('.choice', stage).forEach(function(b){ b.onclick = function(){
     if (finished || b.classList.contains('faded')) return;
     var x = b.getAttribute('data-w');
     if (x === w){
       finished = true; b.classList.add('right');
       $all('.choice', stage).forEach(function(c){ if (c !== b) c.classList.add('faded'); });
-      var msg = pick(PRAISE); fb.className = 'feedback good'; fb.innerHTML = msg + ' <span class="emoji">'+o.pic+'</span>';
+      var msg = pick(PRAISE); fb.className = 'feedback good'; fb.innerHTML = esc(msg) + (o.pic ? ' <span class="emoji">'+picHTML(o.pic)+'</span>' : '');
       record('words', w, true, tries === 0); addStar(b);
       Speech.seq([{text:msg, gap:200}, {text:w}]);
       done({correct:true}); return;
@@ -602,67 +1170,102 @@ function hunt(){
   cfg.restart = hunt; runRound(cfg);
 }
 
-/* ---------------- 4. +1 Math ---------------- */
-function dotsHTML(n){
-  var rows = [], left = n, idx = 0;
+/* ---------------- 4. Math (+1 by default; any + or − set up to 20) ---------------- */
+function dotGroups(n, startIdx, opts){
+  /* rows of up to 5 dots (groups of five); opts: {add:bool, goneFrom:index} */
+  var rows = [], left = n, idx = startIdx;
   while (left > 0){
-    var take = Math.min(5, left), row = '<div class="dotrow"><span class="dotgrp">';
-    for (var k=0;k<take;k++) row += '<span class="dotc" data-i="'+(idx++)+'"></span>';
+    var take = Math.min(5, left), row = '<div class="dotrow"><span class="dotgrp'+(opts.add ? ' addgrp' : '')+'">';
+    for (var k=0;k<take;k++){
+      var gone = opts.goneFrom != null && idx >= opts.goneFrom;
+      row += '<span class="dotc'+(opts.add ? ' add' : '')+(gone ? ' gone' : '')+'" data-i="'+(idx++)+'"></span>';
+    }
     rows.push(row + '</span></div>'); left -= take;
   }
-  /* two groups of five side by side when there's room (10 = 5+5) */
-  return '<div class="dotrows" aria-hidden="true">' + rows.join('') + '</div>' +
-         '<span class="plus-sign" aria-hidden="true">+</span>' +
-         '<span class="dotc plus" data-i="'+n+'" aria-hidden="true"></span>';
+  return '<div class="dotrows" aria-hidden="true">' + rows.join('') + '</div>';
 }
-function numlineSVG(n){
-  var start = Math.max(0, n - 3), count = 8, W = 400, step = W / count, y = 62;
+function dotsHTML(f){
+  if (f.op === '+'){
+    var small = f.a > 15 || (f.b > 1 && Math.min(f.a, 5) + Math.min(f.b, 5) > 7);
+    return '<div class="dots-area'+(small ? ' dots-sm' : '')+'">' + dotGroups(f.a, 0, {}) +
+      '<span class="plus-sign" aria-hidden="true">+</span>' +
+      (f.b === 1 ? '<span class="dotc plus" data-i="'+f.a+'" aria-hidden="true"></span>' : dotGroups(f.b, f.a, {add:true})) + '</div>';
+  }
+  /* take away: all the dots, with the ones taken away crossed out */
+  return '<div class="dots-area'+(f.a > 15 ? ' dots-sm' : '')+'">' + dotGroups(f.a, 0, {goneFrom: f.ans}) + '</div>';
+}
+function numlineSVG(f){
+  var a = f.a, ans = f.ans, dir = f.op === '+' ? 1 : -1, lo = Math.min(a, ans), hi = Math.max(a, ans);
+  var start = Math.max(0, lo - 3), count = Math.max(8, hi - start + 2), W = 400, step = W / count, y = 62;
+  var fs = count <= 8 ? 24 : count <= 14 ? Math.max(15, Math.round(step * 0.6)) : 17;
+  function X(v){ return step*(v - start) + step/2; }
   var s = '<svg class="numline" viewBox="0 0 '+W+' 100" role="img" aria-label="number line">';
   s += '<line x1="6" y1="'+y+'" x2="'+(W-6)+'" y2="'+y+'" stroke="#8C7F63" stroke-width="3" stroke-linecap="round"/>';
   for (var k=0;k<count;k++){
-    var v = start + k, x = step*k + step/2;
+    var v = start + k, x = X(v);
     s += '<line x1="'+x+'" y1="'+(y-8)+'" x2="'+x+'" y2="'+(y+8)+'" stroke="#8C7F63" stroke-width="3"/>';
-    if (v === n) s += '<circle cx="'+x+'" cy="'+y+'" r="13" fill="#2F6FB5"/>';
-    if (v === n+1) s += '<circle class="hop" cx="'+x+'" cy="'+y+'" r="13" fill="#E07A00"/>';
-    s += '<text'+(v===n+1?' class="nexttxt"':'')+' x="'+x+'" y="'+(y+34)+'" text-anchor="middle" font-size="24" fill="'+(v===n?'#1F5FAD':'#444')+'">'+v+'</text>';
+    if (v === a) s += '<circle cx="'+x+'" cy="'+y+'" r="'+(count <= 8 ? 13 : 10)+'" fill="#2F6FB5"/>';
+    if (v === ans) s += '<circle class="hop" cx="'+x+'" cy="'+y+'" r="'+(count <= 8 ? 13 : 10)+'" fill="#E07A00"/>';
+    if (count <= 14 || v === a || v === ans || v % 5 === 0)
+      s += '<text'+(v===ans?' class="nexttxt"':'')+' x="'+x+'" y="'+(y+34)+'" text-anchor="middle" font-size="'+fs+'" fill="'+(v===a?'#1F5FAD':'#444')+'">'+v+'</text>';
   }
-  var x1 = step*(n-start) + step/2, x2 = x1 + step;
-  s += '<g class="hop"><path d="M'+x1+' '+(y-16)+' Q '+((x1+x2)/2)+' '+(y-58)+' '+(x2-4)+' '+(y-18)+'" fill="none" stroke="#E07A00" stroke-width="4" stroke-linecap="round"/>' +
-       '<path d="M'+(x2-14)+' '+(y-24)+' L '+(x2-3)+' '+(y-16)+' L '+(x2-2)+' '+(y-30)+'" fill="none" stroke="#E07A00" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' +
-       '<text x="'+((x1+x2)/2)+'" y="'+(y-44)+'" text-anchor="middle" font-size="20" fill="#B35F00">+1</text></g>';
-  return s + '</svg>';
+  /* the hop(s): one arc per step, arrow on the last one */
+  var h = '<g class="hop">', arcH = f.b === 1 ? 58 : Math.max(34, Math.min(52, step * 1.2 + 16));
+  for (var i=0;i<f.b;i++){
+    var x1 = X(a + dir*i), x2 = X(a + dir*(i+1));
+    h += '<path d="M'+x1+' '+(y-16)+' Q '+((x1+x2)/2)+' '+(y-arcH)+' '+(x2-4*dir)+' '+(y-18)+'" fill="none" stroke="#E07A00" stroke-width="4" stroke-linecap="round"/>';
+    if (i === f.b - 1) h += '<path d="M'+(x2-14*dir)+' '+(y-24)+' L '+(x2-3*dir)+' '+(y-16)+' L '+(x2-2*dir)+' '+(y-30)+'" fill="none" stroke="#E07A00" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>';
+  }
+  var mid = (X(a) + X(ans)) / 2, peak = ((y-16) + 2*(y-arcH) + (y-18)) / 4;
+  h += '<text x="'+mid+'" y="'+(f.b === 1 ? y-44 : Math.max(18, peak - 8))+'" text-anchor="middle" font-size="20" fill="#B35F00">'+(dir > 0 ? '+' : '−')+f.b+'</text></g>';
+  return s + h + '</svg>';
 }
-function mathChoices(n){
-  var ans = n + 1, c = [n, n+2, n+3, n-1, n+4].filter(function(x){ return x >= 0 && x !== ans; });
+function mathChoices(f){
+  var ans = f.ans, c = [ans-1, ans+1, ans+2, ans-2, ans+3].filter(function(x){ return x >= 0 && x !== ans; });
   c = shuffle(c.slice(0, 4)).slice(0, 3); c.push(ans);
   return c.sort(function(a,b){ return a - b; }); /* in number order: easier to scan */
 }
-function renderMath(stage, n, cfg, done){
-  var ans = n + 1, tries = 0, finished = false;
+function mathWords(f){
+  var add = f.op === '+', one = f.b === 1, a = f.a, b = f.b, ans = f.ans;
+  return {
+    cap: add ? a + ' and ' + b + ' more' : a + ' take away ' + b,
+    helpBtn: add ? (one ? '+1 means the next number' : '+' + b + ' means count on ' + b) : (one ? '−1 means the number before' : '−' + b + ' means count back ' + b),
+    helpSay: add ? (one ? 'Plus 1 means the next number. What number comes after ' + a + '?' : 'Plus ' + b + ' means count on ' + b + '. Start at ' + a + ' and count on ' + b + '.')
+                 : (one ? 'Minus 1 means the number before. What number comes before ' + a + '?' : 'Minus ' + b + ' means count back ' + b + '. Start at ' + a + ' and count back ' + b + '.'),
+    tryTxt: add ? (one ? 'Try again! What comes after ' + a + '?' : 'Try again! Start at ' + a + ' and count on ' + b + '.') : (one ? 'Try again! What comes before ' + a + '?' : 'Try again! Start at ' + a + ' and count back ' + b + '.'),
+    trySay: add ? (one ? 'Try again! What number comes after ' + a + '?' : 'Try again! Start at ' + a + ' and count on ' + b + '.') : (one ? 'Try again! What number comes before ' + a + '?' : 'Try again! Start at ' + a + ' and count back ' + b + '.'),
+    extra: one ? (add ? ' The next number after ' + a + ' is ' + ans + '.' : ' The number before ' + a + ' is ' + ans + '.') : ''
+  };
+}
+function renderMath(stage, id, cfg, done){
+  var f = factById(id), n = f.a, ans = f.ans, tries = 0, finished = false, t = mathWords(f), opTxt = f.op === '+' ? '+' : '−';
+  var long = (String(f.a) + String(f.b) + String(f.ans)).length > 5;
   stage.innerHTML =
     '<div class="card mathcard">' +
-      '<div class="problem" aria-label="'+n+' plus 1"><span>'+n+'</span><span class="op">+</span><span>1</span><span class="op">=</span><span class="q">?</span></div>' +
-      '<div class="dots-area">'+dotsHTML(n)+'</div>' +
-      '<div class="dots-cap"><span>'+n+' and 1 more</span>' + (cfg.quiz ? '' : '<button class="btn alt count-btn" data-act="count">Count with me</button>') + '</div>' +
-      numlineSVG(n) +
+      '<div class="problem'+(long ? ' long' : '')+'" aria-label="'+factSay(f)+'"><span>'+n+'</span><span class="op">'+opTxt+'</span><span>'+f.b+'</span><span class="op">=</span><span class="q">?</span></div>' +
+      dotsHTML(f) +
+      '<div class="dots-cap"><span>'+t.cap+'</span>' + (cfg.quiz ? '' : '<button class="btn alt count-btn" data-act="count">Count with me</button>') + '</div>' +
+      numlineSVG(f) +
     '</div>' +
     '<div class="row" style="flex-wrap:nowrap; margin-top:12px">' +
       '<button class="btn speak" data-act="say" aria-label="Hear the problem"><span class="emoji" aria-hidden="true">🔊</span></button>' +
-      (cfg.quiz ? '' : '<button class="btn helper flex1" data-act="help"><span class="emoji" aria-hidden="true">💡</span>+1 means the next number</button>') +
+      (cfg.quiz ? '' : '<button class="btn helper flex1" data-act="help"><span class="emoji" aria-hidden="true">💡</span>'+t.helpBtn+'</button>') +
     '</div>' +
-    '<div class="answers">' + mathChoices(n).map(function(x){ return '<button class="answer" data-v="'+x+'">'+x+'</button>'; }).join('') + '</div>' +
+    '<div class="answers">' + mathChoices(f).map(function(x){ return '<button class="answer" data-v="'+x+'">'+x+'</button>'; }).join('') + '</div>' +
     '<div class="feedback" id="fb" role="status"></div>';
   var fb = $('#fb', stage);
   function showHop(){ $all('.hop, .nexttxt', stage).forEach(function(h){ h.classList.add('on'); }); }
   function litDot(i){ $all('.dotc', stage).forEach(function(d){ d.classList.toggle('lit', +d.getAttribute('data-i') === i); }); }
-  $('[data-act=say]', stage).onclick = function(){ Speech.say('What is ' + n + ' plus 1?'); };
+  $('[data-act=say]', stage).onclick = function(){ Speech.say('What is ' + factSay(f) + '?'); };
   var help = $('[data-act=help]', stage);
-  if (help) help.onclick = function(){ showHop(); Speech.say('Plus 1 means the next number. What number comes after ' + n + '?'); };
+  if (help) help.onclick = function(){ showHop(); Speech.say(t.helpSay); };
   var cnt = $('[data-act=count]', stage);
   if (cnt) cnt.onclick = function(){
+    /* adding: count every dot. Taking away: count the dots that are left. */
     var steps = [];
-    for (var k=0;k<=n;k++){ (function(k){ steps.push({text:String(k+1), rate:0.9, gap:120, before:function(){ litDot(k); }}); })(k); }
-    steps[steps.length-1].text = String(n+1) + '!';
+    if (f.op === '-') steps.push({text: ans ? 'Count the dots that are left.' : 'All the dots are crossed out.', gap:200});
+    for (var k=0;k<ans;k++){ (function(k){ steps.push({text:String(k+1), rate:0.9, gap:120, before:function(){ litDot(k); }}); })(k); }
+    if (ans) steps[steps.length-1].text = String(ans) + '!'; else steps.push({text:'Zero!'});
     Speech.seq(steps, function(){ litDot(-1); });
   };
   $all('.answer', stage).forEach(function(b){ b.onclick = function(){
@@ -672,118 +1275,844 @@ function renderMath(stage, n, cfg, done){
       finished = true; b.classList.add('right'); showHop();
       $all('.answer', stage).forEach(function(c){ if (c !== b) c.classList.add('faded'); });
       $('.problem .q', stage).textContent = ans;
-      var msg = pick(MATH_PRAISE); fb.className = 'feedback good'; fb.textContent = msg + ' ' + n + ' + 1 = ' + ans;
-      record('math', n, true, tries === 0); addStar(b);
-      Speech.seq([{text:msg, gap:200}, {text:n + ' plus 1 is ' + ans + '.'}]);
+      var msg = pick(MATH_PRAISE); fb.className = 'feedback good'; fb.textContent = msg + ' ' + factText(f) + ' = ' + ans;
+      record('math', f.id, true, tries === 0); addStar(b);
+      Speech.seq([{text:msg, gap:200}, {text:factSay(f) + ' is ' + ans + '.'}]);
       done({correct:true}); return;
     }
     tries++; b.classList.add('faded');
     if (tries < 2){
-      fb.className = 'feedback gentle'; fb.textContent = 'Try again! What comes after ' + n + '?';
+      fb.className = 'feedback gentle'; fb.textContent = t.tryTxt;
       if (!cfg.quiz) showHop();
-      Speech.say('Try again! What number comes after ' + n + '?');
+      Speech.say(t.trySay);
     } else {
       finished = true; showHop();
       $all('.answer', stage).forEach(function(c){ if (+c.getAttribute('data-v') === ans){ c.classList.remove('faded'); c.classList.add('right'); } else c.classList.add('faded'); });
       $('.problem .q', stage).textContent = ans;
-      fb.className = 'feedback show'; fb.textContent = 'Good try! ' + n + ' + 1 = ' + ans + '. The next number after ' + n + ' is ' + ans + '.';
-      record('math', n, false, false);
-      Speech.say('Good try! ' + n + ' plus 1 is ' + ans + '. The next number after ' + n + ' is ' + ans + '.');
+      fb.className = 'feedback show'; fb.textContent = 'Good try! ' + factText(f) + ' = ' + ans + '.' + t.extra;
+      record('math', f.id, false, false);
+      Speech.say('Good try! ' + factSay(f) + ' is ' + ans + '.' + t.extra);
       done({correct:false});
     }
   }; });
-  later(function(){ Speech.say('What is ' + n + ' plus 1?'); }, 350);
+  later(function(){ Speech.say('What is ' + factSay(f) + '?'); }, 350);
 }
 function math(){
-  var cfg = {title:'+1 Math', quiz:false, key:'math'};
-  cfg.items = shuffle(MATH).map(function(n){ return {type:'math', id:n}; });
+  var cfg = {title:mathTitle(), quiz:false, key:'math'};
+  cfg.items = shuffle(FACTS).map(function(f){ return {type:'math', id:f.id}; });
   cfg.restart = math; runRound(cfg);
+}
+
+/* ---------------- 7. Write It (handwriting on primary-school lines) ---------------- */
+var FONT_STACK = 'Andika, Verdana, "Comic Sans MS", Arial, sans-serif';
+/* Line layout sized to the word: top line, dashed midline, baseline, descender line */
+function lineLayout(ctx, word, W, H){
+  ctx.font = '400 100px ' + FONT_STACK;
+  function m(ch, k, d){ try { var v = ctx.measureText(ch)[k]; return v > 0 ? v : d; } catch(e){ return d; } }
+  var asc = m('h', 'actualBoundingBoxAscent', 74), xh = m('x', 'actualBoundingBoxAscent', 53), desc = m('g', 'actualBoundingBoxDescent', 24);
+  var gap = 10, total = 0, ws = word.split('').map(function(c){ var w = ctx.measureText(c).width || 55; total += w; return w; });
+  total += gap * (word.length - 1);
+  var s = Math.min((H * 0.8) / (asc + desc), (W - 28) / total, 1.9);
+  var fs = 100 * s, used = total * s, x = (W - used) / 2;
+  var base = H * 0.1 + asc * s + (H * 0.8 - (asc + desc) * s) / 2;
+  var xs = ws.map(function(w){ var r = x; x += (w + gap) * s; return r; });
+  return {fs:fs, base:base, top:base - asc*s, mid:base - xh*s, desc:base + desc*s, xs:xs, ws:ws.map(function(w){ return w*s; }), W:W, H:H};
+}
+function paintLines(ctx, L){
+  ctx.save();
+  ctx.fillStyle = '#FFFDF7'; ctx.fillRect(0, 0, L.W, L.H);
+  function line(y, col, w, dash){ ctx.beginPath(); ctx.setLineDash(dash || []); ctx.strokeStyle = col; ctx.lineWidth = w; ctx.moveTo(6, y); ctx.lineTo(L.W - 6, y); ctx.stroke(); }
+  line(L.top, '#7FA7D6', 2);
+  line(L.mid, '#9DB9DC', 2, [10, 8]);
+  line(L.base, '#4F74A8', 3);
+  line(L.desc, '#C9D6E8', 1.5, [3, 6]);
+  ctx.restore();
+}
+function paintWord(ctx, word, L, style){
+  ctx.save();
+  ctx.font = (style === 'reveal' ? '700 ' : '400 ') + L.fs + 'px ' + FONT_STACK;
+  ctx.textBaseline = 'alphabetic';
+  var pos = style === 'reveal' ? hiPositions(word) : {};
+  word.split('').forEach(function(c, i){
+    if (style === 'trace'){
+      ctx.fillStyle = '#EAE4D6'; ctx.fillText(c, L.xs[i], L.base);
+      ctx.setLineDash([Math.max(2, L.fs*0.03), Math.max(4, L.fs*0.05)]); ctx.lineWidth = Math.max(1.5, L.fs*0.012); ctx.strokeStyle = '#A99F88';
+      ctx.strokeText(c, L.xs[i], L.base);
+    } else { ctx.fillStyle = pos[i] ? '#1F5FAD' : '#333333'; ctx.fillText(c, L.xs[i], L.base); }
+  });
+  ctx.restore();
+}
+function sizeCanvas(c, W, H){ var dpr = window.devicePixelRatio || 1; c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); c.style.width = W + 'px'; c.style.height = H + 'px'; var x = c.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0); return x; }
+/* The correct word in the same lined style, pattern letters blue */
+function paintReveal(c, word){
+  var W = Math.max(120, Math.round(c.parentNode.clientWidth || 300)), H = Math.round(c.parentNode.clientHeight || 110);
+  var x = sizeCanvas(c, W, H), L = lineLayout(x, word, W, H); paintLines(x, L); paintWord(x, word, L, 'reveal');
+}
+function strokePath(ctx, pts, W, H){
+  if (!pts.length) return;
+  ctx.beginPath(); ctx.moveTo(pts[0].x * W, pts[0].y * H);
+  if (pts.length === 1){ ctx.lineTo(pts[0].x * W + 0.1, pts[0].y * H); }
+  else {
+    for (var i=1;i<pts.length-1;i++){ var a = pts[i], b = pts[i+1]; ctx.quadraticCurveTo(a.x * W, a.y * H, (a.x + b.x) / 2 * W, (a.y + b.y) / 2 * H); }
+    var z = pts[pts.length-1]; ctx.lineTo(z.x * W, z.y * H);
+  }
+  ctx.stroke();
+}
+function WritePad(host, word, onChange){
+  host.innerHTML = '<canvas class="wp-bg" aria-hidden="true"></canvas><canvas class="wp-ink" role="img" aria-label="Writing area. Write the word here with your finger or pencil."></canvas>';
+  var bg = host.firstChild, ink = host.lastChild, strokes = [], cur = null, trace = false, locked = false, L = null, W = 0, H = 0, raf = 0, penSeen = false;
+  function inkCtx(){ return ink.getContext('2d'); }
+  function drawBg(){ if (!W) return; var x = bg.getContext('2d'); x.clearRect(0, 0, W, H); paintLines(x, L); if (trace) paintWord(x, word, L, 'trace'); }
+  function drawInk(){
+    raf = 0; if (!W) return;
+    var x = inkCtx(); x.clearRect(0, 0, W, H);
+    x.strokeStyle = '#1E2638'; x.lineCap = 'round'; x.lineJoin = 'round'; x.lineWidth = Math.max(5, L.fs * 0.075);
+    strokes.forEach(function(p){ strokePath(x, p, W, H); });
+    host.setAttribute('data-strokes', strokes.length);
+  }
+  function schedule(){ if (!raf) raf = (window.requestAnimationFrame || setTimeout)(drawInk); }
+  function layout(){
+    if (!document.body.contains(host)) return;
+    var nW = Math.round(host.clientWidth), nH = Math.round(host.clientHeight);
+    if (!nW || !nH) return;
+    W = nW; H = nH;
+    sizeCanvas(bg, W, H); sizeCanvas(ink, W, H);
+    L = lineLayout(bg.getContext('2d'), word, W, H);
+    host.setAttribute('data-layout', JSON.stringify({xs:L.xs, ws:L.ws, top:L.top, mid:L.mid, base:L.base, desc:L.desc, fs:L.fs}));
+    drawBg(); drawInk();
+  }
+  function pt(e){ var r = ink.getBoundingClientRect(); return {x:(e.clientX - r.left) / r.width, y:(e.clientY - r.top) / r.height}; }
+  ink.addEventListener('pointerdown', function(e){
+    if (locked || (e.button != null && e.button > 0)) return;
+    if (e.pointerType === 'pen') penSeen = true; else if (penSeen && e.pointerType === 'touch') return; /* ignore the palm when using Apple Pencil */
+    e.preventDefault();
+    try { ink.setPointerCapture(e.pointerId); } catch(x){}
+    cur = {id:e.pointerId, pts:[pt(e)]}; strokes.push(cur.pts); schedule();
+  });
+  ink.addEventListener('pointermove', function(e){
+    if (!cur || e.pointerId !== cur.id) return;
+    e.preventDefault();
+    var evs = (e.getCoalescedEvents && e.getCoalescedEvents()) || []; if (!evs.length) evs = [e];
+    evs.forEach(function(ev){ cur.pts.push(pt(ev)); });
+    schedule();
+  });
+  function end(e){ if (!cur || (e && e.pointerId !== cur.id)) return; cur = null; schedule(); if (onChange) onChange(); }
+  ink.addEventListener('pointerup', end); ink.addEventListener('pointercancel', end);
+  /* stop page scrolling / zooming while writing (older iOS) */
+  ['touchstart', 'touchmove'].forEach(function(t){ ink.addEventListener(t, function(e){ e.preventDefault(); }, {passive:false}); });
+  var ro = null;
+  if (window.ResizeObserver){ ro = new ResizeObserver(function(){ if (!document.body.contains(host)){ ro.disconnect(); return; } layout(); }); ro.observe(host); }
+  else { var onR = function(){ if (!document.body.contains(host)){ window.removeEventListener('resize', onR); return; } layout(); }; window.addEventListener('resize', onR); }
+  layout();
+  if (document.fonts && document.fonts.load){ Promise.all([document.fonts.load('400 60px Andika'), document.fonts.load('700 60px Andika')]).then(function(){ layout(); }, function(){}); }
+  return {
+    clear: function(){ strokes = []; cur = null; drawInk(); if (onChange) onChange(); },
+    undo: function(){ strokes.pop(); cur = null; drawInk(); if (onChange) onChange(); },
+    count: function(){ return strokes.length; },
+    setTrace: function(on){ trace = !!on; host.setAttribute('data-trace', trace ? '1' : '0'); drawBg(); },
+    lock: function(on){ locked = !!on; host.classList.toggle('locked', locked); },
+    snapshot: function(){
+      /* his writing on the lines (no tracing letters), for the quiz review */
+      var c = document.createElement('canvas'), x = sizeCanvas(c, W, H);
+      paintLines(x, L); x.strokeStyle = '#1E2638'; x.lineCap = 'round'; x.lineJoin = 'round'; x.lineWidth = Math.max(5, L.fs * 0.075);
+      strokes.forEach(function(p){ strokePath(x, p, W, H); });
+      try { return c.toDataURL('image/png'); } catch(e){ return ''; }
+    }
+  };
+}
+function writeTools(){
+  return '<div class="row wtools"><button class="btn alt" data-act="clear"><span class="emoji" aria-hidden="true">🧽</span>Clear</button>' +
+    '<button class="btn alt" data-act="undo" aria-label="Undo stroke">'+SVG_UNDO+'<span>Undo stroke</span></button></div>';
+}
+var writeIdx = 0, writePass = 'trace';
+function write(){
+  if (writeIdx >= WORDS.length) writeIdx = 0;
+  var o = WORDS[writeIdx], w = o.w, test = writePass === 'test', triedStar = false, checked = false;
+  shell('Write It',
+    '<div class="wtop">' +
+      '<button class="btn speak" data-act="say" aria-label="Hear the word"><span class="emoji" aria-hidden="true">🔊</span></button>' +
+      '<div class="wmode"><b>' + (test ? 'Now write it by yourself!' : 'Listen, then trace the word.') + '</b>' +
+        '<button class="btn alt toggle" data-act="trace" aria-pressed="' + (!test) + '"><span class="emoji" aria-hidden="true">✏️</span>Trace: <b data-tr>' + (test ? 'off' : 'on') + '</b></button></div>' +
+      avatarHTML('wav') +
+    '</div>' +
+    '<div class="wpad" id="pad"></div>' +
+    writeTools() +
+    '<div class="feedback" id="fb" role="status"></div>' +
+    '<div class="row" id="checkRow"><button class="btn go huge" data-act="check"><span class="emoji" aria-hidden="true">✔️</span>Check</button></div>' +
+    '<div id="reveal" hidden><p class="prompt">This is how we spell it:</p><div class="wreveal"><canvas></canvas></div>' +
+      '<div class="row wgot"><button class="btn go huge flex1" data-act="got">I got it ✅</button><button class="btn alt huge flex1" data-act="again">Practice again 🔁</button></div></div>' +
+    '<div class="navrow m-write-nav"><button class="btn alt arrow" data-act="prev" aria-label="Back">'+SVG_LEFT+'</button><span class="count">'+(writeIdx+1)+' of '+WORDS.length+(test ? ' · test' : ' · trace')+'</span><button class="btn alt arrow" data-act="next" aria-label="Next word">'+SVG_RIGHT+'</button></div>');
+  var fb = $('#fb'), av = $('.avatar');
+  var pad = WritePad($('#pad'), w, function(){ if (!checked){ fb.className = 'feedback'; fb.textContent = ''; } });
+  pad.setTrace(!test);
+  $('[data-act=say]').onclick = function(){ speakWordSentence(o); };
+  $('[data-act=trace]').onclick = function(){ var on = $('#pad').getAttribute('data-trace') !== '1'; pad.setTrace(on); this.setAttribute('aria-pressed', on); $('[data-tr]').textContent = on ? 'on' : 'off'; };
+  $('[data-act=clear]').onclick = function(){ if (!checked) pad.clear(); };
+  $('[data-act=undo]').onclick = function(){ if (!checked) pad.undo(); };
+  $('[data-act=check]').onclick = function(e){
+    if (!pad.count()){ fb.className = 'feedback gentle'; fb.textContent = 'Write the word first, then tap Check.'; Speech.say('Write the word first, then tap Check.'); return; }
+    checked = true; pad.lock(true);
+    if (!triedStar){ triedStar = true; addStar(e.currentTarget); } /* a star for trying */
+    $('#checkRow').hidden = true; $('.wtools').hidden = true; $('#reveal').hidden = false; fb.className = 'feedback'; fb.textContent = '';
+    paintReveal($('#reveal canvas'), w);
+    Speech.seq([{text:'Great try! This is how we spell ' + w + '.', gap:250}, {text:w.split('').join(', '), rate:0.7, gap:250}, {text:w}]);
+    later(function(){ var r = $('#reveal'); if (r && r.scrollIntoView) r.scrollIntoView({behavior:'smooth', block:'nearest'}); }, 200);
+  };
+  var gotDone = false;
+  $('[data-act=got]').onclick = function(e){
+    if (gotDone) return; gotDone = true;
+    addStar(e.currentTarget); cheer(av);
+    if (test){ record('write', w, true, true); writeIdx = (writeIdx + 1) % WORDS.length; writePass = 'trace'; }
+    else writePass = 'test';
+    var msg = pick(PRAISE);
+    fb.className = 'feedback good'; fb.textContent = msg + (test ? '' : ' Now try it without tracing.');
+    var moved = false; function go2(){ if (moved) return; moved = true; write(); }
+    Speech.say(msg + (test ? '' : ' Now write it without the dotted letters.'), null, function(){ later(go2, 200); });
+    later(go2, 3500);
+    $('#reveal').hidden = true;
+  };
+  $('[data-act=again]').onclick = function(){
+    if (test) record('write', w, false, false);
+    writePass = 'trace'; write();
+  };
+  $('[data-act=prev]').onclick = function(){ writeIdx = (writeIdx + WORDS.length - 1) % WORDS.length; writePass = 'trace'; write(); };
+  $('[data-act=next]').onclick = function(){ writeIdx = (writeIdx + 1) % WORDS.length; writePass = 'trace'; write(); };
+  later(function(){ speakWord(w); }, 400); /* auto-plays once */
+}
+/* Handwritten quiz: write each word, then look back at every drawing next to the real spelling */
+function writeQuiz(){
+  var items = shuffle(WORDS).slice(0, 10), i = 0, drawings = [], tryStars = 0;
+  function item(){
+    if (i >= items.length) return review();
+    var o = items[i], w = o.w;
+    shell('Writing Quiz', progressDots(i, items.length) +
+      '<div class="wtop"><button class="btn speak" data-act="say" aria-label="Hear the word"><span class="emoji" aria-hidden="true">🔊</span></button>' +
+        '<div class="wmode"><b>Listen and write the word.</b></div>' + avatarHTML('wav') + '</div>' +
+      '<div class="wpad" id="pad"></div>' + writeTools() +
+      '<div class="row"><button class="btn go huge" data-act="next" disabled>Next <span aria-hidden="true">'+SVG_RIGHT.replace('<svg','<svg width="30" height="30"')+'</span></button></div>');
+    var nextBtn = $('[data-act=next]');
+    var pad = WritePad($('#pad'), w, function(){ nextBtn.disabled = !pad.count(); });
+    pad.setTrace(false);
+    $('[data-act=say]').onclick = function(){ speakWordSentence(o); };
+    $('[data-act=clear]').onclick = function(){ pad.clear(); };
+    $('[data-act=undo]').onclick = function(){ pad.undo(); };
+    nextBtn.onclick = function(e){
+      if (!pad.count()) return;
+      drawings.push({w:w, img:pad.snapshot()}); tryStars++; addStar(e.currentTarget);
+      i++; item();
+    };
+    later(function(){ speakWord(w); }, 400);
+  }
+  function review(){
+    var marks = {};
+    shell('Writing Quiz',
+      '<p class="prompt">Look at each word. Did you spell it right?</p>' +
+      drawings.map(function(d, k){
+        return '<div class="wrev" data-k="'+k+'"><div class="wrev-pair"><div class="wrev-cell"><span class="wrev-lbl">You wrote</span><img alt="Luke’s writing for word '+(k+1)+'" src="'+d.img+'"></div>' +
+          '<div class="wrev-cell"><span class="wrev-lbl">Correct</span><div class="wreveal small"><canvas></canvas></div></div></div>' +
+          '<div class="row wrev-btns"><button class="btn alt" data-mark="got" aria-pressed="false">I got it ✅</button><button class="btn alt" data-mark="again" aria-pressed="false">Practice 🔁</button></div></div>';
+      }).join('') +
+      '<div class="card wsum" id="wsum" role="status"></div>' +
+      '<div class="row"><button class="btn go huge" data-act="done">Done</button></div>');
+    $all('.wrev').forEach(function(r){ paintReveal($('canvas', r), drawings[+r.getAttribute('data-k')].w); });
+    function summary(){
+      var n = Object.keys(marks).length, again = drawings.filter(function(d, k){ return marks[k] === 'again'; }).map(function(d){ return d.w; });
+      var got = drawings.filter(function(d, k){ return marks[k] === 'got'; }).length;
+      $('#wsum').innerHTML = (n < drawings.length ? 'Checked <b>' + n + ' of ' + drawings.length + '</b>. ' : '') + 'Got it: <b>' + got + '</b>.' +
+        (again.length ? ' Words to practice: <b>' + again.map(function(x){ return colorWord(x); }).join(', ') + '</b>' : '');
+    }
+    summary();
+    $all('[data-mark]').forEach(function(b){ b.onclick = function(){
+      var r = b.closest('.wrev'), k = +r.getAttribute('data-k'); marks[k] = b.getAttribute('data-mark');
+      $all('[data-mark]', r).forEach(function(x){ x.setAttribute('aria-pressed', x === b); x.classList.toggle('on', x === b); });
+      summary();
+    }; });
+    $('[data-act=done]').onclick = function(){
+      var got = 0, practice = [];
+      drawings.forEach(function(d, k){ if (!marks[k]) return; var ok = marks[k] === 'got'; record('write', d.w, ok, ok); if (ok) got++; else practice.push(d.w); });
+      for (var s=0;s<got;s++){ var dd = load(); dd.stars++; } save();
+      var d = load(); d.quiz.push({date:new Date().toISOString().slice(0,10), kind:'write', got:got, of:drawings.length, practice:practice}); if (d.quiz.length > 30) d.quiz = d.quiz.slice(-30); save();
+      var total = tryStars + got, st = ''; for (var k2=0;k2<total;k2++) st += '<span>'+STAR_SVG+'</span>';
+      shell('Writing Quiz',
+        '<div class="card end">' + avatarHTML('cheer big') + '<h2>You wrote ' + drawings.length + ' words, Luke!</h2>' +
+          '<p style="font-size:24px;margin:0">You earned <b>' + total + '</b> ' + (total === 1 ? 'star' : 'stars') + '!</p>' +
+          '<div class="starrow" aria-hidden="true">' + st + '</div>' +
+          (practice.length ? '<p class="practice-list">Let’s practice these again: <b>' + practice.map(function(x){ return '<span style="white-space:nowrap">'+esc(x)+'</span>'; }).join(', ') + '</b></p>' : '<p class="practice-list">Great writing!</p>') +
+        '</div>' +
+        '<div class="row"><button class="btn go huge" data-act="again">Play again</button><button class="btn alt huge" data-act="home2">'+ICON_HOME+' Home</button></div>');
+      $('[data-act=again]').onclick = function(){ writeQuiz(); };
+      $('[data-act=home2]').onclick = function(){ go('home'); };
+      Speech.say('Hooray! You wrote ' + drawings.length + ' words. Great work, Luke!');
+    };
+    Speech.say('Look at each word. Did you spell it right?');
+  }
+  item();
 }
 
 /* ---------------- 5. Quiz Practice ---------------- */
 function quiz(){
+  var nw = WORDS.length, nm = Math.min(10, FACTS.length);
   shell('Quiz Practice',
     '<p class="prompt">Pick a quiz. Take your time. There is no timer!</p>' +
     '<div class="modes" style="grid-template-columns:1fr">' +
-      '<button class="mode m-build wide" data-q="spell"><span class="emoji" aria-hidden="true">📝</span>Spelling Quiz<br>10 words</button>' +
-      '<button class="mode m-math wide" data-q="math"><span class="emoji" aria-hidden="true">➕</span>Math Quiz<br>10 facts</button>' +
-      '<button class="mode m-hunt wide" data-q="mix"><span class="emoji" aria-hidden="true">🎲</span>Mix of both<br>5 + 5</button>' +
+      '<button class="mode m-build wide" data-q="spell"><span class="emoji" aria-hidden="true">📝</span>Spelling Quiz<br>'+nw+' '+(nw === 1 ? 'word' : 'words')+'</button>' +
+      '<button class="mode m-math wide" data-q="math"><span class="emoji" aria-hidden="true">'+(LIST.math.op === '-' && !LIST.math.custom ? '➖' : '➕')+'</span>Math Quiz<br>'+nm+' '+(nm === 1 ? 'fact' : 'facts')+'</button>' +
+      '<button class="mode m-write wide" data-q="write"><span class="emoji" aria-hidden="true">✏️</span>Handwritten Quiz<br>'+Math.min(10, nw)+' '+(Math.min(10, nw) === 1 ? 'word' : 'words')+'</button>' +
+      '<button class="mode m-hunt wide" data-q="mix"><span class="emoji" aria-hidden="true">🎲</span>Mix of both<br>'+Math.min(5, nw)+' + '+Math.min(5, FACTS.length)+'</button>' +
     '</div>'
   );
   $all('[data-q]').forEach(function(b){ b.onclick = function(){ startQuiz(b.getAttribute('data-q')); }; });
   later(function(){ Speech.say('Pick a quiz. Take your time.'); }, 300);
 }
 function startQuiz(kind){
+  if (kind === 'write') return writeQuiz();
   var items;
   if (kind === 'spell') items = shuffle(WORDS).map(function(o){ return {type:'build', id:o.w}; });
-  else if (kind === 'math') items = shuffle(MATH).slice(0, 10).map(function(n){ return {type:'math', id:n}; });
+  else if (kind === 'math') items = shuffle(FACTS).slice(0, 10).map(function(f){ return {type:'math', id:f.id}; });
   else items = shuffle(shuffle(WORDS).slice(0,5).map(function(o){ return {type: Math.random() < 0.5 ? 'build' : 'hunt', id:o.w}; })
-        .concat(shuffle(MATH).slice(0,5).map(function(n){ return {type:'math', id:n}; })));
+        .concat(shuffle(FACTS).slice(0,5).map(function(f){ return {type:'math', id:f.id}; })));
   var names = {spell:'Spelling Quiz', math:'Math Quiz', mix:'Mix Quiz'};
   var cfg = {title:names[kind], quiz:true, key:kind, items:items};
   cfg.restart = function(){ startQuiz(kind); };
   runRound(cfg);
 }
 
+/* ---------------- 6. Block Mine (words + math) ---------------- */
+/* Tiny 8-bit style sound effects made with WebAudio (no files). Silent if the browser can't do it. */
+var Sfx = (function(){
+  var ctx = null;
+  function ac(){
+    if (!ctx){ var C = window.AudioContext || window.webkitAudioContext; if (!C) return null; try { ctx = new C(); } catch(e){ return null; } }
+    try { if (ctx.state === 'suspended') ctx.resume(); } catch(e){}
+    return ctx;
+  }
+  function tone(c, freq, start, dur, type, vol, endFreq){
+    var o = c.createOscillator(), g = c.createGain();
+    o.type = type || 'square'; o.frequency.setValueAtTime(freq, start);
+    if (endFreq) o.frequency.exponentialRampToValueAtTime(endFreq, start + dur);
+    g.gain.setValueAtTime(0.0001, start); g.gain.exponentialRampToValueAtTime(vol || 0.12, start + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+    o.connect(g); g.connect(c.destination); o.start(start); o.stop(start + dur + 0.02);
+  }
+  function noise(c, start, dur, freq, vol){
+    var len = Math.max(1, Math.floor(c.sampleRate * dur)), buf = c.createBuffer(1, len, c.sampleRate), d = buf.getChannelData(0);
+    for (var i=0;i<len;i++) d[i] = (Math.random()*2 - 1) * Math.pow(1 - i/len, 2);
+    var src = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain();
+    src.buffer = buf; f.type = 'lowpass'; f.frequency.value = freq; g.gain.value = vol;
+    src.connect(f); f.connect(g); g.connect(c.destination); src.start(start);
+  }
+  function chunk(){ var c = ac(); if (!c) return; try { var t = c.currentTime; noise(c, t, 0.13, 700, 0.9); tone(c, 190, t, 0.1, 'square', 0.1, 70); } catch(e){} }
+  function collect(){ var c = ac(); if (!c) return; try { var t = c.currentTime; [660, 880, 1320].forEach(function(f, k){ tone(c, f, t + k*0.07, 0.1, 'square', 0.07); }); } catch(e){} }
+  function craft(){ var c = ac(); if (!c) return; try { var t = c.currentTime; [523, 659, 784, 1047, 784, 1047].forEach(function(f, k){ tone(c, f, t + k*0.12, k === 5 ? 0.45 : 0.14, 'square', 0.08); }); } catch(e){} }
+  return {chunk:chunk, collect:collect, craft:craft, unlock:ac};
+})();
+function reducedMotion(){ try { return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){ return false; } }
+function mineData(){ var d = load(); if (!d.mine || typeof d.mine !== 'object') d.mine = {total:0, inv:{}, crafts:[]}; if (!d.mine.inv) d.mine.inv = {}; if (!d.mine.crafts) d.mine.crafts = []; return d.mine; }
+function nextCraft(){ var m = mineData(); return CRAFT_ORDER[m.crafts.length % CRAFT_ORDER.length]; }
+function hotbarHTML(){
+  var m = mineData(), have = 0;
+  ORES.forEach(function(o){ have += m.inv[o.id] || 0; });
+  var nx = nextCraft();
+  return '<div class="slots">' + ORES.map(function(o){ var n = m.inv[o.id] || 0;
+      return '<div class="slot'+(n ? '' : ' empty')+'" data-slot="'+o.id+'" aria-label="'+o.name+': '+n+'">'+dropSVG(o.id)+(n ? '<b>'+n+'</b>' : '')+'</div>'; }).join('') + '</div>' +
+    '<div class="craftmeter"><span>Next craft:</span>' + itemSVG(nx, 'mini') + '<b>' + ITEM_NAME[nx] + '</b>' +
+    '<span class="meter" aria-label="' + have + ' of 10 blocks"><i style="width:' + (have * 10) + '%"></i></span><span>' + have + '/10</span></div>';
+}
+function gameItems(){
+  /* 10 turns: about half words, half math; repeats only if the lists are short */
+  var nW = Math.min(5, WORDS.length), nM = Math.min(5, FACTS.length);
+  if (nW < 5) nM = Math.min(10 - nW, FACTS.length);
+  if (nM < 5) nW = Math.min(10 - nM, WORDS.length);
+  var items = shuffle(WORDS).slice(0, nW).map(function(o){ return {type:'word', id:o.w}; })
+      .concat(shuffle(FACTS).slice(0, nM).map(function(f){ return {type:'math', id:f.id}; }));
+  var base = items.slice();
+  while (items.length < 10) items.push(pick(base));
+  items = shuffle(items);
+  for (var i=1;i<items.length;i++){ /* avoid the same thing twice in a row */
+    if (items[i].id === items[i-1].id){ for (var j=0;j<items.length;j++){ if (items[j].id !== items[i].id && (j === 0 || items[j-1].id !== items[i].id) && (j+1 >= items.length || items[j+1].id !== items[i].id)){ var t = items[i]; items[i] = items[j]; items[j] = t; break; } } }
+  }
+  return items;
+}
+function game(){
+  var items = gameItems(), i = 0, stars = 0, practice = [], minedTypes = [];
+  function bar(){
+    var h = '<div class="minebar" aria-label="Block '+Math.min(i+1, items.length)+' of '+items.length+'">';
+    for (var k=0;k<items.length;k++) h += '<span class="mb'+(k < i ? ' done' : k === i ? ' now' : '')+'">'+(k < i ? dropSVG(minedTypes[k]) : '')+'</span>';
+    return h + '</div>';
+  }
+  function turn(){
+    if (i >= items.length) return finish();
+    var it = items[i], misses = 0, done = false, choices, answer, promptSay, promptHTML;
+    if (it.type === 'math'){
+      var f = factById(it.id);
+      answer = String(f.ans);
+      var near = mathChoices(f).filter(function(x){ return x !== f.ans; }).sort(function(a, b){ return Math.abs(a - f.ans) - Math.abs(b - f.ans); });
+      choices = shuffle([answer, String(near[0]), String(near[1])]);
+      promptSay = factSay(f);
+      promptHTML = '<div class="problem'+((String(f.a)+String(f.b)+String(f.ans)).length > 5 ? ' long' : '')+'" aria-label="'+factSay(f)+'"><span>'+f.a+'</span><span class="op">'+(f.op === '+' ? '+' : '−')+'</span><span>'+f.b+'</span><span class="op">=</span><span class="q">?</span></div>';
+    } else {
+      var w = it.id, nm = nearMisses(w);
+      var others = shuffle(WORDS.filter(function(x){ return x.w !== w && Math.abs(x.w.length - w.length) <= 1 && (NEAR[w] || []).indexOf(x.w) < 0; }).map(function(x){ return x.w; }));
+      answer = w;
+      choices = shuffle([w, nm[0], (Math.random() < 0.5 && others.length) ? others[0] : nm[1]]);
+      promptSay = w;
+      promptHTML = '<p class="gsay">Mine the word you hear!</p>';
+    }
+    var tpos = it.type === 'word' ? hiPositions(answer) : null;
+    function label(x){
+      if (it.type === 'math') return x;
+      var pos = hiPositions(x);
+      if (x.length === answer.length) for (var k in tpos) if (isVowel(x[k]) && isVowel(answer[k])) pos[k] = 1;
+      return colorWord(x, pos);
+    }
+    var bw = Math.min((viewW() - 60) / 3, 160), maxLen = Math.max.apply(null, choices.map(function(x){ return x.length; }));
+    var fs = it.type === 'math' ? Math.round(bw * 0.36) : Math.max(15, Math.min(Math.round(bw * 0.27), Math.floor(bw * 0.8 / (maxLen * 0.72))));
+    var types = shuffle(ORES.map(function(o){ return o.id; })).slice(0, 3);
+    shell('Block Mine', bar() +
+      '<div class="gtop">' + avatarHTML('hold', {pickaxe:true}) +
+        '<div class="gask"><button class="btn speak" data-act="say" aria-label="Hear it again"><span class="emoji" aria-hidden="true">🔊</span></button>' + promptHTML + '</div>' +
+      '</div>' +
+      '<div class="quarry" id="quarry">' + choices.map(function(x, k){
+        return '<button class="oreblock" data-v="'+x+'" data-type="'+types[k]+'" aria-label="'+x+'" style="width:'+Math.floor(bw)+'px;height:'+Math.floor(bw)+'px">' + blockSVG(types[k]) + crackSVG() +
+          '<span class="plate" style="font-size:'+fs+'px">'+label(x)+'</span></button>';
+      }).join('') + '</div>' +
+      '<div class="feedback gfeedback" id="fb" role="status"></div>' +
+      '<div class="hotbar" id="hotbar">' + hotbarHTML() + '</div>');
+    var fb = $('#fb'), quarry = $('#quarry'), av = $('.avatar');
+    function askText(){ return it.type === 'math' ? 'What is ' + promptSay + '?' : promptSay; }
+    $('[data-act=say]').onclick = function(){ Speech.say(askText()); };
+    $all('.oreblock', quarry).forEach(function(b){ b.onclick = function(){
+      if (done) return;
+      Sfx.unlock();
+      if (b.getAttribute('data-v') === answer){ done = true; mineIt(b); return; }
+      misses++;
+      b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
+      setTimeout(function(){ b.classList.remove('shake'); }, 650);
+      if (misses >= 2){
+        var right = $all('.oreblock', quarry).filter(function(x){ return x.getAttribute('data-v') === answer; })[0];
+        if (right) right.classList.add('glow');
+        fb.className = 'feedback gfeedback show'; fb.textContent = 'Look for the glowing block!';
+        Speech.seq([{text:'Look for the glowing block!', gap:250}, {text:askText()}]);
+      } else {
+        fb.className = 'feedback gfeedback gentle'; fb.textContent = pick(TRY);
+        Speech.seq([{text:fb.textContent, gap:250}, {text:askText()}]);
+      }
+    }; });
+    function mineIt(b){
+      var type = b.getAttribute('data-type'), earned = misses < 2;
+      b.classList.remove('glow');
+      if (av){ av.classList.remove('swing', 'cheer'); void av.offsetWidth; av.classList.add('swing'); }
+      [0, 150, 300].forEach(function(ms, k){ setTimeout(function(){ Sfx.chunk(); b.classList.add('c' + (k+1)); }, ms); });
+      setTimeout(function(){
+        Sfx.collect();
+        if (!reducedMotion()) particles(b, type);
+        b.classList.add('mined');
+        var m = mineData(); m.inv[type] = (m.inv[type] || 0) + 1; m.total++; save();
+        minedTypes[i] = type;
+        flyToSlot(b, type);
+        later(function(){ var hb = $('#hotbar'); if (hb) hb.innerHTML = hotbarHTML(); }, reducedMotion() ? 0 : 650);
+        cheer(av);
+        var msg = pick(it.type === 'math' ? MATH_PRAISE : PRAISE);
+        fb.className = 'feedback gfeedback good';
+        fb.innerHTML = esc(msg) + ' ' + (it.type === 'math' ? factText(factById(it.id)) + ' = ' + answer : '<b>' + colorWord(answer) + '</b>');
+        record(it.type === 'math' ? 'math' : 'words', it.id, true, misses === 0);
+        if (earned){ stars++; addStar(b); } else practice.push(it.type === 'math' ? factText(factById(it.id)) : it.id);
+        var moved = false;
+        function next(){
+          if (moved) return; moved = true;
+          var md = mineData(), have = 0; ORES.forEach(function(o){ have += md.inv[o.id] || 0; });
+          if (have >= 10) craftNow(function(){ i++; turn(); }); else { i++; turn(); }
+        }
+        Speech.seq([{text:msg, gap:150}, {text: it.type === 'math' ? promptSay + ' is ' + answer + '.' : answer, gap:250}], function(){ later(next, 300); });
+        later(next, 5000); /* safety net if the voice never finishes */
+      }, 430);
+    }
+    later(function(){ Speech.say(askText()); }, 500);
+  }
+  function particles(b, type){
+    var o = oreById(type), cols = o.ore ? [o.ore[0], o.ore[1], o.ore[2], '#8F8F8F', '#6E6E6E'] : o.id === 'grass' ? ['#6DBB45', '#9A6534', '#6B4222', '#5DA83A'] : ['#8F8F8F', '#A3A3A3', '#6E6E6E'];
+    var q = $('#quarry'); if (!q) return;
+    var r = b.getBoundingClientRect(), s = q.getBoundingClientRect();
+    for (var k=0;k<14;k++){
+      var p = document.createElement('i'); p.className = 'shard';
+      var sz = 7 + Math.floor(Math.random() * 7);
+      p.style.width = p.style.height = sz + 'px'; p.style.background = pick(cols);
+      p.style.left = (r.left - s.left + r.width/2 - sz/2) + 'px'; p.style.top = (r.top - s.top + r.height/2 - sz/2) + 'px';
+      p.style.setProperty('--px', Math.round((Math.random() - .5) * 150) + 'px'); p.style.setProperty('--py', Math.round(-30 - Math.random() * 70) + 'px');
+      q.appendChild(p);
+      (function(p){ setTimeout(function(){ if (p.parentNode) p.parentNode.removeChild(p); }, 950); })(p);
+    }
+  }
+  function flyToSlot(b, type){
+    if (reducedMotion()) return;
+    var slot = $('.hotbar [data-slot="'+type+'"]'); if (!slot) return;
+    var a = b.getBoundingClientRect(), z = slot.getBoundingClientRect();
+    var f = document.createElement('div'); f.className = 'fly pxfly'; f.innerHTML = dropSVG(type);
+    f.style.left = (a.left + a.width/2 - 22) + 'px'; f.style.top = (a.top + a.height/2 - 22) + 'px';
+    f.style.setProperty('--dx', (z.left + z.width/2 - (a.left + a.width/2)) + 'px');
+    f.style.setProperty('--dy', (z.top + z.height/2 - (a.top + a.height/2)) + 'px');
+    document.body.appendChild(f); setTimeout(function(){ if (f.parentNode) f.parentNode.removeChild(f); }, 1100);
+  }
+  function craftNow(cb){
+    var m = mineData(), used = [], item = nextCraft();
+    ORES.forEach(function(o){ for (var k=0;k<(m.inv[o.id] || 0);k++) used.push(o.id); });
+    m.inv = {}; m.crafts.push({item:item, date:new Date().toISOString().slice(0,10)});
+    if (item === 'helmet') m.wear = true;
+    save();
+    var hb = $('#hotbar'); if (hb) hb.innerHTML = hotbarHTML();
+    var pop = document.createElement('div'); pop.className = 'craftpop';
+    pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-label', 'You crafted a ' + ITEM_NAME[item]);
+    pop.innerHTML = '<div class="craftcard"><h2>Crafting!</h2>' +
+      '<div class="recipe">' + used.slice(0, 10).map(function(t){ return dropSVG(t); }).join('') + '</div>' +
+      '<div class="craftarrow" aria-hidden="true">▼</div>' +
+      '<div class="bigitem">' + itemSVG(item) + '</div>' +
+      '<p>You made a <b>' + ITEM_NAME[item] + '</b>!' + (item === 'helmet' ? ' Your character is wearing it!' : '') + '</p>' +
+      '<div class="row"><button class="btn go huge" data-act="keep">Keep going!</button></div></div>';
+    app.appendChild(pop);
+    Sfx.craft(); cheer($('.avatar'));
+    Speech.say('Wow! You crafted a ' + ITEM_NAME[item].toLowerCase() + '!');
+    $('[data-act=keep]', pop).onclick = function(){ if (pop.parentNode) pop.parentNode.removeChild(pop); cb(); };
+  }
+  function finish(){
+    var st = ''; for (var k=0;k<stars;k++) st += '<span>'+STAR_SVG+'</span>';
+    var conf = '<div class="confetti" aria-hidden="true">';
+    for (var c=0;c<44;c++) conf += '<i style="left:'+Math.round(Math.random()*100)+'%;top:'+Math.round(10 + Math.random()*60)+'%;background:'+pick(['#F5C542','#5EE0F0','#4CD27A','#E0473E','#9A6534','#6DBB45'])+';animation-delay:'+(Math.random()*1.2).toFixed(2)+'s"></i>';
+    conf += '</div>';
+    shell('Block Mine', bar() +
+      '<div class="card end">' + avatarHTML('cheer big') +
+        '<h2>Great mining, Luke!</h2>' +
+        '<p style="font-size:24px;margin:0">You earned <b>'+stars+'</b> '+(stars===1?'star':'stars')+'!</p>' +
+        '<div class="starrow" aria-hidden="true">'+(st || '<span class="emoji">🌟</span>')+'</div>' +
+        '<div class="recipe" aria-label="Blocks you mined">' + minedTypes.map(function(t){ return dropSVG(t); }).join('') + '</div>' +
+        (practice.length ? '<p class="practice-list">Let’s practice these again: <b>'+practice.map(function(x){ return '<span style="white-space:nowrap">'+esc(x)+'</span>'; }).join(', ')+'</b></p>' : '<p class="practice-list">Every single one! Wow!</p>') +
+      '</div>' +
+      '<div class="row"><button class="btn go huge" data-act="again">Mine again</button><button class="btn alt huge" data-act="crafts">'+itemSVG('pickaxe', 'mini')+' My Crafts</button></div>' +
+      '<div class="row"><button class="btn alt" data-act="home2">'+ICON_HOME+' Home</button></div>' + conf);
+    $('[data-act=again]').onclick = function(){ game(); };
+    $('[data-act=crafts]').onclick = function(){ go('crafts'); };
+    $('[data-act=home2]').onclick = function(){ go('home'); };
+    Sfx.craft();
+    Speech.say('Hooray! Great mining! You earned ' + stars + (stars===1?' star':' stars') + '. Great work, Luke!');
+  }
+  turn();
+}
+
+/* ---------------- My Crafts shelf ---------------- */
+function crafts(){
+  var m = mineData(), list = m.crafts, hasHelmet = list.some(function(c){ return c.item === 'helmet'; });
+  var have = 0; ORES.forEach(function(o){ have += m.inv[o.id] || 0; });
+  var shelf = '';
+  for (var k=0;k<list.length;k+=4){
+    shelf += '<div class="shelf">' + list.slice(k, k+4).map(function(c){ return '<div class="craft">' + itemSVG(c.item) + '<span>' + ITEM_NAME[c.item] + '</span></div>'; }).join('') + '</div>';
+  }
+  shell('My Crafts',
+    '<div class="card crafts-card">' + avatarHTML('big' + (list.length ? ' cheer' : '')) +
+      '<p class="prompt">' + (list.length ? 'You crafted <b>' + list.length + '</b> ' + (list.length === 1 ? 'thing' : 'things') + '!' : 'Mine 10 blocks in Block Mine to craft your first item!') + '</p>' +
+      (hasHelmet ? '<div class="row" style="margin-top:4px"><button class="btn alt" data-act="wear">' + itemSVG('helmet', 'mini') + (m.wear === false ? 'Wear helmet' : 'Take off helmet') + '</button></div>' : '') +
+    '</div>' +
+    (shelf ? '<div class="shelves">' + shelf + '</div>' : '') +
+    '<p class="prompt">Next craft: <b>' + ITEM_NAME[nextCraft()] + '</b> · ' + have + ' of 10 blocks</p>' +
+    '<div class="row"><button class="btn go huge" data-act="mine">' + itemSVG('pickaxe', 'mini') + ' Go mining</button></div>');
+  var wb = $('[data-act=wear]');
+  if (wb) wb.onclick = function(){ m.wear = m.wear === false; save(); crafts(); };
+  $('[data-act=mine]').onclick = function(){ go('game'); };
+}
+
 /* ---------------- Grown-ups ---------------- */
+function mathDescription(L){
+  var m = L.math, c = m.custom ? parseCustom(m.custom).facts : [];
+  if (c.length) return 'your own list of ' + c.length + ' problems: ' + c.map(factText).join(', ') + '.';
+  var f = generatedFacts(m);
+  if (!f.length) return 'no problems yet.';
+  var sorted = f.slice().sort(function(x, y){ return x.a - y.a; });
+  return (m.op === '+' ? '+' : '−') + m.k + ' facts, ' + factText(sorted[0]) + ' through ' + factText(sorted[sorted.length-1]) + ' (' + f.length + ' problems).';
+}
+function patternSentence(){
+  var p = LIST.pattern, ex = wordObj('cap') ? 'cap' : WORDS[0].w;
+  var split = ' and words are split into sounds (' + ex.split('').join(' - ') + ').';
+  if (!p) return 'Vowels are always blue,' + split;
+  return (p.length === 1 && isVowel(p) ? 'The vowel ' : 'The letters ') + '<span class="v"><b>' + p + '</b></span> ' + (p.length === 1 ? 'is' : 'are') + ' always blue,' + split;
+}
 function grownups(){
-  var d = load();
+  var d = load(), dflt = isDefaultList(LIST);
   function row(label, s){ s = s || {tries:0, right:0, first:0}; return '<tr><td><b>'+label+'</b></td><td>'+s.right+' / '+s.tries+'</td><td>'+s.first+'</td></tr>'; }
-  var wordRows = WORDS.map(function(o){ return row(colorWord(o.w), d.words[o.w]); }).join('');
-  var mathRows = MATH.slice().sort(function(a,b){return a-b;}).map(function(n){ return row(n+' + 1', d.math[n]); }).join('');
+  var wordRows = WORDS.map(function(o){ var wr = d.write[o.w] || {tries:0, right:0}; return row(colorWord(o.w), d.words[o.w]).replace('</tr>', '<td>'+wr.right+' / '+wr.tries+'</td></tr>'); }).join('');
+  var mathRows = FACTS.slice().sort(function(a,b){ return a.a - b.a || a.b - b.b; }).map(function(f){ return row(factText(f), d.math[f.id]); }).join('');
   var quizRows = d.quiz.slice(-8).reverse().map(function(q){ return '<tr><td>'+esc(q.date)+'</td><td>'+esc(q.kind)+'</td><td>'+q.got+' / '+q.of+'</td><td>'+esc((q.practice||[]).join(', ') || '—')+'</td></tr>'; }).join('');
   shell('For Grown-ups',
     '<div class="grown">' +
+    '<div class="row" style="justify-content:flex-start; margin-top:4px"><button class="btn" data-act="edit"><span class="emoji" aria-hidden="true">✏️</span>Edit words &amp; math</button></div>' +
     '<h2>How to use this with Luke</h2>' +
     '<ul>' +
       '<li><b>Learn Words</b> first: tap <b>Hear it</b>, then <b>Sound it out</b>. Point to each letter as it lights up. Let Luke say it with the device, then tap <b>I can read it!</b></li>' +
-      '<li><b>Build the Word</b>: he hears a word and taps letter tiles to spell it. Tap a filled box to take a letter back out.</li>' +
+      '<li><b>Build the Word</b>: he hears a word and taps letter tiles to spell it. Tap a filled box to take that letter back out, or tap <b>Undo</b> to take back the last letter.</li>' +
       '<li><b>Word Hunt</b>: he hears a word and picks the right spelling from 3 choices.</li>' +
-      '<li><b>+1 Math</b>: dots come in groups of 5, and the number line shows the “hop” to the next number. <b>Count with me</b> counts every dot out loud.</li>' +
-      '<li><b>Quiz Practice</b>: 10 items in a new shuffled order every time (the real quiz order is different from the practice sheet). No timer, same gentle help.</li>' +
+      '<li><b>'+esc(mathTitle())+'</b>: dots come in groups of 5, and the number line shows the “hop”' + (LIST.math.op === '-' ? 's back. Taken-away dots are crossed out.' : ' to the answer.') + ' <b>Count with me</b> counts the dots out loud.</li>' +
+      '<li><b>Write It</b>: he hears the word and writes it with a finger, Apple Pencil or mouse on handwriting lines. First pass has dotted letters to trace (Trace on); the second pass is without. <b>Check</b> shows the real spelling under his writing; he decides “I got it” or “Practice again” (no auto-grading). Stars for trying and for “got it”. The <b>Handwritten Quiz</b> (in Quiz Practice) has him write up to 10 words, then review each drawing next to the correct spelling. Results show in the “Written” column below.</li>' +
+      '<li><b>Block Mine</b>: a blocky mining game. He hears a word or a math problem, then taps the ore block with the right answer to mine it. No timer, nothing to lose: a wrong tap just shakes the block and repeats the question, and after 2 misses the right block glows. Every 10 blocks mined crafts a reward (pickaxe, sword, helmet, house…) for his <b>My Crafts</b> shelf. The helmet shows up on his character.</li>' +
+      '<li><b>Quiz Practice</b>: items in a new shuffled order every time (the real quiz order is different from the practice sheet). No timer, same gentle help.</li>' +
     '</ul>' +
     '<div class="tip"><b>Short and often works best:</b> about 10 minutes a day, then stop while it is still fun. Say the sounds together out loud, and have him trace or write the word on paper after he builds it.</div>' +
     '<h3>This week</h3>' +
-    '<p><b>Spelling, Unit 1 Week 1 (short a, CVC):</b> bag, cap, fan, jam, nap, pad, pan, rag, wax, yam.<br>Sheet hint: short <span class="v"><b>a</b></span> sounds a little different before <b>m</b> or <b>n</b> (fan, jam, pan, yam). The app points this out on those cards.</p>' +
-    '<p><b>Math:</b> +1 facts, 1 + 1 through 12 + 1. The big idea: “plus 1 means the next number.”</p>' +
+    '<p><b>Spelling, '+esc(LIST.title)+':</b> '+WORDS.map(function(o){ return o.w; }).join(', ')+'.' +
+      (dflt ? '<br>Sheet hint: short <span class="v"><b>a</b></span> sounds a little different before <b>m</b> or <b>n</b> (fan, jam, pan, yam). The app points this out on those cards.' : '') + '</p>' +
+    (dflt ? '<p><b>Math:</b> +1 facts, 1 + 1 through 12 + 1. The big idea: “plus 1 means the next number.”</p>'
+          : '<p><b>Math:</b> ' + esc(mathDescription(LIST)) + '</p>') +
     '<h3>Built for a young reader with dyslexia</h3>' +
     '<ul>' +
       '<li>Andika font (made for beginning readers, with clear b, d, p, q), extra letter spacing, cream background, dark-gray text.</li>' +
       '<li>One item at a time, big buttons, no timers, no red X. After 2 tries it gently shows the answer.</li>' +
-      '<li>The vowel <span class="v"><b>a</b></span> is always blue, and words are split into sounds (c - a - p).</li>' +
+      '<li>' + patternSentence() + '</li>' +
       '<li>Build the Word sometimes adds one look-alike letter (b/d, p/q, m/n) for gentle practice.</li>' +
     '</ul>' +
     '<h3>Sound tips</h3>' +
     '<ul>' +
       '<li>Read-aloud uses the device’s own voice (no internet needed). On iPhone/iPad, turn the volume up. If you hear nothing, check the silent switch / Focus mode and tap 🔊 again.</li>' +
-      '<li>Devices can’t make perfect single letter sounds. “Sound it out” says the first sound, then the word family (b… ag… bag). Please model the short <b>a</b> sound (as in <i>apple</i>) yourself.</li>' +
+      '<li>Devices can’t make perfect single letter sounds. “Sound it out” says the first sound, then the word family (b… ag… bag). For other words it says the first sound, then the word slowly. Please model the vowel sound yourself.</li>' +
       '<li>On iPhone, open this page in <b>Safari</b>. The Files app preview may not run the games. Tip: Share → <b>Add to Home Screen</b> for a one-tap icon.</li>' +
     '</ul>' +
     '<h3>Progress on this device</h3>' +
-    '<p>Stars earned: <b>'+d.stars+'</b>. (Saved on this device and browser only.)</p>' +
-    '<table><thead><tr><th>Word</th><th>Right / tries</th><th>First try</th></tr></thead><tbody>'+wordRows+'</tbody></table>' +
+    '<p>Stars earned: <b>'+d.stars+'</b>. Blocks mined: <b>'+mineData().total+'</b>. Crafts made: <b>'+mineData().crafts.length+'</b>. (Saved on this device and browser only.)</p>' +
+    '<table><thead><tr><th>Word</th><th>Right / tries</th><th>First try</th><th>Written ✅ / tries</th></tr></thead><tbody>'+wordRows+'</tbody></table>' +
     '<br><table><thead><tr><th>Fact</th><th>Right / tries</th><th>First try</th></tr></thead><tbody>'+mathRows+'</tbody></table>' +
     (quizRows ? '<br><table><thead><tr><th>Date</th><th>Quiz</th><th>Stars</th><th>Practice</th></tr></thead><tbody>'+quizRows+'</tbody></table>' : '') +
     '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="reset">Reset stars and progress</button></div>' +
     '</div>'
   );
+  $('[data-act=edit]').onclick = function(){ go('edit'); };
   $('[data-act=reset]').onclick = function(){
     if (window.confirm('Reset all stars and progress on this device?')){ mem = blank(); save(); grownups(); }
   };
 }
 
+/* ---------------- Edit words & math (behind a light grown-up check) ---------------- */
+var editUnlocked = false, draft = null, dirty = false;
+function edit(){
+  if (!editUnlocked) return gate();
+  if (!draft){ draft = clone(LIST); dirty = false; }
+  renderEditor();
+}
+function gate(){
+  var a = 11 + Math.floor(Math.random() * 9), b = 4 + Math.floor(Math.random() * 6);
+  shell('Grown-ups only',
+    '<div class="card gate">' +
+      '<div class="pic emoji" aria-hidden="true" style="font-size:64px">🔒</div>' +
+      '<p style="font-size:20px; margin:0 0 4px">Quick grown-up check</p>' +
+      '<label for="gateAns" id="gateQ" data-a="'+a+'" data-b="'+b+'">What is '+a+' + '+b+'?</label>' +
+      '<input id="gateAns" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" maxlength="3" aria-describedby="gateFb">' +
+      '<div class="row"><button class="btn go" data-act="gateok">Continue</button><button class="btn alt" data-act="back">Back</button></div>' +
+      '<div class="feedback" id="gateFb" role="status"></div>' +
+    '</div>');
+  var inp = $('#gateAns'), fb = $('#gateFb');
+  function check(){
+    if (toInt(inp.value.replace(/\D/g, ''), -1) === a + b){ editUnlocked = true; draft = clone(LIST); dirty = false; renderEditor(); }
+    else { fb.className = 'feedback gentle'; fb.textContent = 'Not quite. Please try again.'; inp.value = ''; inp.focus(); }
+  }
+  $('[data-act=gateok]').onclick = check;
+  inp.onkeydown = function(e){ if (e.key === 'Enter') check(); };
+  $('[data-act=back]').onclick = function(){ go('grownups'); };
+}
+function selectHTML(id, from, to, val){
+  var h = '<select id="'+id+'">';
+  for (var v=from; v<=to; v++) h += '<option value="'+v+'"'+(v === val ? ' selected' : '')+'>'+v+'</option>';
+  return h + '</select>';
+}
+function wordRowHTML(o, i){
+  return '<div class="wrow" data-i="'+i+'">' +
+    '<div class="wrow-top"><span class="wnum">'+(i+1)+'.</span>' +
+      '<input class="w" type="text" aria-label="Word '+(i+1)+'" placeholder="word" value="'+esc(o.w)+'" maxlength="14" autocapitalize="none" autocorrect="off" autocomplete="off" spellcheck="false">' +
+      '<button class="smallbtn" data-del="'+i+'" aria-label="Delete word '+(i+1)+'"><span class="emoji" aria-hidden="true">🗑️</span>Delete</button></div>' +
+    '<div class="wrow-mid"><span class="picprev emoji" aria-hidden="true">'+(o.pic ? picHTML(o.pic) : '<span class="none">no picture</span>')+'</span>' +
+      '<input class="p" type="text" aria-label="Emoji for word '+(i+1)+'" placeholder="emoji" value="'+(isImg(o.pic) ? '' : esc(o.pic))+'" maxlength="16" autocomplete="off">' +
+      '<label class="smallbtn filebtn"><span class="emoji" aria-hidden="true">📷</span>Photo<input type="file" accept="image/*" data-file="'+i+'"></label>' +
+    '</div>' +
+    '<input class="s" type="text" aria-label="Sentence for word '+(i+1)+'" placeholder="Sentence (optional)" value="'+esc(o.s)+'" maxlength="120">' +
+  '</div>';
+}
+function readPicture(file, cb){
+  if (!file || !/^image\//.test(file.type || '')) return cb(null);
+  var r = new FileReader();
+  r.onload = function(){
+    var img = new Image();
+    img.onload = function(){
+      try {
+        var S = 160, sc = Math.min(1, S / Math.max(img.width, img.height));
+        var c = document.createElement('canvas'); c.width = Math.max(1, Math.round(img.width * sc)); c.height = Math.max(1, Math.round(img.height * sc));
+        var x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height);
+        cb(c.toDataURL('image/jpeg', 0.75));
+      } catch(e){ cb(null); }
+    };
+    img.onerror = function(){ cb(null); };
+    img.src = r.result;
+  };
+  r.onerror = function(){ cb(null); };
+  r.readAsDataURL(file);
+}
+function renderEditor(msg){
+  var m = draft.math;
+  shell('Edit words &amp; math',
+    '<div class="ed">' +
+    '<div class="row" style="justify-content:flex-start; margin-top:0"><button class="smallbtn" data-act="back">'+SVG_LEFT.replace('<svg','<svg width="20" height="20"')+'Grown-ups</button></div>' +
+    '<div class="edmsg" id="edTopMsg"></div>' +
+    '<h2>Spelling list</h2>' +
+    '<label class="lbl" for="edTitle">List title</label>' +
+    '<input id="edTitle" type="text" maxlength="60" value="'+esc(draft.title)+'">' +
+    '<label class="lbl" for="edPat">Letters to color blue</label>' +
+    '<input id="edPat" type="text" maxlength="4" value="'+esc(draft.pattern)+'" autocapitalize="none" autocorrect="off" spellcheck="false" style="max-width:8em; font-size:26px; font-weight:700; color:var(--vowel)">' +
+    '<p class="hint">This week’s vowel or pattern, like a, i, ee or sh. Leave blank to color every vowel.</p>' +
+    '<p class="hint">Words: 2 to 10 letters, a to z. Sentence and picture are optional. 3 or more words works best for Word Hunt.</p>' +
+    '<div id="edWords"></div>' +
+    '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="add">+ Add word</button></div>' +
+    '<h2>Math</h2>' +
+    '<span class="lbl">Kind of problem</span>' +
+    '<div class="optrow"><button class="opt'+(m.op === '+' ? ' on' : '')+'" data-op="+">+ Add</button><button class="opt'+(m.op === '-' ? ' on' : '')+'" data-op="-">− Take away</button></div>' +
+    '<div class="inline3">' +
+      '<div><label class="lbl" for="edK" id="edKLbl">'+(m.op === '+' ? 'Add' : 'Take away')+'</label>'+selectHTML('edK', 1, 10, m.k)+'</div>' +
+      '<div><label class="lbl" for="edFrom">From</label>'+selectHTML('edFrom', 0, MAX_NUM, m.from)+'</div>' +
+      '<div><label class="lbl" for="edTo">To</label>'+selectHTML('edTo', 0, MAX_NUM, m.to)+'</div>' +
+    '</div>' +
+    '<p class="hint">“From” and “To” are the first number in each problem. Answers stay between 0 and '+MAX_NUM+'.</p>' +
+    '<label class="lbl" for="edCustom">Or type your own problems (optional)</label>' +
+    '<textarea id="edCustom" class="plain" placeholder="Example: 3+4, 10-2, 7+7" autocapitalize="none" autocorrect="off" spellcheck="false">'+esc(m.custom)+'</textarea>' +
+    '<p class="hint">Separate with commas. When this box has problems, they are used instead of the settings above.</p>' +
+    '<div class="preview" id="edPrev"></div>' +
+    '<div class="savebar"><div class="row"><button class="btn go huge flex1" data-act="save"><span class="emoji" aria-hidden="true">💾</span>Save</button></div>' +
+      '<div class="dirty" id="edDirty"></div><div class="edmsg" id="edMsg"></div></div>' +
+    '<h2>Move a list to another device</h2>' +
+    '<p>Tap <b>Export list</b>, copy the code, and send it to yourself (for example in Notes or a message). On the other phone or iPad, open this page, paste the code under <b>Import</b>, and tap <b>Import list</b>.</p>' +
+    '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="export">Export list</button><button class="btn alt" data-act="copy" hidden>Copy code</button></div>' +
+    '<textarea id="edExport" readonly hidden aria-label="Export code"></textarea>' +
+    '<label class="lbl" for="edImport">Import a list</label>' +
+    '<textarea id="edImport" placeholder="Paste a code here" autocapitalize="none" autocorrect="off" spellcheck="false"></textarea>' +
+    '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="import">Import list</button></div>' +
+    '<div class="edmsg" id="edIoMsg"></div>' +
+    '<h2>Start over</h2>' +
+    '<p>Put back this week’s words (bag, cap, fan, jam, nap, pad, pan, rag, wax, yam) and +1 math, 1 to 12. Stars are kept.</p>' +
+    '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="defaults">Reset to this week’s defaults</button></div>' +
+    '</div>');
+  var wordsBox = $('#edWords');
+  function drawWords(){ wordsBox.innerHTML = draft.words.map(wordRowHTML).join(''); }
+  function setDirty(){ dirty = true; $('#edDirty').textContent = 'Changes are not saved yet.'; $('#edMsg').className = 'edmsg'; $('#edMsg').innerHTML = ''; }
+  function showMsg(el, kind, html){ el.className = 'edmsg ' + kind; el.innerHTML = html; }
+  function preview(){
+    var mm = draft.math, c = mm.custom ? parseCustom(mm.custom) : {facts:[], bad:[]}, h;
+    $('#edKLbl').textContent = mm.op === '+' ? 'Add' : 'Take away';
+    if (c.bad.length) h = 'I can’t read: <b>' + c.bad.map(esc).join(', ') + '</b>. Write problems like 3+4 or 10-2.';
+    else if (c.facts.length) h = 'Using your ' + c.facts.length + ' problems: ' + c.facts.map(factText).join(', ');
+    else if (mm.from > mm.to) h = '“From” must be smaller than “To”.';
+    else {
+      var f = generatedFacts(mm), skipped = mm.to - mm.from + 1 - f.length;
+      h = f.length ? f.length + ' problems: ' + f.slice().sort(function(x, y){ return x.a - y.a; }).map(factText).join(', ') + (skipped ? ' (skipping ' + skipped + ' that go past 0–' + MAX_NUM + ')' : '')
+                   : 'No problems fit. Answers must be 0 to ' + MAX_NUM + '.';
+    }
+    $('#edPrev').innerHTML = h;
+  }
+  drawWords(); preview();
+  if (dirty) $('#edDirty').textContent = 'Changes are not saved yet.';
+  if (msg) showMsg($('#edMsg'), msg.kind, msg.html);
+
+  $('[data-act=back]').onclick = function(){ go('grownups'); };
+  $('#edTitle').oninput = function(){ draft.title = this.value; setDirty(); };
+  $('#edPat').oninput = function(){ draft.pattern = this.value; setDirty(); };
+  wordsBox.oninput = function(e){
+    var t = e.target, r = t.closest ? t.closest('.wrow') : null; if (!r) return;
+    var o = draft.words[+r.getAttribute('data-i')]; if (!o) return;
+    if (t.classList.contains('w')) o.w = t.value;
+    else if (t.classList.contains('s')) o.s = t.value;
+    else if (t.classList.contains('p')){ o.pic = t.value.trim(); $('.picprev', r).innerHTML = o.pic ? picHTML(o.pic) : '<span class="none">no picture</span>'; }
+    else return;
+    r.classList.remove('bad'); setDirty();
+  };
+  wordsBox.onclick = function(e){
+    var b = e.target.closest ? e.target.closest('[data-del]') : null; if (!b) return;
+    draft.words.splice(+b.getAttribute('data-del'), 1); drawWords(); setDirty();
+  };
+  wordsBox.onchange = function(e){
+    var t = e.target; if (!t.hasAttribute || !t.hasAttribute('data-file')) return;
+    var i = +t.getAttribute('data-file');
+    readPicture(t.files && t.files[0], function(url){
+      if (!url){ showMsg($('#edMsg'), 'err', 'Sorry, that picture could not be used. Try a different photo, or type an emoji.'); return; }
+      if (draft.words[i]){ draft.words[i].pic = url; drawWords(); setDirty(); }
+    });
+  };
+  $('[data-act=add]').onclick = function(){
+    if (draft.words.length >= MAX_WORDS){ showMsg($('#edMsg'), 'err', 'The list can have up to ' + MAX_WORDS + ' words.'); return; }
+    draft.words.push({w:'', s:'', pic:''}); drawWords(); setDirty();
+    var inputs = $all('.wrow input.w', wordsBox), last = inputs[inputs.length - 1];
+    if (last){ last.focus(); if (last.scrollIntoView) last.scrollIntoView({block:'center'}); }
+  };
+  $all('[data-op]').forEach(function(b){ b.onclick = function(){
+    draft.math.op = b.getAttribute('data-op');
+    $all('[data-op]').forEach(function(x){ x.classList.toggle('on', x === b); });
+    setDirty(); preview();
+  }; });
+  $('#edK').onchange = function(){ draft.math.k = +this.value; setDirty(); preview(); };
+  $('#edFrom').onchange = function(){ draft.math.from = +this.value; setDirty(); preview(); };
+  $('#edTo').onchange = function(){ draft.math.to = +this.value; setDirty(); preview(); };
+  $('#edCustom').oninput = function(){ draft.math.custom = this.value; setDirty(); preview(); };
+
+  function checkDraft(){
+    var r = cleanList(draft);
+    $all('.wrow', wordsBox).forEach(function(el){ el.classList.remove('bad'); });
+    r.errors.forEach(function(er){ if (er.i != null){ var el = $('.wrow[data-i="'+er.i+'"]', wordsBox); if (el) el.classList.add('bad'); } });
+    return r;
+  }
+  function errHTML(errs){ return 'Please fix ' + (errs.length === 1 ? 'this' : 'these') + ' first:<ul>' + errs.map(function(e){ return '<li>' + esc(e.msg) + '</li>'; }).join('') + '</ul>'; }
+  $('[data-act=save]').onclick = function(){
+    var r = checkDraft();
+    if (r.errors.length){ showMsg($('#edMsg'), 'err', errHTML(r.errors)); var bad = $('.wrow.bad', wordsBox); if (bad && bad.scrollIntoView) bad.scrollIntoView({block:'center'}); return; }
+    var ok = commitList(r.list);
+    draft = clone(LIST); dirty = false;
+    renderEditor(ok ? {kind:'ok', html:'Saved! ' + WORDS.length + ' ' + (WORDS.length === 1 ? 'word' : 'words') + ' and ' + FACTS.length + ' math ' + (FACTS.length === 1 ? 'problem' : 'problems') + '. Luke’s games now use this list.'}
+                    : {kind:'err', html:'This list is ready to play now, but this browser could not save it for next time (private browsing or storage full).'});
+    later(function(){ var el = $('#edMsg'); if (el && el.scrollIntoView) el.scrollIntoView({block:'nearest'}); }, 50);
+  };
+  $('[data-act=export]').onclick = function(){
+    var r = checkDraft(), io = $('#edIoMsg');
+    if (r.errors.length){ showMsg(io, 'err', errHTML(r.errors)); return; }
+    var ta = $('#edExport'); ta.hidden = false; ta.value = exportCode(r.list);
+    $('[data-act=copy]').hidden = false;
+    ta.focus(); ta.select();
+    showMsg(io, 'ok', 'Here is the code' + (dirty ? ' (it includes your unsaved changes)' : '') + '. Tap <b>Copy code</b>, then paste it on the other device.');
+  };
+  $('[data-act=copy]').onclick = function(){
+    var ta = $('#edExport'), io = $('#edIoMsg');
+    function fallback(){ try { ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length); var ok = document.execCommand('copy'); showMsg(io, ok ? 'ok' : 'err', ok ? 'Copied!' : 'Select the code and copy it.'); } catch(e){ showMsg(io, 'err', 'Select the code and copy it.'); } }
+    if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(ta.value).then(function(){ showMsg(io, 'ok', 'Copied! Now paste it on the other device.'); }, fallback); }
+    else fallback();
+  };
+  $('[data-act=import]').onclick = function(){
+    var io = $('#edIoMsg'), raw = parseCode($('#edImport').value);
+    if (!raw){ showMsg(io, 'err', 'That doesn’t look like a list code. Copy the whole code (it starts with { and ends with }) and try again.'); return; }
+    var r = cleanList(raw);
+    if (r.errors.length){ showMsg(io, 'err', 'That code has a problem:<ul>' + r.errors.map(function(e){ return '<li>' + esc(e.msg) + '</li>'; }).join('') + '</ul>'); return; }
+    var ok = commitList(r.list);
+    draft = clone(LIST); dirty = false;
+    renderEditor({kind: ok ? 'ok' : 'err', html:(ok ? 'Imported and saved: ' : 'Imported (but this browser could not save it for next time): ') + esc(LIST.title) + ', ' + WORDS.length + ' words, ' + FACTS.length + ' math problems.'});
+  };
+  $('[data-act=defaults]').onclick = function(){
+    if (!window.confirm('Put back this week’s words and +1 math? Stars are kept. Progress for other words is cleared.')) return;
+    var ok = commitList(defaultList());
+    draft = clone(LIST); dirty = false;
+    renderEditor({kind: ok ? 'ok' : 'err', html: ok ? 'Back to this week’s defaults.' : 'Defaults are back for now, but this browser could not save that.'});
+  };
+}
+
 /* ---------------- Router ---------------- */
-var routes = {home:home, learn:learn, build:build, hunt:hunt, math:math, quiz:quiz, grownups:grownups};
+var routes = {home:home, learn:learn, build:build, hunt:hunt, math:math, quiz:quiz, grownups:grownups, edit:edit, game:game, crafts:crafts, write:write};
 function route(){
   clearTimers(); Speech.stop();
   var h = (location.hash || '#home').replace('#','').split(/[?&]/)[0];
   var fn = routes[h] || home;
+  if (fn !== edit){ draft = null; dirty = false; }             /* leaving the editor drops unsaved changes */
+  if (fn !== edit && fn !== grownups) editUnlocked = false;   /* ask again after Luke's screens */
   if (fn === learn){ learnIdx = 0; }
+  if (fn === write){ writeIdx = 0; writePass = 'trace'; }
   fn();
   if (fn === learn) later(function(){ speakWord(WORDS[learnIdx].w); }, 350);
 }
 window.addEventListener('hashchange', route);
 fixEmoji();
+loadList();
 route();
 })();
 </script>
