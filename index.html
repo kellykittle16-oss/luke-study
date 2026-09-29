@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- luke-build: v2-mastery-2026-09-29 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -514,6 +515,112 @@ button:focus-visible{outline:4px solid #F2A900; outline-offset:3px}
 .wklbl{font-weight:700}
 .ed input[type=date]{font-family:inherit; font-size:20px; padding:8px 12px; border:3px solid var(--line); border-radius:14px; background:#fff; color:var(--ink); min-height:54px}
 .btn.danger{border-color:#D69A1E}
+
+/* ---------- v2: adventure, world map, mastery ---------- */
+.adv-hero{display:flex; align-items:center; gap:16px; width:100%; margin:4px 0 12px; padding:10px 16px 10px 10px; min-height:112px; border-radius:10px; border:4px solid #1D5A21; background:linear-gradient(#6DBB45 0 14px, #4E9632 14px 18px, #F7E3B8 18px); box-shadow:inset 0 -6px 0 rgba(0,0,0,.08), 0 6px 0 #1D5A21; color:var(--ink); text-align:left}
+.adv-hero:active{transform:translateY(3px); box-shadow:0 2px 0 #1D5A21}
+.adv-hero .heroart{width:112px; height:78px; flex:0 0 auto; border:3px solid rgba(0,0,0,.3); border-radius:6px; margin-top:10px}
+.herotxt{display:flex; flex-direction:column; line-height:1.3; margin-top:10px}
+.herotxt b{font-size:28px}
+.herotxt small{font-size:18px; color:var(--ink-soft)}
+.advstats{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 12px}
+.achip{display:inline-flex; align-items:center; gap:6px; background:#fff; border:3px solid var(--line); border-radius:10px; padding:4px 12px; font-size:18px; min-height:48px}
+.achip .px{width:26px; height:26px}
+.maplink{display:flex; align-items:center; gap:8px; margin:0 0 14px; background:#fff; border:3px solid var(--dirt); box-shadow:0 4px 0 var(--dirt-dark); border-radius:10px; padding:6px 16px; font-size:20px; font-weight:700; min-height:56px}
+.maplink .px{width:44px; height:31px}
+.mapnext{font-size:20px; text-align:center; margin:4px 0 12px}
+.newland{display:flex; align-items:center; justify-content:center; gap:10px; background:#FFF3B0; border:3px solid #F2A900; border-radius:10px; padding:8px 12px; font-size:20px; margin:8px 0; animation:pop .8s ease}
+.newland .px{width:40px; height:40px}
+.newland .biomeart.mini{width:56px; height:39px}
+.map{margin:4px 0 10px}
+.mrow{display:flex; align-items:center; gap:0}
+.mrow.rev{flex-direction:row-reverse}
+.hstep{flex:0 0 26px; display:flex; flex-direction:column; align-items:center; gap:6px}
+.hstep i, .vstep i{width:14px; height:14px; background:#B9A57E; border:2px solid #8F7B55; display:block}
+.vstep{display:flex; gap:8px; height:30px; align-items:center; padding:0 8%}
+.vstep.at-r{justify-content:flex-end}.vstep.at-l{justify-content:flex-start}
+.vstep i{margin:0 0}
+.biome{position:relative; flex:1 1 0; min-width:0; padding:6px 6px 8px; border-radius:10px; border:4px solid rgba(0,0,0,.28); background:#fff; box-shadow:0 6px 0 rgba(0,0,0,.2); display:flex; flex-direction:column; align-items:center; gap:2px}
+.bart{position:relative; display:block; width:100%}
+.biome .biomeart{width:100%; height:auto; aspect-ratio:20/14; border-radius:4px}
+.biome.locked{background:#F4EEDD}
+.biome.locked .biomeart{filter:grayscale(.55) brightness(.95); opacity:.75}
+.lockbig{position:absolute; left:50%; top:50%; transform:translate(-50%, -50%)}
+.lockbig .px{width:40px; height:40px}
+.biome.here{border-color:#F2A900; box-shadow:0 0 0 4px #FFE27A, 0 6px 0 rgba(0,0,0,.2)}
+.biome.fresh{animation:pop 1s ease 2}
+.bname{font-size:19px; font-weight:700; line-height:1.2; letter-spacing:.06em; text-align:center}
+.bstars, .blocked{display:inline-flex; align-items:center; gap:6px; font-size:16px; letter-spacing:.04em}
+.bstars .pxstar{width:22px; height:22px}
+.mapav{position:absolute; width:17%; right:10%; bottom:20%; filter:drop-shadow(0 3px 0 rgba(0,0,0,.25))}
+.shelfh{font-size:26px; margin:16px 0 6px}
+.collection{display:grid; grid-template-columns:repeat(4, 1fr); gap:8px}
+.citem{display:flex; flex-direction:column; align-items:center; gap:2px; background:#fff; border:3px solid var(--line); border-radius:10px; padding:8px 4px; font-size:15px; letter-spacing:.04em; text-align:center; line-height:1.25}
+.citem .collect{width:52px; height:52px}
+.citem.none{background:#F4EEDD; color:#9A8F76}
+.citem .q{font-size:34px; font-weight:700; height:52px; line-height:52px}
+.hint.center{text-align:center}
+.advpath{display:flex; gap:4px; align-items:flex-end; justify-content:center; margin:0 0 12px; padding:6px 6px 0; border-radius:8px; background:linear-gradient(transparent 0 70%, #6DBB45 70% 80%, #9A6534 80%)}
+.advpath.b-desert, .advpath.b-reef{background:linear-gradient(transparent 0 70%, #F2D38A 70% 80%, #D9B060 80%)}
+.advpath.b-snow, .advpath.b-sky{background:linear-gradient(transparent 0 70%, #FFFFFF 70% 80%, #8C96A3 80%)}
+.advpath.b-caves{background:linear-gradient(transparent 0 70%, #8D76A8 70% 80%, #5F4C78 80%)}
+.advpath .st{flex:1 1 0; max-width:64px; height:90px; display:flex; align-items:flex-end; justify-content:center}
+.advpath .stone{display:block; width:22px; height:14px; margin-bottom:28px; background:#B9A57E; border:2px solid #8F7B55}
+.advpath .st .pgem{width:26px; height:26px; margin-bottom:29px}
+.advpath .st .chest{width:40px; height:32px; margin-bottom:27px}
+.advpath .st.goal .chest{animation:lvbob 2.4s ease-in-out infinite}
+.advpath .pathav{width:40px; margin-bottom:26px}
+.advpath{height:96px}
+.againtag{background:var(--gentle-bg); color:var(--gentle); border-radius:10px; padding:6px 12px; text-align:center; font-size:19px; margin:0 0 8px}
+#nextRow .chest{width:40px; height:32px}
+.mtoast{position:fixed; left:50%; top:18px; transform:translateX(-50%); z-index:70; display:flex; align-items:center; gap:10px; background:#fff; border:4px solid #1F9AAE; box-shadow:0 5px 0 #13707F; border-radius:10px; padding:8px 18px; font-size:22px; animation:pop .6s ease}
+.mtoast .mgem{width:36px; height:36px}
+.advend .endrow{display:flex; align-items:flex-end; justify-content:center; gap:18px}
+.giftbox{background:#FFF3B0; border:4px solid #F2A900; border-radius:12px; padding:10px; animation:pop 1s ease .9s both}
+.giftbox .bigc{width:96px; height:96px}
+.bigstars{display:flex; justify-content:center; gap:10px; margin:8px 0}
+.bigstars .bstar .pxstar{width:64px; height:64px}
+.bigstars .bstar{filter:grayscale(1) opacity(.3)}
+.bigstars .bstar.on{filter:none; animation:starin .7s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes starin{0%{transform:scale(0) rotate(-40deg)}100%{transform:scale(1) rotate(0)}}
+.giftline, .mastline, .blockline, .streakline{font-size:21px; margin:6px 0}
+.mchip{display:inline-block; background:#E2F4DF; border:2px solid #9CC98A; border-radius:8px; padding:0 8px; margin:2px; font-weight:700}
+.blockline, .streakline{display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap}
+.bl-icons{display:inline-flex; gap:2px}
+.bl-icons .px, .streakline .px{width:28px; height:28px}
+/* grown-ups mastery view */
+.mview{margin:6px 0 10px}
+.mtotals{display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin:6px 0}
+.mt{border-radius:12px; padding:8px; text-align:center; font-size:17px; border:2px solid var(--line); background:#fff; line-height:1.3}
+.mt b{display:block; font-size:30px}
+.mt-mastered{background:#E2F4DF; border-color:#9CC98A}.mt-learning{background:#FFF3C9; border-color:#E8C35A}.mt-new{background:#F1EEE6}
+.mc{display:inline-block; border-radius:8px; padding:0 8px; margin:2px 3px 2px 0; font-size:17px; border:2px solid; white-space:nowrap; line-height:1.6}
+.mc small{font-size:12px; letter-spacing:0}
+.mc-mastered{background:#E2F4DF; border-color:#9CC98A; color:#1D5A21; font-weight:700}
+.mc-learning{background:#FFF3C9; border-color:#E8C35A; color:#6B4700}
+.mc-new{background:#F4F1EA; border-color:#DDD5C4; color:#7A7160}
+.mwk{background:#fff; border:2px solid var(--line); border-radius:12px; padding:8px 12px; margin:10px 0; line-height:1.5}
+.mwk.cur{border-color:#9CC98A; background:#FBFFF7}
+.mwk h4{font-size:20px; margin:0}
+.mwkcount{margin:2px 0 4px}
+.mgrp{margin:4px 0}
+.mgl{display:inline-block; min-width:5.2em; font-weight:700; font-size:16px; color:var(--ink-soft)}
+.mwkpt{margin:6px 0 0; font-size:17px}
+.ptlist li{margin:4px 0}
+.muted{color:var(--ink-soft)}
+@media (min-width:700px){
+  .collection{grid-template-columns:repeat(8, 1fr)}
+  .biome{width:min(52%, 400px)}
+  .adv-hero .heroart{width:150px; height:105px}
+  .herotxt b{font-size:34px}
+}
+@media (prefers-reduced-motion: reduce){ .bigstars .bstar.on, .giftbox, .newland, .biome.fresh{animation:none} }
+@media (max-width:500px){
+  .herotxt b{font-size:24px}
+  .adv-hero{gap:12px; min-height:100px}
+  .adv-hero .heroart{width:84px; height:59px}
+  .achip{font-size:16px; padding:4px 10px}
+}
 </style>
 </head>
 <body>
@@ -777,7 +884,7 @@ function cheer(el){ if (!el) return; el.classList.remove('cheer', 'swing'); void
    chosen "this week". Unedited built-in weeks always follow the published file.            */
 var LIST_KEY = 'lukeStudyApp.list.v1';        /* old single list (read once for the move to weeks, never deleted) */
 var WEEKS_KEY = 'lukeStudyApp.weeks.v1';
-var LIST = null, WORDS = [], FACTS = [], WEEKS = [], ALLW = {}, WST = null, BUILTIN = null;
+var LIST = null, WORDS = [], FACTS = [], WEEKS = [], ALLW = {}, ALLF = {}, WST = null, BUILTIN = null;
 function isDefaultMath(m){ return m.op === '+' && m.k === 1 && m.from === 1 && m.to === 12 && !m.custom; }
 function rimeFor(w){
   if (RIME[w]) return RIME[w];
@@ -789,7 +896,7 @@ function makeFact(a, op, b){
 }
 function factText(f){ return f.a + ' ' + (f.op === '+' ? '+' : '−') + ' ' + f.b; }
 function factSay(f){ return f.a + (f.op === '+' ? ' plus ' : ' minus ') + f.b; }
-function factById(id){ for (var i=0;i<FACTS.length;i++) if (FACTS[i].id === String(id)) return FACTS[i]; return null; }
+function factById(id){ for (var i=0;i<FACTS.length;i++) if (FACTS[i].id === String(id)) return FACTS[i]; return ALLF[String(id)] || null; } /* this week first, then any week (review) */
 function parseCustom(text){
   var facts = [], bad = [], seen = {};
   String(text || '').split(/[,;\n]+/).forEach(function(tok){
@@ -969,6 +1076,7 @@ function refreshWeeks(){
   ALLW = {};
   WEEKS.slice().reverse().forEach(function(w){ w.words.forEach(function(o){ ALLW[o.w] = {w:o.w, s:o.s || '', pic:o.pic || '', rime:rimeFor(o.w), pat:w.pattern, wk:w.id}; }); });
   cur.words.forEach(function(o){ ALLW[o.w] = {w:o.w, s:o.s || '', pic:o.pic || '', rime:rimeFor(o.w), pat:cur.pattern, wk:cur.id}; });
+  ALLF = {}; WEEKS.forEach(function(w){ buildFacts(w.math).forEach(function(f){ if (!ALLF[f.id]) ALLF[f.id] = f; }); });
   applyList(cur);
 }
 function stripWeek(w){ return {id:w.id, label:w.label, date:w.date, pattern:w.pattern, words:w.words.map(function(o){ return {w:o.w, s:o.s, pic:o.pic}; }), math:clone(w.math)}; }
@@ -1038,13 +1146,16 @@ function importCode(raw, intoId){
 /* ---------------- Saved progress (localStorage) ---------------- */
 var KEY = 'lukeStudyApp.v1';
 var mem = null;
-function blank(){ return {stars:0, words:{}, math:{}, quiz:[], learned:{}, write:{}, mine:{total:0, inv:{}, crafts:[], xp:0, level:0}}; }
+function blank(){ return {stars:0, words:{}, math:{}, quiz:[], learned:{}, write:{}, mine:{total:0, inv:{}, crafts:[], xp:0, level:0}, mastery:{v:1, c:{}}, adv:blankAdv()}; }
 var QUIZ_KEEP = 300; /* quiz results kept for the grown-ups' week-by-week summary */
 function logQuiz(entry){ var d = load(); entry.date = todayStr(); entry.wk = LIST.id; d.quiz.push(entry); if (d.quiz.length > QUIZ_KEEP) d.quiz = d.quiz.slice(-QUIZ_KEEP); save(); }
 function load(){
   if (mem) return mem;
   try { mem = JSON.parse(localStorage.getItem(KEY)) || blank(); } catch(e){ mem = blank(); }
+  if (!mem || typeof mem !== 'object' || Array.isArray(mem)) mem = blank();
+  var needSeed = !mem.mastery || typeof mem.mastery !== 'object' || !mem.mastery.c;   /* v1 progress: build mastery scores from it once */
   var b = blank(); for (var k in b) if (!(k in mem)) mem[k] = b[k];
+  if (needSeed){ try { mem.mastery = seedMastery(mem); } catch(e){ mem.mastery = {v:1, c:{}}; } save(); }
   return mem;
 }
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch(e){ /* private mode: keep in memory */ } }
@@ -1150,7 +1261,9 @@ function home(){
     '<div class="grassband" aria-hidden="true"></div>' +
     '<div class="topbar">'+levelBadgeHTML()+starPill()+'</div>' +
     '<div class="hello-row"><div><h1 class="hello">Hi Luke!</h1><p class="weekchip" id="weekChip" data-week="'+esc(LIST.id)+'"><span class="emoji" aria-hidden="true">📅</span><span>'+esc(LIST.label)+'</span></p></div>' + avatarHTML('home-av') + '</div>' +
-    '<p class="sub">What do you want to play?</p>' + noSpeechNote() +
+    noSpeechNote() + heroHTML() +
+    '<button class="maplink" data-go="map">' + biomeSVG(currentBiomeIdx(), 'mini') + '<span>World map</span></button>' + advStatsHTML() +
+    '<p class="sub">Or pick a game:</p>' +
     '<div class="modes">' +
       '<button class="mode m-learn" data-go="learn"><span class="emoji" aria-hidden="true">📖</span>Learn Words</button>' +
       '<button class="mode m-build" data-go="build"><span class="emoji" aria-hidden="true">🧩</span>Build the Word</button>' +
@@ -1349,9 +1462,9 @@ function renderBuild(stage, w, cfg, done){
       finished = true; draw();
       $all('.box', stage).forEach(function(b){ b.classList.add('right'); });
       var msg = pick(PRAISE); fb.className = 'feedback good'; fb.textContent = msg + ' ' + w + '!';
-      record('words', w, true, tries === 0); addStar($('.boxes', stage));
+      record('words', w, true, tries === 0); practiced('spell-' + w, tries === 0); addStar($('.boxes', stage));
       Speech.seq([{text:msg, gap:200}, {text:w.split('').join(', '), rate:0.7, gap:250}, {text:w}]);
-      done({correct:true});
+      done({correct:true, first:tries === 0});
       return;
     }
     tries++;
@@ -1368,7 +1481,7 @@ function renderBuild(stage, w, cfg, done){
       slots = w.split('').map(function(c){ for (var k=0;k<tiles.length;k++) if (tiles[k] === c && usedT.indexOf(k) < 0){ usedT.push(k); return k; } return null; });
       draw(); $all('.box', stage).forEach(function(b){ b.classList.add('right'); });
       fb.className = 'feedback show'; fb.innerHTML = 'Good try! This is how we spell <b>'+colorWord(w)+'</b>.';
-      record('words', w, false, false);
+      record('words', w, false, false); practiced('spell-' + w, false);
       Speech.seq([{text:'Good try! This is how we spell ' + w + '.', gap:250}, {text:w.split('').join(', '), rate:0.7, gap:250}, {text:w}]);
       done({correct:false});
     }
@@ -1441,9 +1554,9 @@ function renderHunt(stage, w, cfg, done){
       finished = true; b.classList.add('right');
       $all('.choice', stage).forEach(function(c){ if (c !== b) c.classList.add('faded'); });
       var msg = pick(PRAISE); fb.className = 'feedback good'; fb.innerHTML = esc(msg) + (o.pic ? ' <span class="emoji">'+picHTML(o.pic)+'</span>' : '');
-      record('words', w, true, tries === 0); addStar(b);
+      record('words', w, true, tries === 0); practiced('read-' + w, tries === 0); addStar(b);
       Speech.seq([{text:msg, gap:200}, {text:w}]);
-      done({correct:true}); return;
+      done({correct:true, first:tries === 0}); return;
     }
     tries++; b.classList.add('faded');
     if (tries < 2){
@@ -1453,7 +1566,7 @@ function renderHunt(stage, w, cfg, done){
       finished = true;
       $all('.choice', stage).forEach(function(c){ if (c.getAttribute('data-w') === w) { c.classList.remove('faded'); c.classList.add('right'); } else c.classList.add('faded'); });
       fb.className = 'feedback show'; fb.innerHTML = 'Good try! This one says <b>'+colorWord(w)+'</b>.';
-      record('words', w, false, false);
+      record('words', w, false, false); practiced('read-' + w, false);
       Speech.seq([{text:'Good try! This one says ' + w + '.', gap:250}, {text:w.split('').join(', '), rate:0.7, gap:250}, {text:w}]);
       done({correct:false});
     }
@@ -1572,9 +1685,9 @@ function renderMath(stage, id, cfg, done){
       $all('.answer', stage).forEach(function(c){ if (c !== b) c.classList.add('faded'); });
       $('.problem .q', stage).textContent = ans;
       var msg = pick(MATH_PRAISE); fb.className = 'feedback good'; fb.textContent = msg + ' ' + factText(f) + ' = ' + ans;
-      record('math', f.id, true, tries === 0); addStar(b);
+      record('math', f.id, true, tries === 0); practiced(mathConcept(f), tries === 0); addStar(b);
       Speech.seq([{text:msg, gap:200}, {text:factSay(f) + ' is ' + ans + '.'}]);
-      done({correct:true}); return;
+      done({correct:true, first:tries === 0}); return;
     }
     tries++; b.classList.add('faded');
     if (tries < 2){
@@ -1586,7 +1699,7 @@ function renderMath(stage, id, cfg, done){
       $all('.answer', stage).forEach(function(c){ if (+c.getAttribute('data-v') === ans){ c.classList.remove('faded'); c.classList.add('right'); } else c.classList.add('faded'); });
       $('.problem .q', stage).textContent = ans;
       fb.className = 'feedback show'; fb.textContent = 'Good try! ' + factText(f) + ' = ' + ans + '.' + t.extra;
-      record('math', f.id, false, false);
+      record('math', f.id, false, false); practiced(mathConcept(f), false);
       Speech.say('Good try! ' + factSay(f) + ' is ' + ans + '.' + t.extra);
       done({correct:false});
     }
@@ -2110,7 +2223,7 @@ function write(){
     var msg = pick(PRAISE);
     fb.className = 'feedback good';
     if (test){
-      record('write', w, true, true); writeIdx = (writeIdx + 1) % WORDS.length; writePass = 'trace';
+      record('write', w, true, true); practiced('spell-' + w, true); writeIdx = (writeIdx + 1) % WORDS.length; writePass = 'trace';
       /* finished the word: a little block burst + a gem (in the pen's colour) for the Block Mine hotbar */
       var ore = pad.pen(), added = awardGem(ore), pn = penById(ore);
       blockBurst($('#pad'), [pn.core, pn.hi, pn.edge, '#F5C542', '#6DBB45', '#9A6534']);
@@ -2126,7 +2239,7 @@ function write(){
     $('#reveal').hidden = true;
   };
   $('[data-act=again]').onclick = function(){
-    if (test) record('write', w, false, false);
+    if (test){ record('write', w, false, false); practiced('spell-' + w, false); }
     writePass = 'trace'; write();
   };
   $('[data-act=prev]').onclick = function(){ writeIdx = (writeIdx + WORDS.length - 1) % WORDS.length; writePass = 'trace'; write(); };
@@ -2183,7 +2296,7 @@ function writeQuiz(){
     }; });
     $('[data-act=done]').onclick = function(){
       var got = 0, practice = [];
-      drawings.forEach(function(d, k){ if (!marks[k]) return; var ok = marks[k] === 'got'; record('write', d.w, ok, ok); if (ok) got++; else practice.push(d.w); });
+      drawings.forEach(function(d, k){ if (!marks[k]) return; var ok = marks[k] === 'got'; record('write', d.w, ok, ok); practiced('spell-' + d.w, ok); if (ok) got++; else practice.push(d.w); });
       for (var s=0;s<got;s++){ var dd = load(); dd.stars++; } save();
       logQuiz({kind:'write', got:got, of:drawings.length, practice:practice});
       var total = tryStars + got, st = ''; for (var k2=0;k2<total;k2++) st += '<span>'+STAR_SVG+'</span>';
@@ -2472,6 +2585,7 @@ function game(){
         fb.className = 'feedback gfeedback good';
         fb.innerHTML = esc(msg) + ' ' + (it.type === 'math' ? factText(factById(it.id)) + ' = ' + answer : '<b>' + colorWord(answer) + '</b>');
         record(it.type === 'math' ? 'math' : 'words', it.id, true, misses === 0);
+        practiced(it.type === 'math' ? mathConcept(factById(it.id)) : 'read-' + it.id, misses === 0);
         var up = null;
         if (earned){ stars++; addStar(b); up = gainXP(); var lb = $('#lvlbar'); if (lb) lb.outerHTML = levelBarHTML(); }
         else practice.push(it.type === 'math' ? factText(factById(it.id)) : it.id);
@@ -2630,8 +2744,13 @@ function grownups(){
   shell('For Grown-ups',
     '<div class="grown">' +
     '<div class="row" style="justify-content:flex-start; margin-top:4px"><button class="btn" data-act="edit"><span class="emoji" aria-hidden="true">✏️</span>Weeks: edit words &amp; math</button></div>' +
+    '<h2>Mastery at a glance</h2>' +
+    (function(){ var cs = sessionRows().map(function(r){ return r.concept; }), c = masteryCounts(cs), pt = practiceTogether(cs, 3);
+      return '<p id="mSummary">Up to this week: <b>' + c.mastered + ' mastered</b>, <b>' + c.learning + ' learning</b>, <b>' + c['new'] + ' not started</b>.' + (pt.length ? ' Practice together: <b>' + pt.map(function(x){ return esc(TYPE_NAME[conceptParts(x).type].toLowerCase() + ' ' + conceptLabel(x)); }).join(', ') + '</b>.' : '') + '</p>'; })() +
+    '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="mastery">See mastery by week</button></div>' +
     '<h2>How to use this with Luke</h2>' +
     '<ul>' +
+      '<li><b>Play today’s adventure</b> (the big green button): one short level of about 9 items, a mix of reading, spelling and math, with no timer. About 7 in 10 items are new or shaky for him, about 3 in 10 are review from every week so far. A missed item comes back once later in the level (gently) and sooner in the next days. Each skill is <b>mastered</b> after 3 right on the first try in a row; a miss moves it back to learning. Mastering skills opens new lands on the <b>World map</b> and earns blocks for Block Mine; each level gives 1 to 3 stars and a collectible critter or block, and playing on following days builds a gentle streak (one rest day never breaks it).</li>' +
       '<li><b>Learn Words</b> first: tap <b>Hear it</b>, then <b>Sound it out</b>. Point to each letter as it lights up. Let Luke say it with the device, then tap <b>I can read it!</b></li>' +
       '<li><b>Build the Word</b>: he hears a word and taps letter tiles to spell it. Tap a filled box to take that letter back out, or tap <b>Undo</b> to take back the last letter.</li>' +
       '<li><b>Word Hunt</b>: he hears a word and picks the right spelling from 3 choices.</li>' +
@@ -2675,8 +2794,9 @@ function grownups(){
     '</div>'
   );
   $('[data-act=edit]').onclick = function(){ go('edit'); };
+  $('[data-act=mastery]').onclick = function(){ go('mastery'); };
   $('[data-act=reset]').onclick = function(){
-    if (window.confirm('Reset all stars, Block Mine level, crafts and progress on this device? Your weekly word lists are kept.')){ mem = blank(); save(); grownups(); }
+    if (window.confirm('Reset all stars, Block Mine level, crafts, mastery, map and progress on this device? Your weekly word lists are kept.')){ mem = blank(); save(); grownups(); }
   };
 }
 
@@ -2947,10 +3067,486 @@ function renderEditor(msg){
   };
 }
 
+/* =====================================================================================
+   v2: MASTERY + SPACED REVIEW + ADVENTURE MAP
+   Every word and math fact becomes "concepts" (read-bag, spell-bag, math-3+1). Each concept keeps
+   a small score in localStorage (inside lukeStudyApp.v1 → mastery). 3 right on the first try in a
+   row = mastered; a miss drops it back. Leitner boxes (1..5) decide when it is due again, so missed
+   ones come back soon and often, mastered ones now and then. "Play today's adventure" builds a short
+   level (about 9 items, ~70% new/shaky + ~30% review from every week so far). Mastering concepts
+   unlocks lands on the world map and earns blocks for the Block Mine hotbar.
+   ===================================================================================== */
+var MASTER_STREAK = 3;                  /* 3 first-try rights in a row = mastered */
+var BOX_DAYS = [0, 0, 1, 3, 7, 14];     /* Leitner box -> days until due again (box 1 = today, again soon) */
+var SESSION_N = 9, SESSION_MAX = 10, SESSION_MIN = 8, REVIEW_SHARE = 0.3;
+var MASTERY_ORE = {read:'gem', spell:'gold', math:'green'};  /* the block each mastered concept earns */
+
+function addDays(s, n){ var d = new Date(s + 'T12:00:00'); d.setDate(d.getDate() + n); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+function dayDiff(a, b){ return Math.round((new Date(b + 'T12:00:00') - new Date(a + 'T12:00:00')) / 86400000); }
+function mathConcept(f){ return 'math-' + f.a + f.op + f.b; }
+function conceptFromFactId(id){ id = String(id); return /^\d+$/.test(id) ? 'math-' + id + '+1' : 'math-' + id; }
+function conceptParts(c){ var k = c.indexOf('-'); return {type:c.slice(0, k), key:c.slice(k + 1)}; }
+function conceptLabel(c){
+  var p = conceptParts(c);
+  if (p.type === 'math') return p.key.replace(/(\d)([+-])(\d)/, function(m, a, op, b){ return a + ' ' + (op === '+' ? '+' : '−') + ' ' + b; });
+  return p.key;
+}
+var TYPE_NAME = {read:'Reading', spell:'Spelling', math:'Math'};
+
+/* ---------- per-concept scores ---------- */
+function masteryStore(){ var d = load(); if (!d.mastery || typeof d.mastery !== 'object' || !d.mastery.c) d.mastery = {v:1, c:{}}; return d.mastery; }
+function cstat(c){ return masteryStore().c[c] || null; }
+function conceptStatus(c){ var s = cstat(c); if (!s || !s.n) return 'new'; return s.s >= MASTER_STREAK ? 'mastered' : 'learning'; }
+var MASTERY_HOOK = null;   /* the adventure listens here for "just mastered!" moments */
+/* One try at a concept. success = right on the first try. */
+function practiced(c, success, today){
+  if (!c) return null;
+  today = today || todayStr();
+  var st = masteryStore(), s = st.c[c] || (st.c[c] = {n:0, r:0, s:0, b:1, due:today, last:''});
+  var was = s.s >= MASTER_STREAK;
+  s.n++; s.last = today;
+  if (success){ s.r++; s.s++; s.b = Math.min(5, (s.b || 1) + 1); s.due = addDays(today, BOX_DAYS[s.b]); }
+  else { s.s = 0; s.b = 1; s.due = today; s.miss = (s.miss || 0) + 1; }
+  var now = s.s >= MASTER_STREAK;
+  if (now && !s.m) s.m = today;          /* first time mastered: map lands + blocks count this (never taken back) */
+  save();
+  var res = {concept:c, success:!!success, mastered:now, newlyMastered:now && !was, dropped:was && !now, box:s.b, streak:s.s, due:s.due};
+  if (MASTERY_HOOK) { try { MASTERY_HOOK(res); } catch(e){} }
+  return res;
+}
+/* One-time move: turn v1 stats into starting scores. Old stats, stars, weeks and Block Mine are not touched. */
+function seedMastery(d){
+  var c = {}, t = todayStr();
+  function fromStat(st){
+    if (!st || !st.tries) return null;
+    var good = st.first != null ? st.first : (st.right || 0), miss = Math.max(0, st.tries - good);
+    var s = miss === 0 ? Math.min(good, MASTER_STREAK) : (good >= 2 * miss ? 1 : 0);
+    return {n:st.tries, r:good, s:s, miss:miss};
+  }
+  function put(id, o){
+    if (!o) return;
+    var cur = c[id];
+    if (cur){ cur.n += o.n; cur.r += o.r; cur.s = Math.min(cur.s, o.s); cur.miss += o.miss; }
+    else c[id] = {n:o.n, r:o.r, s:o.s, miss:o.miss};
+  }
+  var words = d.words || {}, write = d.write || {}, math = d.math || {}, k;
+  for (k in words){ var o = fromStat(words[k]); if (!o) continue; put('read-' + k, o); put('spell-' + k, {n:o.n, r:o.r, s:o.s, miss:o.miss}); }
+  for (k in write){ var w = write[k]; if (!w || !w.tries) continue; var wm = Math.max(0, w.tries - (w.right || 0)); put('spell-' + k, {n:w.tries, r:w.right || 0, s: wm ? 0 : Math.min(w.right || 0, MASTER_STREAK), miss:wm}); }
+  for (k in math){ var m = fromStat(math[k]); if (m) put(conceptFromFactId(k), m); }
+  for (k in c){ var x = c[k]; x.b = Math.min(5, x.s + 1); x.due = t; x.last = ''; if (!x.miss) delete x.miss; if (x.s >= MASTER_STREAK){ x.m = t; x.seeded = 1; } }
+  return {v:1, c:c, seeded:t};
+}
+
+/* ---------- content rows: generated from the week lists (adding a week = adding rows) ---------- */
+function wordDifficulty(w, pat){ var d = w.length <= 3 ? 1 : w.length <= 5 ? 2 : 3; if (pat && pat.length > 1 && d < 3) d++; return d; }
+function factDifficulty(f){ var d = (f.b === 1 && f.ans <= 10) ? 1 : (f.b <= 3 && f.ans <= 15) ? 2 : 3; if (f.op === '-' && d < 3) d++; return d; }
+function contentRows(weeks){
+  var rows = [];
+  (weeks || WEEKS).forEach(function(wk){
+    wk.words.forEach(function(o){
+      var d = wordDifficulty(o.w, wk.pattern);
+      rows.push({concept:'read-' + o.w, type:'read', prompt:o.w, answer:o.w, difficulty:d, week:wk.id, pat:wk.pattern});
+      rows.push({concept:'spell-' + o.w, type:'spell', prompt:o.w, answer:o.w, difficulty:Math.min(3, d + (o.w.length > 3 ? 1 : 0)), week:wk.id, pat:wk.pattern});
+    });
+    buildFacts(wk.math).forEach(function(f){ rows.push({concept:mathConcept(f), type:'math', prompt:factText(f), answer:f.ans, difficulty:factDifficulty(f), week:wk.id, fact:f.id}); });
+  });
+  return rows;
+}
+var ROW_ACTIVITY = {read:'hunt', spell:'build', math:'math'};
+/* Rows the adventure may use: this week + every earlier week (later weeks wait). One row per concept. */
+function sessionRows(){
+  var out = [], at = {};
+  contentRows().forEach(function(r){
+    var wk = weekById(r.week);
+    if (r.week !== LIST.id && wk && wk.date && LIST.date && wk.date > LIST.date) return;
+    var k = at[r.concept];
+    if (k == null){ at[r.concept] = out.length; out.push(r); }
+    else if (r.week === LIST.id) out[k] = r;      /* this week's copy wins (its blue letters) */
+  });
+  return out;
+}
+
+/* ---------- the scheduler ---------- */
+function pickBalanced(pool, n, rnd){
+  var left = pool.slice(), out = [], cnt = {read:0, spell:0, math:0}, used = {};
+  var cap = {math:Math.ceil(n * 0.45), read:Math.ceil(n * 0.6), spell:Math.ceil(n * 0.6)};
+  function wt(x){ return x.wt * (x.row.type !== 'math' && used[x.row.prompt] ? 0.2 : 1); }
+  while (out.length < n && left.length){
+    var ok = left.filter(function(x){ return cnt[x.row.type] < cap[x.row.type]; });
+    if (!ok.length) ok = left;
+    var sum = 0; ok.forEach(function(x){ sum += wt(x); });
+    var r = rnd() * sum, k = 0;
+    for (; k < ok.length - 1; k++){ r -= wt(ok[k]); if (r < 0) break; }
+    var p = ok[k]; out.push(p); left.splice(left.indexOf(p), 1); cnt[p.row.type]++;
+    if (p.row.type !== 'math') used[p.row.prompt] = 1;
+  }
+  return out;
+}
+function orderSession(picks){
+  var a = shuffle(picks), out = [];
+  if (!a.length) return a;
+  function ease(x){ return (x.bucket === 'review' ? 0 : 10) + x.row.difficulty; }
+  /* start with an easy win, end on a confident one */
+  var fi = 0; a.forEach(function(x, k){ if (ease(x) < ease(a[fi])) fi = k; });
+  var first = a.splice(fi, 1)[0], last = null;
+  if (a.length){ var li = 0; a.forEach(function(x, k){ if (ease(x) < ease(a[li])) li = k; }); last = a.splice(li, 1)[0]; }
+  out = [first].concat(a); if (last) out.push(last);
+  /* never the same word twice in a row */
+  function key(x){ return x.row.type === 'math' ? x.row.concept : x.row.prompt; }
+  for (var i=1;i<out.length;i++){
+    if (key(out[i]) !== key(out[i-1])) continue;
+    for (var j=1;j<out.length-1;j++){
+      if (j === i || j === i - 1) continue;
+      var ki = key(out[i]), kj = key(out[j]);
+      if (key(out[j-1]) !== ki && key(out[j+1] || {row:{type:'x', prompt:''}}) !== ki && kj !== key(out[i-1]) && (i + 1 >= out.length || kj !== key(out[i+1]))){ var t = out[i]; out[i] = out[j]; out[j] = t; break; }
+    }
+  }
+  return out;
+}
+/* Plan one adventure level. opt: {n, today, rand} */
+function planSession(opt){
+  opt = opt || {};
+  var N = opt.n || SESSION_N, today = opt.today || todayStr(), st = masteryStore().c, rnd = opt.rand || Math.random;
+  var fresh = [], review = [], rp = {};
+  reviewPool().forEach(function(x){ rp[x.w] = x.wt; });   /* the Review mix's past-week misses get extra weight here too */
+  sessionRows().forEach(function(r){
+    var s = st[r.concept], cur = r.week === LIST.id, due = !s || !s.due || s.due <= today, x = {row:r, cur:cur};
+    if (s && s.s >= MASTER_STREAK){            /* mastered: back now and then (more when it is due) */
+      x.wt = due ? 3 + Math.min(4, Math.max(0, dayDiff(s.due, today)) * 0.5) : 0.35; review.push(x);
+    } else if (s && s.n){                       /* shaky: missed ones come back first and most */
+      x.wt = (s.b <= 1 ? 6 : due ? 4 : 1.5) + (cur ? 1 : 0) + Math.min(2, (s.miss || 0) * 0.5); x.missed = s.b <= 1; fresh.push(x);
+    } else {                                    /* not started: this week's, easy ones first */
+      x.wt = cur ? 3.5 - 0.5 * r.difficulty : 0.8; fresh.push(x);
+    }
+    if (!cur && r.type !== 'math' && rp[r.prompt] && !(s && s.s >= MASTER_STREAK)) x.wt += Math.min(3, rp[r.prompt]);
+  });
+  if (!fresh.length && !review.length) return {items:[], counts:{new:0, review:0}};
+  var nR = Math.round(N * REVIEW_SHARE), nF = N - nR;
+  if (review.length < nR){ nR = review.length; nF = N - nR; }
+  if (fresh.length < nF){ nF = fresh.length; nR = Math.min(review.length, N - nF); }
+  /* Leitner box 1 (just missed) comes back every level: up to half of the new/shaky slots, most-missed first */
+  var missed = fresh.filter(function(x){ return x.missed; }).sort(function(a, b){ return b.wt - a.wt || rnd() - 0.5; }).slice(0, Math.ceil(nF / 2));
+  var rest = fresh.filter(function(x){ return missed.indexOf(x) < 0; });
+  var picks = missed.concat(pickBalanced(rest, nF - missed.length, rnd)).map(function(x){ x.bucket = 'new'; return x; })
+    .concat(pickBalanced(review, nR, rnd).map(function(x){ x.bucket = 'review'; return x; }));
+  var base = picks.slice(), k = 0;
+  while (picks.length < Math.min(SESSION_MIN, N) && base.length){ var b = base[k++ % base.length]; picks.push({row:b.row, cur:b.cur, wt:b.wt, bucket:b.bucket}); } /* very short lists */
+  var items = orderSession(picks).map(function(x){
+    var r = x.row, it = {type:ROW_ACTIVITY[r.type], id:r.type === 'math' ? r.fact : r.prompt, concept:r.concept, bucket:x.bucket, week:r.week, difficulty:r.difficulty};
+    if (r.type !== 'math' && r.week !== LIST.id) it.pat = r.pat || '';
+    return it;
+  });
+  return {items:items, counts:{new:nF, review:nR}};
+}
+
+/* ---------- world map: lands unlocked by mastering concepts ---------- */
+var BIOMES = [
+  {id:'meadow', name:'Sunny Meadow', need:0,  sky:['#BFE6FF','#DDF2FF'], top:['#6DBB45','#5DA83A'], soil:['#9A6534','#86572A'], feat:'flower', sun:1},
+  {id:'forest', name:'Birch Woods',  need:3,  sky:['#CDEBD8','#E6F6EC'], top:['#4E9632','#3F7F2A'], soil:['#7A5430','#6B4222'], feat:'birch', sun:1},
+  {id:'desert', name:'Sandy Dunes',  need:7,  sky:['#FFE3A6','#FFF3D6'], top:['#F2D38A','#E6C372'], soil:['#D9B060','#C99D4E'], feat:'cactus', sun:1},
+  {id:'snow',   name:'Snowy Hills',  need:12, sky:['#D3E4F6','#EEF5FC'], top:['#FFFFFF','#E4EEF7'], soil:['#8C96A3','#7A8491'], feat:'pine', sun:0},
+  {id:'jungle', name:'Jungle Falls', need:18, sky:['#BCEBCB','#DDF8E6'], top:['#2F8F3A','#257A30'], soil:['#6B4222','#5A3719'], feat:'palm', sun:1},
+  {id:'reef',   name:'Coral Reef',   need:25, sky:['#7FCDEA','#A9DEF2'], top:['#F2D38A','#E6C372'], soil:['#D9B060','#C99D4E'], feat:'coral', sun:0},
+  {id:'caves',  name:'Crystal Caves',need:33, sky:['#3E3350','#4B3F60'], top:['#8D76A8','#7A6495'], soil:['#5F4C78','#4E3E66'], feat:'crystal', sun:0},
+  {id:'sky',    name:'Sky Islands',  need:42, sky:['#FFD9EA','#E3EEFF'], top:['#FFFFFF','#EAF2FF'], soil:['#C9D8F0','#B5C8E8'], feat:'rainbow', sun:1}
+];
+var FEATURES = {
+  flower: [["..r.....",".rYr....","..r..y..","..G.yOy.","..G..y..",".GG..G..","..G.GG..","..G..G.."], {r:'#E0473E', Y:'#FFD23F', y:'#FFFFFF', O:'#F59A23', G:'#3F7F2A'}],
+  birch:  [["..LLLL..",".LLlLLL.","LLLLLlLL",".LLLLLL.","...Wk...","...WW...","...kW...","...WW..."], {L:'#6DBB45', l:'#A6DE7A', W:'#F2F2EC', k:'#3A3A3A'}],
+  cactus: [["...CC...","...Cc...","C..CC...","C..Cc..C","CCCCC..C","...CCCCC","...Cc...","...CC..."], {C:'#3F8F3A', c:'#6DBB45'}],
+  pine:   [["...ww...","..wPPw..","..PPPP..",".wPPPPw.",".PPPPPP.","wPPPPPPw","...TT...","...TT..."], {w:'#FFFFFF', P:'#2F6B4A', T:'#6B4222'}],
+  palm:   [["LL..LL..",".LLLL.LL","LLLLLLL.","L..TL..L","...T....","...T....","...TT...","...TT..."], {L:'#2FA84A', T:'#8B5A2B'}],
+  coral:  [["........","..p..p..",".p.p.p.p",".pp..pp.","..pppp..","...pp...","...pp...","..pppp.."], {p:'#FF7A8A'}],
+  crystal:[["....c...","...cCc..","...cCc.c","c..cCccC","Cc.cCcCc","CccCCcCc","cCcCCcCc","cCcCCCCc"], {c:'#E6D4FF', C:'#B48CF0'}],
+  rainbow:[["..RRRR..",".ROOOOR.","ROYYYYOR","OYGGGGYO","YGB..BGY","GB....BG","B......B","........"], {R:'#E0473E', O:'#F59A23', Y:'#FFD23F', G:'#4CD27A', B:'#5EB3F0'}]
+};
+var BIOME_CACHE = {};
+function biomeSVG(i, cls){
+  var key = i + '/' + (cls || '');
+  if (BIOME_CACHE[key]) return BIOME_CACHE[key];
+  var b = BIOMES[i], rnd = seeded(97 + i * 131), rows = [], x, y;
+  for (y=0;y<14;y++){ var r = ''; for (x=0;x<20;x++){
+    if (y < 4) r += 's'; else if (y < 9) r += 'S';
+    else if (y < 11) r += (y === 9 || rnd() < .6) ? (rnd() < .5 ? 't' : 'T') : 'd';
+    else r += rnd() < .3 ? 'D' : 'd';
+  } rows.push(r); }
+  var pal = {s:b.sky[0], S:b.sky[1], t:b.top[0], T:b.top[1], d:b.soil[0], D:b.soil[1]}, f = FEATURES[b.feat];
+  var extra = '';
+  if (b.sun) extra += pix(["yy", "yy"], {y:'#FFE27A'}, 16, 1);
+  if (b.id === 'caves') extra += pix(["c...c", ".....", "..c.."], {c:'#F0E6FF'}, 14, 2);
+  if (b.id === 'reef') extra += pix(["w..", ".w.", "..w"], {w:'#E6F7FF'}, 15, 2);
+  if (b.id === 'sky' || b.id === 'meadow') extra += pix(["..ww..", "wwwwww"], {w:'#FFFFFF'}, 1, 2);
+  BIOME_CACHE[key] = '<svg class="px biomeart ' + (cls || '') + '" viewBox="0 0 20 14" shape-rendering="crispEdges" aria-hidden="true" focusable="false">' + pix(rows, pal) + extra + pix(f[0], f[1], 6, 1) + '</svg>';
+  return BIOME_CACHE[key];
+}
+/* Collectibles: an original critter and a block for every land (all drawn here) */
+var MOB_ART = {
+  bee:   [["............","..ww....ww..",".wWWw..wWWw.",".wWWw..wWWw.","..yyyyyyyy..","..yKyyyyKy..","..yyyyyyyy..","..kkkkkkkk..","..yyyyyyyy..","..kkkkkkkk..","..yyyyyyyy..","...k....k..."], {w:'#BFE2FF', W:'#FFFFFF', y:'#FFD23F', k:'#4A3A22', K:'#1E1E1E'}],
+  owl:   [["............","..b......b..","..bbbbbbbb..",".bbWWbbWWbb.",".bWkWbbWkWb.",".bbWWooWWbb.",".bbbboobbbb.",".bBBBBBBBBb.",".bBbBbBbBBb.",".bBBBBBBBBb.","..bbbbbbbb..","...oo..oo..."], {b:'#8A5A34', B:'#D9B98C', W:'#FFFFFF', k:'#222222', o:'#F59A23'}],
+  crab:  [["............",".rr......rr.","rRr......rRr",".rr.k..k.rr.","..r.k..k.r..","..rrrrrrrr..",".rRRRRRRRRr.",".rRRRRRRRRr.","..rrrrrrrr..",".r.r....r.r.","r..r....r..r","............"], {r:'#C8503C', R:'#F07A5E', k:'#222222'}],
+  bunny: [["...s....s...","..sws..sws..","..sps..sps..","..sps..sps..","..ssssssss..",".swwwwwwwws.",".swkwwwwkws.",".swwwppwwws.",".swwwwwwwws.","..swwwwwws..","..sws..sws..","...s....s..."], {s:'#9AA8B8', w:'#FFFFFF', p:'#F2A9A0', k:'#222222'}],
+  frog:  [["............","..GGG..GGG..",".GWkG..GkWG.",".GGGGGGGGGG.","GggggggggggG","GgrrrrrrrrgG","GggggggggggG",".GgggggggggG",".GGggggggGG.","..GG....GG..",".GGG....GGG.","............"], {G:'#2F8F3A', g:'#6DD27A', W:'#FFFFFF', k:'#222222', r:'#E0473E'}],
+  fish:  [["............","....oooo....","..ooOOOOo..o",".oOWkOOOOoOo",".oOkkOOOOOOo","oOOOOOOOOOo.","oOOOwOOOOOOo",".oOOOOOOOoOo","..ooOOOOo..o","....oooo....","............","............"], {o:'#D9661E', O:'#FFA14A', W:'#FFFFFF', k:'#222222', w:'#FFD9B0'}],
+  bat:   [["............","p..........p","pp..p..p..pp","ppp.pppp.ppp","ppppPPPPpppp",".pppPyPyPpp.","..ppPPPPpp..","...pPwwPp...","....pPPp....",".....pp.....","............","............"], {p:'#6B3FA0', P:'#B48CF0', y:'#FFE27A', w:'#FFFFFF'}],
+  cloud: [["............","....wwww....","..wwwwwwww..",".wwwwwwwwww.","wwwkwwwwkwww","wwwkwwwwkwww","wwwwpwwpwwww","wwwwwkkwwwww",".wwwwwwwwww.","..ssssssss..","............","............"], {w:'#FFFFFF', s:'#C9D8F0', k:'#3A4866', p:'#F2A9A0'}]
+};
+var COLLECT = [
+  {id:'bee',   biome:0, name:'Bumble Cube'},   {id:'honey',  biome:0, name:'Honey Block',   blk:['#E8A317','#D48F0A','#F5BF3C','#B87700']},
+  {id:'owl',   biome:1, name:'Hoot Owl'},      {id:'birchb', biome:1, name:'Birch Log',     blk:['#EDEBE2','#D9D6C9','#F7F6F0','#3A3A3A']},
+  {id:'crab',  biome:2, name:'Sandy Crab'},    {id:'sandb',  biome:2, name:'Sandstone',     blk:['#E6C372','#D9B060','#F2D38A','#C99D4E']},
+  {id:'bunny', biome:3, name:'Frost Bunny'},   {id:'iceb',   biome:3, name:'Ice Block',     blk:['#A9DDF5','#8CCBEA','#D2F0FF','#6FB6DA']},
+  {id:'frog',  biome:4, name:'Leaf Frog'},     {id:'mossb',  biome:4, name:'Mossy Stone',   blk:['#6E8F5A','#5A7A48','#8FB070','#4B6A3A']},
+  {id:'fish',  biome:5, name:'Bubble Fish'},   {id:'glassb', biome:5, name:'Sea Glass',     blk:['#4FC3C7','#3AA9B0','#8CE3E6','#2A8C93']},
+  {id:'bat',   biome:6, name:'Glow Bat'},      {id:'amethb', biome:6, name:'Crystal Block', blk:['#9B6BD8','#8457C2','#C4A2F0','#6B3FA0']},
+  {id:'cloud', biome:7, name:'Cloud Puff'},    {id:'starb',  biome:7, name:'Star Block',    blk:['#FFD23F','#F2B90F','#FFF0A8','#C98A00']}
+];
+function collById(id){ for (var i=0;i<COLLECT.length;i++) if (COLLECT[i].id === id) return COLLECT[i]; return null; }
+function collectSVG(id, cls){
+  var c = collById(id); if (!c) return '';
+  if (c.blk){ var rows = blockRows({id:'c' + id}), p = {'0':c.blk[0], '1':c.blk[1], '2':c.blk[2], '3':c.blk[3]}; return pixSVG(rows, p, 'collect ' + (cls || '')); }
+  return pixSVG(MOB_ART[id][0], MOB_ART[id][1], 'collect ' + (cls || ''));
+}
+var CHEST_ROWS = ["..........", ".BBBBBBBB.", "BbbbbbbbbB", "BbbbbbbbbB", "BBBBYYBBBB", "BbbbYYbbbB", "BbbbbbbbbB", "BBBBBBBBBB"];
+var CHEST_SVG = pixSVG(CHEST_ROWS, {B:'#6B4222', b:'#B07D45', Y:'#FFD23F'}, 'chest');
+var LOCK_SVG = pixSVG(["..kkkk..", ".k....k.", ".k....k.", "kkkkkkkk", "kYYYYYYk", "kYYkkYYk", "kYYYYYYk", "kkkkkkkk"], {k:'#4A3A22', Y:'#F2C94C'}, 'lock');
+var TORCH_MINI = null;
+
+function blankAdv(){ return {v:1, levels:0, bl:{}, st:{}, streak:{n:0, last:''}, days:[], coll:{}, rewarded:{}, blocks:0, seen:1, pick:null}; }
+function advData(){
+  var d = load(); if (!d.adv || typeof d.adv !== 'object') d.adv = blankAdv();
+  var a = d.adv, b = blankAdv(); for (var k in b) if (!(k in a)) a[k] = b[k];
+  return a;
+}
+function everMastered(){ var c = masteryStore().c, n = 0; for (var k in c) if (c[k].m) n++; return n; }
+function unlockedCount(n){ n = n == null ? everMastered() : n; var u = 1; BIOMES.forEach(function(b, i){ if (n >= b.need) u = i + 1; }); return u; }
+function nextBiome(n){ n = n == null ? everMastered() : n; for (var i=0;i<BIOMES.length;i++) if (n < BIOMES[i].need) return {b:BIOMES[i], i:i, left:BIOMES[i].need - n}; return null; }
+function currentBiomeIdx(){ var a = advData(), u = unlockedCount(); return (a.pick != null && a.pick >= 0 && a.pick < u) ? a.pick : u - 1; }
+/* gentle daily streak: one rest day is fine; a longer break just starts again ("Welcome back!") */
+function streakNow(today){ var s = advData().streak; today = today || todayStr(); if (!s.last) return 0; return dayDiff(s.last, today) <= 2 ? s.n : 0; }
+function bumpStreak(a, today){
+  var s = a.streak;
+  if (s.last === today) return s.n;
+  s.n = (s.last && dayDiff(s.last, today) <= 2) ? s.n + 1 : 1; s.last = today;
+  if (a.days.indexOf(today) < 0){ a.days.push(today); if (a.days.length > 30) a.days = a.days.slice(-30); }
+  return s.n;
+}
+/* mastered concepts earn blocks for the Block Mine hotbar (it holds 10; the rest wait until he crafts) */
+function deliverMasteryBlocks(){
+  var a = advData(), c = masteryStore().c, got = [], full = false;
+  Object.keys(c).forEach(function(k){
+    if (full || !c[k].m || a.rewarded[k] || c[k].seeded) return;
+    var ore = MASTERY_ORE[conceptParts(k).type] || 'gold';
+    if (awardGem(ore)){ a.rewarded[k] = 1; a.blocks++; got.push({concept:k, ore:ore}); } else full = true;
+  });
+  var pending = Object.keys(c).filter(function(k){ return c[k].m && !a.rewarded[k] && !c[k].seeded; }).length;
+  save(); return {got:got, pending:pending};
+}
+function giveCollectible(bi){
+  var a = advData(), mob = COLLECT[bi * 2].id, blk = COLLECT[bi * 2 + 1].id, u = unlockedCount(), id;
+  if (!a.coll[mob]) id = mob;
+  else if (!a.coll[blk]) id = blk;
+  else {
+    var open = COLLECT.filter(function(c){ return c.biome < u; }), missing = open.filter(function(c){ return !a.coll[c.id]; });
+    id = (missing.length ? pick(missing) : pick(open)).id;
+  }
+  a.coll[id] = (a.coll[id] || 0) + 1;
+  return {id:id, fresh:a.coll[id] === 1};
+}
+function masteryToast(c){
+  var t = document.createElement('div'); t.className = 'mtoast'; t.setAttribute('role', 'status');
+  t.innerHTML = pixSVG(GEM_ROWS, {G:'#1F9AAE', g:'#5EE0F0', w:'#D2FAFF'}, 'mgem') + '<span><b>Mastered!</b> ' + esc(conceptLabel(c)) + '</span>';
+  document.body.appendChild(t);
+  Sfx.sparkle();
+  later(function(){ if (t.parentNode) t.parentNode.removeChild(t); }, 2600);
+}
+
+/* ---------- screens: world map, adventure level, finish ---------- */
+function advStatsHTML(){
+  var a = advData(), n = everMastered(), sn = streakNow(), owned = COLLECT.filter(function(c){ return a.coll[c.id]; }).length;
+  return '<div class="advstats">' +
+    '<span class="achip" id="streakChip" data-streak="' + sn + '">' + itemSVG('torch', 'mini') + (sn ? '<b>' + sn + '</b> ' + (sn === 1 ? 'day' : 'days') : '<b>Start</b> a streak') + '</span>' +
+    '<span class="achip" id="masteredChip" data-n="' + n + '">' + pixSVG(GEM_ROWS, {G:'#1F9AAE', g:'#5EE0F0', w:'#D2FAFF'}, 'mini') + '<b>' + n + '</b> mastered</span>' +
+    '<span class="achip" data-coll="' + owned + '">' + collectSVG('bee', 'mini') + '<b>' + owned + '</b>/' + COLLECT.length + '</span>' +
+  '</div>';
+}
+function heroHTML(){
+  var bi = currentBiomeIdx();
+  return '<button class="adv-hero" data-go="adventure" data-biome="' + BIOMES[bi].id + '">' + biomeSVG(bi, 'heroart') +
+    '<span class="herotxt"><b>Play today’s adventure!</b><small>' + esc(BIOMES[bi].name) + ' · about 9 steps</small></span></button>';
+}
+function mapScreen(){
+  var a = advData(), n = everMastered(), u = unlockedCount(n), cur = currentBiomeIdx(), nb = nextBiome(n), newLand = u > a.seen;
+  if (newLand){ a.seen = u; save(); }
+  var cols = viewW() >= 700 ? 4 : 2, land = '';
+  function tile(i){
+    var b = BIOMES[i], open = i < u, here = i === cur;
+    return '<button class="biome' + (open ? '' : ' locked') + (here ? ' here' : '') + (newLand && i === u - 1 ? ' fresh' : '') + '" data-b="' + i + '" data-biome="' + b.id + '"' + (open ? '' : ' aria-disabled="true"') + ' aria-label="' + esc(b.name) + (open ? '' : ', locked') + '">' +
+      '<span class="bart">' + biomeSVG(i) + (here ? avatarHTML('mapav') : '') + (open ? '' : '<span class="lockbig">' + LOCK_SVG + '</span>') + '</span>' +
+      '<span class="bname">' + esc(b.name) + '</span>' +
+      (open ? '<span class="bstars">' + STAR_SVG + '<b>' + (a.st[b.id] || 0) + '</b></span>'
+            : '<span class="blocked">Master ' + (b.need - n) + ' more</span>') +
+    '</button>';
+  }
+  for (var r=0; r*cols < BIOMES.length; r++){
+    var idx = []; for (var k=r*cols; k<Math.min(BIOMES.length, (r+1)*cols); k++) idx.push(k);
+    if (r) land += '<div class="vstep ' + (r % 2 ? 'at-r' : 'at-l') + '" aria-hidden="true"><i></i><i></i></div>';
+    land += '<div class="mrow' + (r % 2 ? ' rev' : '') + '">' + idx.map(function(i, j){ return (j ? '<span class="hstep" aria-hidden="true"><i></i><i></i></span>' : '') + tile(i); }).join('') + '</div>';
+  }
+  var shelf = COLLECT.map(function(c){ var have = a.coll[c.id]; return '<div class="citem' + (have ? '' : ' none') + '" data-c="' + c.id + '">' + (have ? collectSVG(c.id) : '<span class="q">?</span>') + '<span>' + (have ? esc(c.name) : '???') + '</span></div>'; }).join('');
+  shell('World Map',
+    heroHTML() + advStatsHTML() +
+    (newLand ? '<div class="newland" id="newLand">' + LOCK_SVG.replace('class="px lock"', 'class="px lock open"') + '<b>New land unlocked: ' + esc(BIOMES[u - 1].name) + '!</b></div>' : '') +
+    (nb ? '<p class="mapnext" id="mapNext">Master <b>' + nb.left + '</b> more to open <b>' + esc(nb.b.name) + '</b>!</p>' : '<p class="mapnext" id="mapNext">You opened every land! Wow!</p>') +
+    '<div class="map" id="map">' + land + '</div>' +
+    '<h2 class="shelfh">My collection</h2><div class="collection" id="collection">' + shelf + '</div>' +
+    '<p class="hint center">Mastering words and facts also earns blocks for Block Mine (' + a.blocks + ' so far).</p>');
+  $all('.biome').forEach(function(btn){ btn.onclick = function(){
+    var i = +btn.getAttribute('data-b'), b = BIOMES[i];
+    if (i >= u){ Speech.say('Master ' + (b.need - n) + ' more to open ' + b.name + '.'); nod(btn); return; }
+    a.pick = i; save(); mapScreen(); Speech.say(b.name + '! Tap Play to go on an adventure.');
+  }; });
+  $all('[data-go]').forEach(function(b){ b.onclick = function(){ go(b.getAttribute('data-go')); }; });
+  later(function(){ Speech.say(newLand ? 'Wow! You unlocked ' + BIOMES[u - 1].name + '!' : 'Your world map. Tap Play for today’s adventure.'); }, 300);
+}
+function pathHTML(i, n, bi){
+  var B = BIOMES[bi], h = '<div class="advpath b-' + B.id + '" id="advPath" data-steps="' + n + '" data-at="' + i + '" style="background:linear-gradient(' + B.sky[1] + ' 0 70%, ' + B.top[0] + ' 70% 80%, ' + B.soil[0] + ' 80%)" aria-label="Step ' + (Math.min(i, n - 1) + 1) + ' of ' + n + '">';
+  for (var k=0;k<n;k++) h += '<span class="st' + (k < i ? ' done' : k === i ? ' now' : '') + (k === n - 1 ? ' goal' : '') + '">' +
+    (k === i ? avatarHTML('pathav') : k < i ? pixSVG(GEM_ROWS, {G:'#A87A0A', g:'#F5C542', w:'#FFF0A8'}, 'pgem') : k === n - 1 ? CHEST_SVG : '<i class="stone"></i>') + '</span>';
+  return h + '</div>';
+}
+var ADV = null;   /* the level being played */
+function adventure(){
+  var bi = currentBiomeIdx(), plan = planSession(), items = plan.items, i = 0, results = [], masteredNow = [], reasked = {};
+  ADV = {items:items, plan:plan.counts, biome:BIOMES[bi].id, results:results};
+  if (!items.length){ shell('Adventure', '<p class="prompt">Ask a grown-up to add some words first.</p>'); return; }
+  MASTERY_HOOK = function(r){ if (r.newlyMastered && masteredNow.indexOf(r.concept) < 0){ masteredNow.push(r.concept); masteryToast(r.concept); } };
+  var cfg = {title:'Adventure', quiz:false, key:'adventure'};
+  function show(){
+    if (i >= items.length) return finish();
+    var it = items[i];
+    PAT_OVERRIDE = it.pat != null ? it.pat : null;
+    shell(esc(BIOMES[bi].name), pathHTML(i, items.length, bi) +
+      (it.bucket === 'again' ? '<p class="againtag">One more go with this one. You can do it!</p>' : '') +
+      '<div id="stage" class="advstage" data-concept="' + esc(it.concept) + '" data-bucket="' + it.bucket + '" data-items="' + esc(items.map(function(x){ return x.id; }).join(',')) + '"' + (it.pat != null ? ' data-review="1"' : '') + '></div><div class="row" id="nextRow"></div>');
+    var stage = $('#stage'), render = it.type === 'build' ? renderBuild : it.type === 'hunt' ? renderHunt : renderMath;
+    render(stage, it.id, cfg, function(res){
+      var first = !!(res.correct && res.first);
+      results.push({concept:it.concept, first:first, bucket:it.bucket});
+      /* missed: it comes back a little later in this level (gently), and sooner in the next ones */
+      if (!first && !reasked[it.concept] && items.length < SESSION_MAX){ reasked[it.concept] = 1; items.splice(Math.min(items.length, i + 3), 0, {type:it.type, id:it.id, concept:it.concept, bucket:'again', pat:it.pat, week:it.week}); }
+      var last = i + 1 >= items.length, nr = $('#nextRow');
+      nr.innerHTML = '<button class="btn go huge" data-act="next">' + (last ? CHEST_SVG + ' Open the chest!' : 'Next <span aria-hidden="true">' + SVG_RIGHT.replace('<svg', '<svg width="30" height="30"') + '</span>') + '</button>';
+      $('[data-act=next]', nr).onclick = function(){ i++; show(); };
+      later(function(){ var b = $('[data-act=next]'); if (b && b.scrollIntoView) b.scrollIntoView({behavior:'smooth', block:'nearest'}); }, 300);
+    });
+  }
+  function finish(){
+    PAT_OVERRIDE = null; MASTERY_HOOK = null;
+    var a = advData(), today = todayStr(), b = BIOMES[bi];
+    var main = results.filter(function(r){ return r.bucket !== 'again'; }), right = main.filter(function(r){ return r.first; }).length;
+    var ratio = main.length ? right / main.length : 1, stars = ratio >= 0.85 ? 3 : ratio >= 0.55 ? 2 : 1;
+    var u0 = a.seen;
+    a.levels++; a.bl[b.id] = (a.bl[b.id] || 0) + 1; a.st[b.id] = (a.st[b.id] || 0) + stars;
+    var sn = bumpStreak(a, today), gift = giveCollectible(bi); save();
+    var blocks = deliverMasteryBlocks(), u = unlockedCount(), nb = nextBiome();
+    var newLand = u > u0; if (newLand){ a.seen = u; save(); }
+    ADV.done = {stars:stars, gift:gift.id, mastered:masteredNow.slice(), blocks:blocks.got.length, newLand:newLand ? BIOMES[u - 1].id : null, streak:sn};
+    var big = ''; for (var k=0;k<3;k++) big += '<span class="bstar' + (k < stars ? ' on' : '') + '" style="animation-delay:' + (0.25 + k * 0.35).toFixed(2) + 's">' + STAR_SVG + '</span>';
+    var conf = '<div class="confetti" aria-hidden="true">';
+    for (var c=0;c<50;c++) conf += '<i style="left:' + Math.round(Math.random() * 100) + '%;top:' + Math.round(8 + Math.random() * 60) + '%;background:' + pick(['#F5C542', '#5EE0F0', '#4CD27A', '#E0473E', '#9A6534', '#6DBB45', '#B48CF0']) + ';animation-delay:' + (Math.random() * 1.2).toFixed(2) + 's"></i>';
+    conf += '</div>';
+    var gc = collById(gift.id);
+    shell(esc(b.name), pathHTML(items.length, items.length, bi) +
+      '<div class="card end advend" id="advEnd" data-stars="' + stars + '">' +
+        '<div class="endrow">' + avatarHTML('cheer big') + '<div class="giftbox">' + collectSVG(gift.id, 'bigc') + '</div></div>' +
+        '<h2>Level complete!</h2>' +
+        '<div class="bigstars" aria-label="' + stars + ' of 3 stars">' + big + '</div>' +
+        '<p class="giftline" id="giftLine">' + (gift.fresh ? 'You found a new friend for your collection: <b>' + esc(gc.name) + '</b>!' : 'You found another <b>' + esc(gc.name) + '</b>!') + '</p>' +
+        (masteredNow.length ? '<p class="mastline" id="mastLine">You mastered: ' + masteredNow.map(function(x){ return '<span class="mchip">' + esc(conceptLabel(x)) + '</span>'; }).join(' ') + '</p>' : '') +
+        (blocks.got.length ? '<p class="blockline" id="blockLine"><span class="bl-icons">' + blocks.got.map(function(g){ return dropSVG(g.ore); }).join('') + '</span>+' + blocks.got.length + ' ' + (blocks.got.length === 1 ? 'block' : 'blocks') + ' for Block Mine!</p>'
+          : (blocks.pending ? '<p class="blockline" id="blockLine">Your Block Mine hotbar is full. Go craft something!</p>' : '')) +
+        (newLand ? '<p class="newland" id="newLand">' + biomeSVG(u - 1, 'mini') + '<b>New land unlocked: ' + esc(BIOMES[u - 1].name) + '!</b></p>' : '') +
+        '<p class="streakline" id="streakLine">' + itemSVG('torch', 'mini') + (sn > 1 ? '<b>' + sn + ' days</b> of adventures in a row!' : 'Adventure day <b>1</b>! Come back tomorrow for day 2.') + '</p>' +
+        (nb && !newLand ? '<p class="mapnext">Master <b>' + nb.left + '</b> more to open <b>' + esc(nb.b.name) + '</b>.</p>' : '') +
+      '</div>' +
+      '<div class="row"><button class="btn go huge" data-act="again">Play another level</button><button class="btn alt huge" data-act="map">World map</button></div>' +
+      '<div class="row"><button class="btn alt" data-act="home2">' + ICON_HOME + ' Home</button></div>' + conf);
+    $('[data-act=again]').onclick = function(){ adventure(); };
+    $('[data-act=map]').onclick = function(){ go('map'); };
+    $('[data-act=home2]').onclick = function(){ go('home'); };
+    Sfx.craft();
+    var say = [{text:'Level complete! You earned ' + stars + (stars === 1 ? ' star' : ' stars') + '!', gap:300}, {text:(gift.fresh ? 'You found a ' : 'You found another ') + gc.name + '!', gap:300}];
+    if (masteredNow.length) say.push({text:'You mastered ' + masteredNow.length + (masteredNow.length === 1 ? ' thing' : ' things') + '!', gap:300});
+    if (newLand) say.push({text:'New land unlocked! ' + BIOMES[u - 1].name + '!', gap:300});
+    say.push({text:'Great work, Luke!'});
+    Speech.seq(say);
+  }
+  show();
+}
+
+/* ---------- grown-ups: mastery view ---------- */
+var STATUS_NAME = {mastered:'Mastered', learning:'Learning', 'new':'Not started'};
+function tipFor(c){
+  var p = conceptParts(c), w = p.key;
+  if (p.type === 'read') return 'Read “' + w + '” together: point under each letter, say the sounds, then slide them into the word.';
+  if (p.type === 'spell') return 'Spell “' + w + '” out loud (' + w.split('').join('-') + '), then build it with letter tiles or write it on paper.';
+  var m = /^(\d+)([+-])(\d+)$/.exec(w); if (!m) return 'Practice ' + conceptLabel(c) + ' with objects.';
+  var a = +m[1], b = +m[3];
+  if (m[2] === '+') return b === 1 ? '“Plus 1 is the next number.” Say ' + a + ', then the next number.' : 'Start at ' + a + ' and count on ' + b + ' with fingers or toys.';
+  return b === 1 ? '“Minus 1 is the number before.” Count back one from ' + a + '.' : 'Start at ' + a + ' and count back ' + b + ' with fingers or toys.';
+}
+function practiceTogether(concepts, n){
+  return concepts.filter(function(c){ return conceptStatus(c) === 'learning'; })
+    .map(function(c){ var s = cstat(c); return {c:c, score:(s.miss || 0) * 2 + (s.b <= 1 ? 3 : 0) - s.s}; })
+    .sort(function(x, y){ return y.score - x.score; }).slice(0, n || 5).map(function(x){ return x.c; });
+}
+function chipHTML(c){
+  var s = cstat(c), status = conceptStatus(c), dots = '';
+  if (status === 'learning'){ for (var k=0;k<MASTER_STREAK;k++) dots += k < s.s ? '●' : '○'; }
+  var title = STATUS_NAME[status] + (s && s.n ? ' · ' + s.r + ' of ' + s.n + ' first-try right · review ' + fmtDate(s.due) : '');
+  return '<span class="mc mc-' + status + '" data-c="' + esc(c) + '" data-status="' + status + '" title="' + esc(title) + '">' + esc(conceptLabel(c)) + (status === 'mastered' ? ' ✓' : dots ? ' <small>' + dots + '</small>' : '') + '</span>';
+}
+function masteryCounts(cs){ var o = {mastered:0, learning:0, 'new':0}; cs.forEach(function(c){ o[conceptStatus(c)]++; }); return o; }
+function masteryViewHTML(){
+  var rows = contentRows(), all = [], seen = {}, today = todayStr(), st = masteryStore().c;
+  rows.forEach(function(r){ if (!seen[r.concept]){ seen[r.concept] = 1; all.push(r.concept); } });
+  var tot = masteryCounts(all), pt = practiceTogether(all, 6);
+  var due = all.filter(function(c){ var s = st[c]; return s && s.n && s.due <= today; });
+  var a = advData(), u = unlockedCount();
+  var h = '<div class="mview" id="masteryView">' +
+    '<div class="mtotals" id="mTotals" data-mastered="' + tot.mastered + '" data-learning="' + tot.learning + '" data-new="' + tot['new'] + '">' +
+      '<div class="mt mt-mastered"><b>' + tot.mastered + '</b>Mastered</div><div class="mt mt-learning"><b>' + tot.learning + '</b>Learning</div><div class="mt mt-new"><b>' + tot['new'] + '</b>Not started</div></div>' +
+    '<p class="hint">A skill is <b>mastered</b> after 3 right on the first try in a row (in any game). A miss moves it back to <b>learning</b> and it comes back sooner. ● = right in a row so far.</p>' +
+    '<h3>What to practice together</h3>' +
+    (pt.length ? '<ul class="ptlist" id="practiceTogether">' + pt.map(function(c){ return '<li data-c="' + esc(c) + '"><b>' + TYPE_NAME[conceptParts(c).type] + ' ' + esc(conceptLabel(c)) + '</b>: ' + esc(tipFor(c)) + '</li>'; }).join('') + '</ul>'
+               : '<p class="muted" id="practiceTogether">Nothing shaky right now. Keep playing the daily adventure!</p>') +
+    '<p>Due for review today: <b>' + due.length + '</b>. Adventures played: <b>' + a.levels + '</b> · Lands open: <b>' + u + ' of ' + BIOMES.length + '</b> · Day streak: <b>' + streakNow() + '</b> · Blocks earned by mastery: <b>' + a.blocks + '</b>.</p>';
+  WEEKS.slice().reverse().forEach(function(wk){
+    var wr = rows.filter(function(r){ return r.week === wk.id; }), cs = wr.map(function(r){ return r.concept; }), cnt = masteryCounts(cs), wpt = practiceTogether(cs, 3);
+    var grp = function(type){ var list = wr.filter(function(r){ return r.type === type; }); if (type === 'math') list.sort(function(x, y){ var fx = factById(x.fact), fy = factById(y.fact); return fx && fy ? (fx.a - fy.a || fx.b - fy.b) : 0; }); if (!list.length) return ''; return '<div class="mgrp"><span class="mgl">' + TYPE_NAME[type] + '</span>' + list.map(function(r){ return chipHTML(r.concept); }).join('') + '</div>'; };
+    h += '<div class="mwk' + (wk.id === LIST.id ? ' cur' : '') + '" data-week="' + esc(wk.id) + '">' +
+      '<h4>' + esc(wk.label) + (wk.id === LIST.id ? ' <span class="curtag">This week</span>' : '') + '</h4>' +
+      '<p class="mwkcount"><span class="mc mc-mastered">' + cnt.mastered + ' mastered</span> <span class="mc mc-learning">' + cnt.learning + ' learning</span> <span class="mc mc-new">' + cnt['new'] + ' not started</span></p>' +
+      grp('read') + grp('spell') + grp('math') +
+      (wpt.length ? '<p class="mwkpt"><b>Practice together:</b> ' + wpt.map(function(c){ return esc(TYPE_NAME[conceptParts(c).type].toLowerCase() + ' ' + conceptLabel(c)); }).join(', ') + '</p>' : '') +
+    '</div>';
+  });
+  h += '<p class="hint">How the daily adventure picks: about 7 in 10 items are new or shaky (missed ones first), about 3 in 10 are review from every week so far (skills due for review come first; mastered ones now and then). Review gaps grow: tomorrow, then 3 days, a week, 2 weeks.</p></div>';
+  return h;
+}
+function masteryPage(){
+  shell('Mastery', '<div class="grown">' + '<div class="row" style="justify-content:flex-start;margin-top:4px"><button class="btn alt" data-act="back">For grown-ups</button></div>' + '<h2>Mastery by week</h2>' + masteryViewHTML() + '</div>');
+  $('[data-act=back]').onclick = function(){ go('grownups'); };
+}
+/* hooks for the headless tests */
+window.LukeV2 = {rows:function(){ return contentRows(); }, plan:planSession, practiced:practiced, status:conceptStatus, stat:cstat, store:masteryStore,
+  seed:seedMastery, unlocked:unlockedCount, mastered:everMastered, biomes:BIOMES, adv:advData, streakAfter:function(last, n, today){ var a = {streak:{n:n, last:last}, days:[]}; return bumpStreak(a, today); },
+  addDays:addDays, today:todayStr, save:save, reload:function(){ mem = null; return load(); }};
+
 /* ---------------- Router ---------------- */
-var routes = {home:home, learn:learn, build:build, hunt:hunt, math:math, quiz:quiz, grownups:grownups, edit:edit, game:game, crafts:crafts, write:write};
+var routes = {home:home, learn:learn, build:build, hunt:hunt, math:math, quiz:quiz, grownups:grownups, edit:edit, game:game, crafts:crafts, write:write, map:mapScreen, adventure:adventure, mastery:masteryPage};
 function route(){
-  clearTimers(); Speech.stop();
+  clearTimers(); Speech.stop(); MASTERY_HOOK = null;
   var h = (location.hash || '#home').replace('#','').split(/[?&]/)[0];
   var fn = routes[h] || home;
   if (fn !== edit){ draft = null; dirty = false; }             /* leaving the editor drops unsaved changes */
