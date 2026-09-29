@@ -1,6 +1,6 @@
 <!DOCTYPE html>
+<!-- noelle-build: v2-mastery-2026-09-29 -->
 <html lang="en">
-<!-- noelle-build: letter-voices-2026-09-29 -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -251,6 +251,72 @@ svg{display:block}
 .nospeech{display:none; background:#FFF0C2; border-radius:14px; padding:8px 12px; font-size:17px; margin:6px 0}
 .nospeech.on{display:block}
 
+/* ---------- v2: today's adventure button, map, finish ---------- */
+.advrow{display:flex; gap:14px; margin-top:14px; align-items:stretch}
+.advbtn{flex:1; display:flex; align-items:center; justify-content:center; gap:16px; min-height:128px; border-radius:30px; border:5px solid #fff; padding:10px 18px;
+  background:linear-gradient(135deg, #FF5FA2, #FF8CC0 55%, #C2306F); color:#fff; font-size:26px; font-weight:700; line-height:1.15; box-shadow:0 7px 0 var(--pink-dk), 0 10px 24px rgba(194,48,111,.3); text-shadow:0 2px 0 rgba(122,24,64,.35)}
+.advbtn:active{transform:translateY(4px); box-shadow:0 3px 0 var(--pink-dk)}
+.advbtn .play-ic{width:84px; height:84px; flex:0 0 84px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 0 rgba(122,24,64,.25)}
+.advbtn .play-ic svg{width:48px; height:48px; margin-left:6px}
+.advbtn .advhero{width:60px; height:100px; flex:0 0 60px} .advbtn .advhero svg{width:100%; height:100%}
+.mapbtn{flex:0 0 128px; min-height:128px; border-radius:30px; border:5px solid #fff; background:var(--teal); box-shadow:0 7px 0 var(--teal-dk); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; padding:6px; color:#fff; font-size:18px; font-weight:700}
+.mapbtn svg{width:70px; height:70px}
+.mapbtn:active{transform:translateY(4px); box-shadow:0 3px 0 var(--teal-dk)}
+.sunpill .emoji{font-size:30px}
+.burst{position:absolute; width:0; height:0; z-index:60; pointer-events:none}
+.burst i{position:absolute; left:-18px; top:-18px; width:36px; height:36px; transform:rotate(var(--a)) translateY(0) scale(.6); animation:burst .85s ease-out forwards}
+.burst i svg{width:100%; height:100%}
+@keyframes burst{0%{transform:rotate(var(--a)) translateY(0) scale(.5); opacity:1} 100%{transform:rotate(var(--a)) translateY(-120px) scale(1.1); opacity:0}}
+.catch.many .obj{width:clamp(54px, 15vw, 96px); height:clamp(54px, 15vw, 96px)}
+.finish{position:relative; overflow:hidden}
+.finish .wonrow{display:flex; justify-content:center; gap:10px}
+.finish .won{width:150px; height:150px}
+.finish .endstars .st{display:inline-block; animation:starin .5s ease backwards}
+@keyframes starin{0%{transform:scale(0) rotate(-40deg); opacity:0}70%{transform:scale(1.3)}100%{transform:scale(1)}}
+.newstop{width:120px; height:120px; margin:0 auto 6px; border-radius:50%; background:#FFF6DC; border:6px solid var(--gold); display:flex; align-items:center; justify-content:center; animation:stickin .9s ease}
+.newstop .emoji{font-size:70px}
+.confetti{position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:5}
+.confetti i{position:absolute; top:-20px; width:12px; height:18px; border-radius:3px; opacity:0; animation:fall 2.2s ease-in forwards}
+@keyframes fall{0%{opacity:1; transform:translate(0, 0) rotate(0)} 100%{opacity:0; transform:translate(var(--x), 620px) rotate(var(--r))}}
+.minimap{display:flex; align-items:center; justify-content:center; margin:14px auto 0; flex-wrap:nowrap; max-width:100%; overflow:hidden}
+.minimap .mstop{width:30px; height:30px; flex:0 0 30px; border-radius:50%; background:#EEE8FA; border:3px solid var(--line); display:flex; align-items:center; justify-content:center}
+.minimap .mstop .emoji{font-size:16px}
+.minimap .mstop.on{background:#fff; border-color:var(--teal)}
+.minimap .mstop.cur{border-color:var(--pink); transform:scale(1.25); box-shadow:0 0 0 4px var(--pink-lt)}
+.minimap .mstop.hop{animation:glow 1.2s ease 2}
+.minimap b{flex:1 1 10px; max-width:22px; height:3px; background:var(--line)} .minimap b.on{background:var(--teal)}
+.bigbtn.tomap{background:var(--teal)}
+.endbtns{flex-wrap:wrap}
+.mapwrap{position:relative; margin-top:6px}
+.mapbox{position:relative; border-radius:30px; overflow:hidden; background:var(--night)}
+.mapbox .sky{position:absolute; inset:0} .mapbox .sky svg{width:100%; height:100%}
+.mappath{position:absolute; inset:0; width:100%; height:100%}
+.stop{position:absolute; width:96px; height:96px; margin:-48px 0 0 -48px; border-radius:50%; border:5px solid #fff; background:#fff; padding:0; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 0 rgba(0,0,0,.25); z-index:2}
+.stop .emoji{font-size:52px}
+.stop.on{border-color:var(--teal)}
+.stop.cur{border-color:var(--pink); box-shadow:0 0 0 8px rgba(255,95,162,.35), 0 6px 0 rgba(0,0,0,.25)}
+.stop.next{background:rgba(255,255,255,.18); border:0} .stop.next .emoji{font-size:34px; opacity:.85}
+.stop.locked{background:rgba(255,255,255,.12); border:4px dashed rgba(255,255,255,.45); box-shadow:none} .stop.locked .emoji{font-size:30px; opacity:.55}
+.stop .ring{position:absolute; inset:-4px; width:calc(100% + 8px); height:calc(100% + 8px)}
+.stop .ok{position:absolute; right:-8px; bottom:-6px; width:34px; height:34px} .stop .ok svg{width:100%; height:100%}
+.maphero{position:absolute; width:70px; height:116px; margin-left:-35px; z-index:3; pointer-events:none; transition:left .9s ease, top .9s ease}
+.maphero svg{width:100%; height:100%; position:relative}
+.maphero .thread{position:absolute; left:47px; top:-400px; width:2.5px; height:410px; background:linear-gradient(rgba(255,255,255,0), #fff)}
+.mapplay{position:sticky; bottom:10px; z-index:10; margin-top:12px}
+.mapplay .advbtn{width:100%; min-height:110px}
+.sumgrid.three{grid-template-columns:repeat(3, 1fr)}
+.dots.many{gap:4px; flex-wrap:nowrap} .dots.many i{width:15px; height:15px; border-width:2.5px}
+.sum.ms-m{background:#D2F4F5} .sum.ms-l{background:#FFEAF3} .sum.ms-n{background:#F7F3FF}
+#suggest li b{color:var(--pink-dk)}
+@media (min-width:700px){
+  .advbtn{font-size:32px; min-height:150px} .mapbtn{flex-basis:160px; min-height:150px}
+  .stop{width:112px; height:112px; margin:-56px 0 0 -56px} .stop .emoji{font-size:62px}
+  .finish .won{width:190px; height:190px} .finish .endstars svg{width:54px; height:54px}
+  .minimap .mstop{width:42px; height:42px; flex-basis:42px} .minimap .mstop .emoji{font-size:24px} .minimap b{max-width:30px}
+  .dots.many{gap:7px} .dots.many i{width:20px; height:20px; border-width:3px}
+  .adv .askbub{width:150px; height:150px} .adv .askbub .emoji{font-size:66px}
+}
+
 @media (min-width:700px){
   .stage{height:210px} .stage.short{height:180px}
   .stage .swinger .hero{width:108px; height:180px; left:-27px} .stage .swinger .thread{height:calc(100% - 168px)} .stage .noelle{width:84px; height:105px; left:14px}
@@ -277,6 +343,117 @@ svg{display:block}
    All art below is original and drawn in code (inline SVG). No outside images or fonts
    except the embedded Andika font (SIL Open Font License).
    ===================================================================================== */
+
+/* =====================================================================================
+   CONTENT: everything she can learn, one row per concept. To add learning, add a row.
+   concept    unique id, used for mastery + scheduling (e.g. letter-B-name, number-7-count)
+   type       how it is played: letter-name | letter-sound | number-find | number-count (see TYPES below)
+   prompt     the spoken question (write letters as their spoken names: "the letter bee", never "B";
+              numbers as words: "seven", never "7")
+   answer     the right bubble (a capital letter, or a number as text)
+   difficulty 1 (easiest) .. 4; new concepts are introduced easiest first
+   optional:  word / sound / pic (letter-sound picture word, its sound, its emoji), ends (the letter is
+              at the END of the word), needs (introduce only after that concept has been tried), tip
+              (grown-up practice suggestion shown in the parent view)
+   ===================================================================================== */
+var CONTENT = [
+  /* ---- letter names: hear the name, tap the letter ---- */
+  {concept:'letter-A-name', type:'letter-name', prompt:'Find the letter eigh!', answer:'A', difficulty:1},
+  {concept:'letter-B-name', type:'letter-name', prompt:'Find the letter bee!', answer:'B', difficulty:1},
+  {concept:'letter-C-name', type:'letter-name', prompt:'Find the letter see!', answer:'C', difficulty:1},
+  {concept:'letter-D-name', type:'letter-name', prompt:'Find the letter dee!', answer:'D', difficulty:1},
+  {concept:'letter-E-name', type:'letter-name', prompt:'Find the letter ee!', answer:'E', difficulty:1},
+  {concept:'letter-F-name', type:'letter-name', prompt:'Find the letter eff!', answer:'F', difficulty:1},
+  {concept:'letter-G-name', type:'letter-name', prompt:'Find the letter jee!', answer:'G', difficulty:2},
+  {concept:'letter-H-name', type:'letter-name', prompt:'Find the letter aitch!', answer:'H', difficulty:2},
+  {concept:'letter-I-name', type:'letter-name', prompt:'Find the letter eye!', answer:'I', difficulty:2},
+  {concept:'letter-J-name', type:'letter-name', prompt:'Find the letter jay!', answer:'J', difficulty:2},
+  {concept:'letter-K-name', type:'letter-name', prompt:'Find the letter kay!', answer:'K', difficulty:2},
+  {concept:'letter-L-name', type:'letter-name', prompt:'Find the letter el!', answer:'L', difficulty:2},
+  {concept:'letter-M-name', type:'letter-name', prompt:'Find the letter em!', answer:'M', difficulty:3},
+  {concept:'letter-N-name', type:'letter-name', prompt:'Find the letter en!', answer:'N', difficulty:3},
+  {concept:'letter-O-name', type:'letter-name', prompt:'Find the letter oh!', answer:'O', difficulty:3},
+  {concept:'letter-P-name', type:'letter-name', prompt:'Find the letter pee!', answer:'P', difficulty:3},
+  {concept:'letter-Q-name', type:'letter-name', prompt:'Find the letter cue!', answer:'Q', difficulty:3},
+  {concept:'letter-R-name', type:'letter-name', prompt:'Find the letter ar!', answer:'R', difficulty:3},
+  {concept:'letter-S-name', type:'letter-name', prompt:'Find the letter ess!', answer:'S', difficulty:4},
+  {concept:'letter-T-name', type:'letter-name', prompt:'Find the letter tee!', answer:'T', difficulty:4},
+  {concept:'letter-U-name', type:'letter-name', prompt:'Find the letter you!', answer:'U', difficulty:4},
+  {concept:'letter-V-name', type:'letter-name', prompt:'Find the letter vee!', answer:'V', difficulty:4},
+  {concept:'letter-W-name', type:'letter-name', prompt:'Find the letter double you!', answer:'W', difficulty:4},
+  {concept:'letter-X-name', type:'letter-name', prompt:'Find the letter ex!', answer:'X', difficulty:4},
+  {concept:'letter-Y-name', type:'letter-name', prompt:'Find the letter why!', answer:'Y', difficulty:4},
+  {concept:'letter-Z-name', type:'letter-name', prompt:'Find the letter zee!', answer:'Z', difficulty:4},
+  /* ---- letter sounds: hear the picture word + sound, tap its first letter (needs = introduced after that concept) ---- */
+  {concept:'letter-A-sound', type:'letter-sound', prompt:'What letter does apple start with?', answer:'A', word:'apple', sound:'aah', pic:'🍎', difficulty:1, needs:'letter-A-name'},
+  {concept:'letter-B-sound', type:'letter-sound', prompt:'What letter does ball start with?', answer:'B', word:'ball', sound:'buh', pic:'⚽', difficulty:1, needs:'letter-B-name'},
+  {concept:'letter-C-sound', type:'letter-sound', prompt:'What letter does cat start with?', answer:'C', word:'cat', sound:'kuh', pic:'🐱', difficulty:1, needs:'letter-C-name'},
+  {concept:'letter-D-sound', type:'letter-sound', prompt:'What letter does dog start with?', answer:'D', word:'dog', sound:'duh', pic:'🐶', difficulty:1, needs:'letter-D-name'},
+  {concept:'letter-E-sound', type:'letter-sound', prompt:'What letter does egg start with?', answer:'E', word:'egg', sound:'eh', pic:'🥚', difficulty:1, needs:'letter-E-name'},
+  {concept:'letter-F-sound', type:'letter-sound', prompt:'What letter does fish start with?', answer:'F', word:'fish', sound:'fuh', pic:'🐟', difficulty:1, needs:'letter-F-name'},
+  {concept:'letter-G-sound', type:'letter-sound', prompt:'What letter does goat start with?', answer:'G', word:'goat', sound:'guh', pic:'🐐', difficulty:2, needs:'letter-G-name'},
+  {concept:'letter-H-sound', type:'letter-sound', prompt:'What letter does hat start with?', answer:'H', word:'hat', sound:'huh', pic:'🎩', difficulty:2, needs:'letter-H-name'},
+  {concept:'letter-I-sound', type:'letter-sound', prompt:'What letter does insect start with?', answer:'I', word:'insect', sound:'ih', pic:'🐛', difficulty:2, needs:'letter-I-name'},
+  {concept:'letter-J-sound', type:'letter-sound', prompt:'What letter does juice start with?', answer:'J', word:'juice', sound:'juh', pic:'🧃', difficulty:2, needs:'letter-J-name'},
+  {concept:'letter-K-sound', type:'letter-sound', prompt:'What letter does kite start with?', answer:'K', word:'kite', sound:'kuh', pic:'🪁', difficulty:2, needs:'letter-K-name'},
+  {concept:'letter-L-sound', type:'letter-sound', prompt:'What letter does lion start with?', answer:'L', word:'lion', sound:'luh', pic:'🦁', difficulty:2, needs:'letter-L-name'},
+  {concept:'letter-M-sound', type:'letter-sound', prompt:'What letter does moon start with?', answer:'M', word:'moon', sound:'mmm', pic:'🌙', difficulty:3, needs:'letter-M-name'},
+  {concept:'letter-N-sound', type:'letter-sound', prompt:'What letter does nose start with?', answer:'N', word:'nose', sound:'nuh', pic:'👃', difficulty:3, needs:'letter-N-name'},
+  {concept:'letter-O-sound', type:'letter-sound', prompt:'What letter does octopus start with?', answer:'O', word:'octopus', sound:'ah', pic:'🐙', difficulty:3, needs:'letter-O-name'},
+  {concept:'letter-P-sound', type:'letter-sound', prompt:'What letter does pig start with?', answer:'P', word:'pig', sound:'puh', pic:'🐷', difficulty:3, needs:'letter-P-name'},
+  {concept:'letter-Q-sound', type:'letter-sound', prompt:'What letter does queen start with?', answer:'Q', word:'queen', sound:'kwuh', pic:'👸', difficulty:3, needs:'letter-Q-name'},
+  {concept:'letter-R-sound', type:'letter-sound', prompt:'What letter does rabbit start with?', answer:'R', word:'rabbit', sound:'ruh', pic:'🐰', difficulty:3, needs:'letter-R-name'},
+  {concept:'letter-S-sound', type:'letter-sound', prompt:'What letter does sun start with?', answer:'S', word:'sun', sound:'suh', pic:'☀️', difficulty:4, needs:'letter-S-name'},
+  {concept:'letter-T-sound', type:'letter-sound', prompt:'What letter does turtle start with?', answer:'T', word:'turtle', sound:'tuh', pic:'🐢', difficulty:4, needs:'letter-T-name'},
+  {concept:'letter-U-sound', type:'letter-sound', prompt:'What letter does umbrella start with?', answer:'U', word:'umbrella', sound:'uh', pic:'☂️', difficulty:4, needs:'letter-U-name'},
+  {concept:'letter-V-sound', type:'letter-sound', prompt:'What letter does van start with?', answer:'V', word:'van', sound:'vuh', pic:'🚐', difficulty:4, needs:'letter-V-name'},
+  {concept:'letter-W-sound', type:'letter-sound', prompt:'What letter does whale start with?', answer:'W', word:'whale', sound:'wuh', pic:'🐳', difficulty:4, needs:'letter-W-name'},
+  {concept:'letter-X-sound', type:'letter-sound', prompt:'What letter does fox end with?', answer:'X', word:'fox', sound:'ecks', pic:'🦊', difficulty:4, needs:'letter-X-name', ends:true},
+  {concept:'letter-Y-sound', type:'letter-sound', prompt:'What letter does yo-yo start with?', answer:'Y', word:'yo-yo', sound:'yuh', pic:'🪀', difficulty:4, needs:'letter-Y-name'},
+  {concept:'letter-Z-sound', type:'letter-sound', prompt:'What letter does zebra start with?', answer:'Z', word:'zebra', sound:'zuh', pic:'🦓', difficulty:4, needs:'letter-Z-name'},
+  /* ---- find the number: hear it, tap the numeral ---- */
+  {concept:'number-1-find', type:'number-find', prompt:'Find the number one!', answer:'1', difficulty:1},
+  {concept:'number-2-find', type:'number-find', prompt:'Find the number two!', answer:'2', difficulty:1},
+  {concept:'number-3-find', type:'number-find', prompt:'Find the number three!', answer:'3', difficulty:1},
+  {concept:'number-4-find', type:'number-find', prompt:'Find the number four!', answer:'4', difficulty:1},
+  {concept:'number-5-find', type:'number-find', prompt:'Find the number five!', answer:'5', difficulty:1},
+  {concept:'number-6-find', type:'number-find', prompt:'Find the number six!', answer:'6', difficulty:2},
+  {concept:'number-7-find', type:'number-find', prompt:'Find the number seven!', answer:'7', difficulty:2},
+  {concept:'number-8-find', type:'number-find', prompt:'Find the number eight!', answer:'8', difficulty:2},
+  {concept:'number-9-find', type:'number-find', prompt:'Find the number nine!', answer:'9', difficulty:2},
+  {concept:'number-10-find', type:'number-find', prompt:'Find the number ten!', answer:'10', difficulty:2},
+  {concept:'number-11-find', type:'number-find', prompt:'Find the number eleven!', answer:'11', difficulty:3},
+  {concept:'number-12-find', type:'number-find', prompt:'Find the number twelve!', answer:'12', difficulty:3},
+  {concept:'number-13-find', type:'number-find', prompt:'Find the number thirteen!', answer:'13', difficulty:3},
+  {concept:'number-14-find', type:'number-find', prompt:'Find the number fourteen!', answer:'14', difficulty:3},
+  {concept:'number-15-find', type:'number-find', prompt:'Find the number fifteen!', answer:'15', difficulty:3},
+  {concept:'number-16-find', type:'number-find', prompt:'Find the number sixteen!', answer:'16', difficulty:4},
+  {concept:'number-17-find', type:'number-find', prompt:'Find the number seventeen!', answer:'17', difficulty:4},
+  {concept:'number-18-find', type:'number-find', prompt:'Find the number eighteen!', answer:'18', difficulty:4},
+  {concept:'number-19-find', type:'number-find', prompt:'Find the number nineteen!', answer:'19', difficulty:4},
+  {concept:'number-20-find', type:'number-find', prompt:'Find the number twenty!', answer:'20', difficulty:4},
+  /* ---- count: tap each thing to count it, then tap the number ---- */
+  {concept:'number-1-count', type:'number-count', prompt:'Which number is one?', answer:'1', difficulty:1},
+  {concept:'number-2-count', type:'number-count', prompt:'Which number is two?', answer:'2', difficulty:1},
+  {concept:'number-3-count', type:'number-count', prompt:'Which number is three?', answer:'3', difficulty:1},
+  {concept:'number-4-count', type:'number-count', prompt:'Which number is four?', answer:'4', difficulty:1},
+  {concept:'number-5-count', type:'number-count', prompt:'Which number is five?', answer:'5', difficulty:1},
+  {concept:'number-6-count', type:'number-count', prompt:'Which number is six?', answer:'6', difficulty:2},
+  {concept:'number-7-count', type:'number-count', prompt:'Which number is seven?', answer:'7', difficulty:2},
+  {concept:'number-8-count', type:'number-count', prompt:'Which number is eight?', answer:'8', difficulty:2},
+  {concept:'number-9-count', type:'number-count', prompt:'Which number is nine?', answer:'9', difficulty:2},
+  {concept:'number-10-count', type:'number-count', prompt:'Which number is ten?', answer:'10', difficulty:2},
+  {concept:'number-11-count', type:'number-count', prompt:'Which number is eleven?', answer:'11', difficulty:4},
+  {concept:'number-12-count', type:'number-count', prompt:'Which number is twelve?', answer:'12', difficulty:4},
+  {concept:'number-13-count', type:'number-count', prompt:'Which number is thirteen?', answer:'13', difficulty:4},
+  {concept:'number-14-count', type:'number-count', prompt:'Which number is fourteen?', answer:'14', difficulty:4},
+  {concept:'number-15-count', type:'number-count', prompt:'Which number is fifteen?', answer:'15', difficulty:4},
+  {concept:'number-16-count', type:'number-count', prompt:'Which number is sixteen?', answer:'16', difficulty:4},
+  {concept:'number-17-count', type:'number-count', prompt:'Which number is seventeen?', answer:'17', difficulty:4},
+  {concept:'number-18-count', type:'number-count', prompt:'Which number is eighteen?', answer:'18', difficulty:4},
+  {concept:'number-19-count', type:'number-count', prompt:'Which number is nineteen?', answer:'19', difficulty:4},
+  {concept:'number-20-count', type:'number-count', prompt:'Which number is twenty?', answer:'20', difficulty:4}
+];
 
 /* ---------------- Letters: spoken name, spoken sound, picture word ----------------
    LETTER_NAMES is the ONE table for how the speech voice says each letter NAME. Never hand a bare
@@ -336,7 +513,9 @@ function $all(s, r){ return [].slice.call((r || document).querySelectorAll(s)); 
 function shuffle(a){ a = a.slice(); for (var i=a.length-1;i>0;i--){ var j = Math.floor(Math.random()*(i+1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
 function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
-function todayStr(){ var d = new Date(); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
+var clockSkew = 0;   /* tests move the clock to try other days */
+function nowMs(){ return Date.now() + clockSkew; }
+function todayStr(){ var d = new Date(nowMs()); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
 var timers = [];
 function later(fn, ms){ var t = setTimeout(function(){ timers.splice(timers.indexOf(t), 1); fn(); }, ms); timers.push(t); return t; }
 function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
@@ -444,6 +623,8 @@ var ICON = {
   right:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 L17 12 L9 20" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   again:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M38 24 A14 14 0 1 1 30 11" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M26 4 L34 11 L26 17" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   star:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 L29.5 17 L43 18 L32.5 27 L36 41 L24 33.5 L12 41 L15.5 27 L5 18 L18.5 17 Z" fill="#F5B82E" stroke="#B8801A" stroke-width="2.5" stroke-linejoin="round"/></svg>',
+  play:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 8 L40 24 L14 40 Z" fill="#FF5FA2" stroke="#C2306F" stroke-width="3" stroke-linejoin="round"/></svg>',
+  map:'<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 40 C14 30 30 34 24 24 C18 14 34 16 40 8" fill="none" stroke="#fff" stroke-width="3.5" stroke-dasharray="1 6" stroke-linecap="round"/><circle cx="8" cy="40" r="5" fill="#FF5FA2" stroke="#fff" stroke-width="2"/><circle cx="24" cy="24" r="5" fill="#F5B82E" stroke="#fff" stroke-width="2"/><circle cx="40" cy="8" r="5.5" fill="#fff" stroke="#0B7F86" stroke-width="2"/></svg>',
   sticker:'<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="#FF8CC0" stroke="#fff" stroke-width="4"/><path d="M24 34 C14 27 14 18 20 17 C23 17 24 20 24 20 C24 20 25 17 28 17 C34 18 34 27 24 34 Z" fill="#fff"/></svg>'
 };
 /* ---------------- Stickers (original) ---------------- */
@@ -529,13 +710,29 @@ var TILE_ART = {
 var KEY = 'noelleWebApp.v1';
 var mem = null;
 function defaults(){ return {order:'abc', level:'auto', focus:null, cs:'upper', nums:'auto', choices:'auto', sfx:true}; }
-function blank(){ return {v:1, stars:0, stickers:[], L:{}, N:{}, T:{}, seen:{}, rounds:[], set:defaults(), lvlSeen:0, numSeen:5, created:todayStr()}; }
+function blank(){ return {v:2, stars:0, stickers:[], L:{}, N:{}, T:{}, seen:{}, rounds:[], set:defaults(), lvlSeen:0, numSeen:5, created:todayStr(), M:{}, days:[], sessions:[], mapSeen:1}; }
+/* v1 -> v2: keep everything, and seed per-concept mastery from the v1 per-letter / per-number scores
+   (v1 letters -> letter-X-name, v1 numbers -> number-N-find; sounds + counting start fresh). The raw v1
+   data is also copied to KEY + '.pre-v2-backup' first. */
+function migrate(d, raw){
+  if ((d.v || 1) >= 2) return false;
+  try { if (raw) localStorage.setItem(KEY + '.pre-v2-backup', raw); } catch(e){}
+  d.M = d.M || {}; var t = nowMs();
+  function seed(id, s){ if (!ROW[id] || d.M[id] || !s || !s.t) return; var k = s.k || 0, known = k >= KNOWN_AT;
+    d.M[id] = {box:known ? 4 : Math.min(3, k + 1), streak:Math.min(k, MASTER_AT), right:s.f || 0, miss:Math.max(0, (s.t || 0) - (s.f || 0)), tries:s.t, due:known ? t + 20 * HOUR : t, mastered:known, migrated:1, last:t}; }
+  Object.keys(d.L || {}).forEach(function(c){ seed('letter-' + c.toUpperCase() + '-name', d.L[c]); });
+  Object.keys(d.N || {}).forEach(function(n){ seed('number-' + n + '-find', d.N[n]); });
+  d.days = d.days || []; (d.rounds || []).forEach(function(r){ if (r.d && d.days.indexOf(r.d) < 0) d.days.push(r.d); }); d.days.sort();
+  d.v = 2; return true;
+}
 function load(){
   if (mem) return mem;
-  try { mem = JSON.parse(localStorage.getItem(KEY)) || blank(); } catch(e){ mem = blank(); }
+  var raw = null; try { raw = localStorage.getItem(KEY); mem = JSON.parse(raw) || blank(); } catch(e){ mem = blank(); }
   if (!mem || typeof mem !== 'object') mem = blank();
+  var moved = migrate(mem, raw);
   var b = blank(); for (var k in b) if (!(k in mem)) mem[k] = b[k];
   var d = defaults(); for (var j in d) if (!(j in mem.set)) mem.set[j] = d[j];
+  if (moved) save();
   return mem;
 }
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch(e){ /* private mode: keep in memory */ } }
@@ -549,7 +746,7 @@ function recordAnswer(kind, id, firstTry){
   var s = mstat(kind, id); s.t++; if (firstTry){ s.f++; s.k = Math.min(5, s.k + 1); } else s.k = Math.max(0, s.k - 1);
   s.last = todayStr(); save();
 }
-function logRound(key, n, first){ var d = load(); d.rounds.push({k:key, n:n, f:first, d:todayStr()}); if (d.rounds.length > 400) d.rounds = d.rounds.slice(-400); save(); }
+function logRound(key, n, first){ var d = load(); d.rounds.push({k:key, n:n, f:first, d:todayStr()}); if (d.rounds.length > 400) d.rounds = d.rounds.slice(-400); save(); markPlayed(); }
 function addStar(){ var d = load(); d.stars++; save(); var p = $('#starCount'); if (p) p.textContent = d.stars; }
 function awardSticker(){ var d = load(), s = STICKERS[d.stickers.length % STICKERS.length]; d.stickers.push({id:s.id, d:todayStr()}); save(); return s; }
 function stickerCounts(){ var c = {}; load().stickers.forEach(function(x){ c[x.id] = (c[x.id] || 0) + 1; }); return c; }
@@ -593,6 +790,108 @@ function pickTargets(pool, n, kind, extra){
 }
 /* 2 bubbles until she has found that letter/number on the first try once (twice for Letter Sounds), then 3 */
 function choiceCount(kind, id, need){ var c = S().choices; if (c === '2') return 2; if (c === '3') return 3; return mstat(kind, id).f >= (need || 1) ? 3 : 2; }
+
+/* =====================================================================================
+   v2 MASTERY + SPACED REPETITION (simple Leitner boxes)
+   Every played item is tagged with a CONTENT concept id. Per concept we keep
+   {box, streak, right, miss, tries, due, mastered}. 3 right-first-try in a row = mastered;
+   a miss (she needed a second tap) drops it back to learning, box 1, due again right away.
+   Box -> wait before it is due again: 1-2: now (still shaky), 3: ~1 day, 4: ~2 days, 5: ~4 days, 6: ~8 days.
+   ===================================================================================== */
+var MASTER_AT = 3;
+var HOUR = 3600000;
+var BOX_HOURS = [0, 0, 0, 20, 44, 92, 188];
+var ADV_ITEMS = 10;          /* items in one adventure level (about 5 minutes; no visible timer) */
+var REVIEW_SHARE = 0.3;      /* about 30% review of mastered concepts, 70% new / still learning */
+var ROW = {}, TYPE_ORDER = ['letter-name', 'letter-sound', 'number-find', 'number-count'];
+(function(){ var idx = {}; CONTENT.forEach(function(r, i){ ROW[r.concept] = r; r.i = i; idx[r.type] = (idx[r.type] || 0) + 1; r.k = idx[r.type] - 1; }); })();
+function cstat(c){ var M = load().M; if (!M[c]) M[c] = {box:0, streak:0, right:0, miss:0, tries:0, due:0, mastered:false}; return M[c]; }
+function conceptState(c){ var m = load().M[c]; return !m || !m.tries ? 'new' : (m.mastered ? 'mastered' : 'learning'); }
+function recordConcept(c, firstTry){
+  if (!c || !ROW[c]) return null;
+  var m = cstat(c), t = nowMs(); m.tries++; m.last = t;
+  if (firstTry){ m.right++; m.streak++; m.box = Math.min(BOX_HOURS.length - 1, Math.max(1, m.box) + 1); if (m.streak >= MASTER_AT) m.mastered = true; }
+  else { m.miss++; m.streak = 0; m.mastered = false; m.box = 1; }
+  m.due = t + BOX_HOURS[m.box] * HOUR;
+  save(); return m;
+}
+function masteredCount(){ var M = load().M; return CONTENT.filter(function(r){ var m = M[r.concept]; return m && m.mastered; }).length; }
+/* rows the adaptive session may use (a fixed number range set by a grown-up is respected) */
+function activeRows(){ var nr = S().nums === 'auto' ? 20 : numRange(); return CONTENT.filter(function(r){ return !/^number/.test(r.type) || +r.answer <= nr; }); }
+/* order for introducing new concepts: chosen focus letters first, then easiest first; in Montessori
+   order the letter groups follow that order; ties interleave the four kinds so a level has variety */
+function newRank(r){
+  var f = S().focus, isL = /^letter/.test(r.type), d = r.difficulty || 1;
+  if (isL && S().order !== 'abc'){ var g = groups(); for (var i=0;i<g.length;i++) if (g[i].indexOf(r.answer) >= 0){ d = i + 1; break; } }
+  var foc = isL && f && f.length ? (f.indexOf(r.answer) >= 0 ? 0 : 1) : (f && f.length ? 1 : 0);
+  var k = isL && S().order !== 'abc' ? groups().join('').indexOf(r.answer) : r.k;
+  return [foc, d, k, TYPE_ORDER.indexOf(r.type), r.i];
+}
+function cmpRank(a, b){ var x = newRank(a), y = newRank(b); for (var i=0;i<x.length;i++) if (x[i] !== y[i]) return x[i] - y[i]; return 0; }
+function freshRows(rows){ var M = load().M; return rows.filter(function(r){ var m = M[r.concept]; if (m && m.tries) return false; if (r.needs && ROW[r.needs] && !(M[r.needs] && M[r.needs].tries)) return false; return true; }).sort(cmpRank); }
+/* Build one adventure level: [{row, review}] */
+function buildSession(n){
+  n = n || ADV_ITEMS;
+  var M = load().M, t = nowMs(), rows = activeRows();
+  var learning = rows.filter(function(r){ var m = M[r.concept]; return m && m.tries && !m.mastered; }).sort(function(a, b){ var p = M[a.concept], q = M[b.concept]; return (p.box - q.box) || (p.due - q.due) || (q.miss - p.miss) || (a.i - b.i); });
+  var mastered = rows.filter(function(r){ var m = M[r.concept]; return m && m.mastered; }).sort(function(a, b){ return (M[a.concept].due - M[b.concept].due) || (a.i - b.i); });
+  var fresh = freshRows(rows);
+  var reviewN = Math.min(mastered.length, Math.round(n * REVIEW_SHARE)), shakyN = n - reviewN;
+  var wantNew = fresh.length ? (learning.length >= 8 ? 0 : Math.max(1, Math.min(3, 3 - Math.floor(learning.length / 3)))) : 0;
+  var firsts = [], seconds = [], used = {}, count = 0;
+  function add(r, twice){ if (used[r.concept] || count >= shakyN) return; used[r.concept] = 1; firsts.push(r); count++; if (twice && count < shakyN){ seconds.push(r); count++; } }
+  var newTaken = 0;
+  function addNew(){ while (newTaken < fresh.length && used[fresh[newTaken].concept]) newTaken++; if (newTaken >= fresh.length) return false; add(fresh[newTaken++], true); return true; }
+  /* missed ones (box 1) come back twice, other due ones once, keeping room for the new ones */
+  var room = shakyN - Math.min(shakyN, wantNew * 2);
+  learning.forEach(function(r){ var m = M[r.concept]; if (m.due <= t && count < room) add(r, m.box <= 1 && count + 2 <= room); });
+  for (var k=0;k<wantNew;k++) addNew();
+  /* still room: learning ones that are not due yet, then more new ones */
+  learning.forEach(function(r){ if (count < shakyN) add(r, false); });
+  while (count < shakyN && addNew()){}
+  /* nothing left to learn: extra review */
+  var reviews = mastered.slice(0, reviewN);
+  if (count < shakyN) mastered.slice(reviewN).forEach(function(r){ if (count < shakyN){ used[r.concept] = 1; reviews.push(r); count++; } });
+  var shaky = firsts.concat(seconds);
+  var out = shaky.map(function(r){ return {row:r, review:false}; });
+  reviews.forEach(function(r, j){ var at = Math.min(out.length, Math.round((j + 0.6) * n / Math.max(1, reviews.length)) - 1); out.splice(Math.max(1, at), 0, {row:r, review:true}); });
+  /* last resort (tiny content list): repeat what we have */
+  var base = out.slice(); while (out.length < n && base.length) out.push({row:base[out.length % base.length].row, review:false});
+  out = out.slice(0, n);
+  /* never the same concept twice in a row */
+  for (var i=1;i<out.length;i++) if (out[i].row.concept === out[i-1].row.concept){ for (var j=i+1;j<out.length;j++){ if (out[j].row.concept !== out[i].row.concept && out[j-1].row.concept !== out[i].row.concept && (j+1 >= out.length || out[j+1].row.concept !== out[i].row.concept)){ var tmp = out[i]; out[i] = out[j]; out[j] = tmp; break; } } }
+  return out;
+}
+
+/* ---------------- the web-swinging map: a stop unlocks for every few mastered concepts ---------------- */
+var MAP_STOPS = [
+  {id:'house', name:'Noelle\'s house', e:'🏡', need:0},
+  {id:'park', name:'the park', e:'🌳', need:2},
+  {id:'bakery', name:'the bakery', e:'🧁', need:5},
+  {id:'library', name:'the library', e:'📚', need:8},
+  {id:'carousel', name:'the merry-go-round', e:'🎠', need:12},
+  {id:'garden', name:'the flower garden', e:'🌷', need:16},
+  {id:'bridge', name:'the big bridge', e:'🌉', need:21},
+  {id:'zoo', name:'the zoo', e:'🦒', need:27},
+  {id:'beach', name:'the beach', e:'🏖️', need:34},
+  {id:'rainbow', name:'the rainbow', e:'🌈', need:42},
+  {id:'castle', name:'the castle', e:'🏰', need:52},
+  {id:'moon', name:'the moon', e:'🌙', need:65}
+];
+function mapState(){
+  var m = masteredCount(), u = MAP_STOPS.filter(function(s){ return s.need <= m; }).length, next = MAP_STOPS[u] || null, cur = MAP_STOPS[u - 1];
+  return {mastered:m, unlocked:u, current:u - 1, next:next, toNext:next ? next.need - m : 0, frac:next ? (m - cur.need) / (next.need - cur.need) : 1};
+}
+
+/* ---------------- day streak (gentle: a missed day just starts again at 1, nothing is taken away) ---------------- */
+function dayStr(ms){ var d = new Date(ms); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
+function markPlayed(){ var d = load(), t = todayStr(); if (d.days.indexOf(t) < 0){ d.days.push(t); if (d.days.length > 400) d.days = d.days.slice(-400); } save(); }
+function streak(){
+  var set = {}; load().days.forEach(function(x){ set[x] = 1; });
+  var dt = new Date(nowMs()); if (!set[dayStr(dt.getTime())]) dt.setDate(dt.getDate() - 1);
+  var n = 0; while (set[dayStr(dt.getTime())]){ n++; dt.setDate(dt.getDate() - 1); }
+  return n;
+}
 
 /* =====================================================================================
    READ-ALOUD (Web Speech API), same approach as Luke's app
@@ -675,7 +974,7 @@ var Sfx = (function(){
    ===================================================================================== */
 var repeatFn = null;       /* what the big 🔊 button says again */
 function setRepeat(fn){ repeatFn = fn; }
-function dotsHTML(i, n){ var h = '<div class="dots" aria-label="'+(i+1)+' of '+n+'">'; for (var k=0;k<n;k++) h += '<i class="'+(k < i ? 'done' : (k === i ? 'now' : ''))+'"></i>'; return h + '</div>'; }
+function dotsHTML(i, n){ var h = '<div class="dots'+(n > 8 ? ' many' : '')+'" aria-label="'+(i+1)+' of '+n+'">'; for (var k=0;k<n;k++) h += '<i class="'+(k < i ? 'done' : (k === i ? 'now' : ''))+'"></i>'; return h + '</div>'; }
 function shell(mid, inner, cls){
   app.innerHTML = '<div class="screen '+(cls || '')+'"><div class="topbar"><button class="tb home" data-act="home" aria-label="Home">'+ICON.home+'</button>' +
     '<div class="tb-mid" id="tbmid">'+(mid || '')+'</div><button class="tb say" data-act="say" aria-label="Say it again"><span class="emoji" aria-hidden="true">🔊</span></button></div>' +
@@ -730,14 +1029,20 @@ function home(){
   app.innerHTML = '<div class="screen home">' +
     '<div class="banner" id="stage"><div class="sky">'+skylineSVG(720, 280, 3)+'</div><h1>Noelle\'s<br>Web Adventure</h1>' +
       '<div class="noelle av" id="noelle">'+NOELLE_SVG+'</div><div class="swinger idle" id="swinger"><div class="thread"></div><div class="hero">'+HERO_SVG+'</div></div></div>' +
-    '<div class="homebar"><button class="tb say" data-act="say" aria-label="Say it again"><span class="emoji" aria-hidden="true">🔊</span></button><div class="pill" aria-label="Stars"><span>'+ICON.star+'</span><span id="starCount">'+d.stars+'</span></div><div class="pill" aria-label="Stickers"><span>'+ICON.sticker+'</span><span id="stickCount">'+d.stickers.length+'</span></div></div>' +
+    '<div class="homebar"><button class="tb say" data-act="say" aria-label="Say it again"><span class="emoji" aria-hidden="true">🔊</span></button><div class="pill" aria-label="Stars"><span>'+ICON.star+'</span><span id="starCount">'+d.stars+'</span></div><div class="pill" aria-label="Stickers"><span>'+ICON.sticker+'</span><span id="stickCount">'+d.stickers.length+'</span></div>' +
+      (streak() ? '<div class="pill sunpill" aria-label="Days in a row"><span class="emoji" aria-hidden="true">☀️</span><span id="streakCount">'+streak()+'</span></div>' : '') + '</div>' +
+    '<div class="advrow"><button class="advbtn" data-act="adventure" aria-label="Play today\'s adventure"><span class="play-ic">'+ICON.play+'</span><span class="advtxt">Play today\'s adventure</span><span class="advhero">'+HERO_SVG+'</span></button>' +
+      '<button class="mapbtn" data-act="map" aria-label="Web map">'+ICON.map+'<span>Map</span></button></div>' +
     '<div class="tiles">' + TILES.map(function(t, i){ return '<button class="tile t'+(i+1)+(i === 6 ? ' wide' : '')+'" data-go="'+t.go+'" aria-label="'+esc(t.name)+'">'+TILE_ART[HOME_ART[t.go]]+'<span>'+esc(t.name)+'</span></button>'; }).join('') + '</div>' +
     '<button class="grown-link" data-act="grown"><span class="emoji" aria-hidden="true">🔒</span> Grown-ups</button></div>';
   $all('.tile').forEach(function(b){ b.onclick = function(){ var t = TILES.filter(function(x){ return x.go === b.getAttribute('data-go'); })[0]; Sfx.tap(); Speech.say(t.say); pendingIntro = t.say; go(t.go); }; });
   $('[data-act=grown]').onclick = function(){ go('grownups'); };
   $('[data-act=say]').onclick = function(){ if (repeatFn) repeatFn(); };
-  setRepeat(function(){ Speech.say('Hi Noelle! Tap a picture to play.'); });
-  if (!homeGreeted){ homeGreeted = true; later(function(){ if (location.hash === '' || location.hash === '#home') Speech.say('Hi Noelle! Tap a picture to play.'); }, 500); }
+  $('[data-act=adventure]').onclick = function(){ Sfx.tap(); Speech.say('Today\'s adventure!'); pendingIntro = 'Today\'s adventure!'; go('adventure'); };
+  $('[data-act=map]').onclick = function(){ Sfx.tap(); Speech.say('Web map!'); pendingIntro = 'Web map!'; go('map'); };
+  var greet = [{text:'Hi Noelle! Tap a picture to play.', gap:300}, {text:'Or tap the big pink button for today\'s adventure!'}];
+  setRepeat(function(){ Speech.seq(greet); });
+  if (!homeGreeted){ homeGreeted = true; later(function(){ if (location.hash === '' || location.hash === '#home') Speech.seq(greet); }, 500); }
 }
 var homeGreeted = false, pendingIntro = null;
 /* each activity starts by saying its name (the tile tap), then the instruction */
@@ -809,7 +1114,7 @@ function runChoiceRound(cfg){
   function show(){
     var id = cfg.targets[i], it = cfg.item(id, i), missed = 0, done = false;
     setMid(dotsHTML(i, n));
-    var play = $('#play'); play.setAttribute('data-target', id); play.setAttribute('data-i', i); play.setAttribute('data-choices', it.options.length);
+    var play = $('#play'); play.setAttribute('data-target', id); play.setAttribute('data-i', i); play.setAttribute('data-choices', it.options.length); play.setAttribute('data-concept', cfg.concept(id));
     $('#visual').innerHTML = it.visual;
     $('#bubs').innerHTML = bubblesHTML(it.options, it.label, it.optSay); $('#bubs').classList.toggle('two', it.options.length === 2);
     var ask = function(){ Speech.seq(it.prompt); };
@@ -820,7 +1125,7 @@ function runChoiceRound(cfg){
       if (done) return;
       var o = b.getAttribute('data-v');
       if (o === id){
-        done = true; b.classList.add('yes'); Sfx.yes(); addStar(); recordAnswer(cfg.kind, id, missed === 0); if (!missed) first++;
+        done = true; b.classList.add('yes'); Sfx.yes(); addStar(); recordAnswer(cfg.kind, id, missed === 0); recordConcept(cfg.concept(id), missed === 0); if (!missed) first++;
         cheer(); swingTo(xInStage(b));
         var moved = false, adv = function(){ if (moved) return; moved = true; next(); };
         Speech.seq(it.praise(), function(){ later(adv, 400); });
@@ -842,7 +1147,7 @@ function sayL(id){ return 'the letter ' + letterName(id); }
 function find(){
   var foc = focusLetters(), rev = reviewLetters();
   var targets = pickTargets(foc, ROUND, 'L', rev.length ? [pick(rev)] : null);
-  runChoiceRound({key:'find', kind:'L', targets:targets, restart:function(){ go('find'); },
+  runChoiceRound({key:'find', kind:'L', targets:targets, concept:function(id){ return 'letter-' + id + '-name'; }, restart:function(){ go('find'); },
     item:function(id){
       var cs = itemCase(), k = choiceCount('L', id), glyph = function(x){ return disp(x, cs); };
       var opts = shuffle([id].concat(distractors(id, k, foc.concat(rev), glyph)));
@@ -859,7 +1164,7 @@ function sounds(){
   if (!foc.length) foc = ABC.filter(function(c){ return !LETTERS[c].ends; }).slice(0, 6);
   var rev = reviewLetters().filter(function(c){ return !LETTERS[c].ends; });
   var targets = pickTargets(foc, ROUND, 'L', rev.length ? [pick(rev)] : null);
-  runChoiceRound({key:'sounds', kind:'L', targets:targets, restart:function(){ go('sounds'); },
+  runChoiceRound({key:'sounds', kind:'L', targets:targets, concept:function(id){ return 'letter-' + id + '-sound'; }, restart:function(){ go('sounds'); },
     item:function(id){
       var L = LETTERS[id], cs = itemCase(), k = choiceCount('L', id, 2), glyph = function(x){ return disp(x, cs); };
       var opts = shuffle([id].concat(distractors(id, k, foc.concat(rev).filter(function(c){ return !LETTERS[c].ends; }), glyph)));
@@ -875,7 +1180,7 @@ function numPool(max){ var a = []; for (var i=1;i<=max;i++) a.push(String(i)); r
 function numOptions(id, k, max){ var pool = shuffle(numPool(max).filter(function(x){ return x !== id; })); return shuffle([id].concat(pool.slice(0, k - 1))); }
 function numbers(){
   var R = numRange(), targets = pickTargets(numPool(R), ROUND, 'N');
-  runChoiceRound({key:'numbers', kind:'N', targets:targets, restart:function(){ go('numbers'); },
+  runChoiceRound({key:'numbers', kind:'N', targets:targets, concept:function(id){ return 'number-' + id + '-find'; }, restart:function(){ go('numbers'); },
     item:function(id){
       var k = choiceCount('N', id);
       return {options:numOptions(id, k, R), label:function(o){ return o; }, optSay:function(o){ return 'Number ' + numWord(o); },
@@ -898,7 +1203,7 @@ function count(){
     var id = targets[i], total = +id, thing = COUNT_THINGS[(i + Math.floor(Math.random() * 5)) % COUNT_THINGS.length], got = 0, missed = 0, done = false, picking = false;
     var cols = total <= 4 ? total : (total <= 6 ? 3 : 4);
     setMid(dotsHTML(i, n));
-    var play = $('#play'); play.setAttribute('data-target', id); play.setAttribute('data-i', i); play.setAttribute('data-counted', 0); play.classList.remove('countdone');
+    var play = $('#play'); play.setAttribute('data-target', id); play.setAttribute('data-i', i); play.setAttribute('data-counted', 0); play.setAttribute('data-concept', 'number-' + id + '-count'); play.classList.remove('countdone');
     $('#cnum').textContent = '0'; $('#pips').innerHTML = ''; $('#bubs').innerHTML = '';
     var objs = $('#objs'); objs.style.gridTemplateColumns = 'repeat(' + cols + ', auto)';
     var h = ''; for (var k=0;k<total;k++) h += '<button class="obj" data-k="'+k+'" aria-label="'+esc(thing.one)+'">'+thingSVG(thing)+'<span class="webwrap">'+netSVG('#C2306F', .55)+'</span><span class="badge"></span></button>';
@@ -923,7 +1228,7 @@ function count(){
         play.setAttribute('data-choices', opts.length);
         $all('#bubs .bub').forEach(function(bb){ bb.onclick = function(){
           if (done) return; var o = bb.getAttribute('data-v');
-          if (o === id){ done = true; bb.classList.add('yes'); Sfx.yes(); addStar(); recordAnswer('N', id, missed === 0); if (!missed) first++; cheer(); swingTo(xInStage(bb));
+          if (o === id){ done = true; bb.classList.add('yes'); Sfx.yes(); addStar(); recordAnswer('N', id, missed === 0); recordConcept('number-' + id + '-count', missed === 0); if (!missed) first++; cheer(); swingTo(xInStage(bb));
             var moved = false, adv = function(){ if (moved) return; moved = true; next(); };
             Speech.seq([pick(PRAISE) + ' ' + numWord(total) + ' ' + (total === 1 ? thing.one : thing.many) + '!'], function(){ later(adv, 400); }); later(adv, 3200); }
           else { missed++; Sfx.soft(); bb.classList.remove('nope'); void bb.offsetWidth; bb.classList.add('nope');
@@ -935,6 +1240,200 @@ function count(){
   }
   function next(){ i++; if (i >= n) endRound('count', n, first, function(){ go('count'); }); else show(); }
   show();
+}
+
+/* =====================================================================================
+   v2 TODAY'S ADVENTURE: an adaptive level of ADV_ITEMS items from CONTENT
+   (about 70% new / still learning, 30% review), then a finish celebration and the map.
+   TYPES says how each CONTENT row type is played.
+   ===================================================================================== */
+function autoChoices(row){ var c = S().choices; if (c === '2') return 2; if (c === '3') return 3; var m = load().M[row.concept]; return m && m.right >= 1 ? 3 : 2; }
+function numMax(id){ return +id <= 5 ? 5 : (+id <= 10 ? 10 : 20); }
+var ASK_BUB = '<div class="ask"><button class="askbub" data-act="ask" aria-label="Say it again"><span class="emoji" aria-hidden="true">🔊</span></button></div>';
+var TYPES = {
+  'letter-name':{kind:'L', label:'Letter names', how:'hears a letter name, taps the letter', make:function(row, near){
+    var id = row.answer, cs = itemCase(), glyph = function(x){ return disp(x, cs); };
+    return {options:shuffle([id].concat(distractors(id, autoChoices(row), near, glyph))), label:glyph, optSay:function(o){ return 'Letter ' + letterName(o); }, visual:ASK_BUB,
+      prompt:[{text:row.prompt, gap:300}, {text:'Where is ' + sayL(id) + '?'}],
+      again:function(o){ return [{text:'That is ' + sayL(o) + '.', gap:300}, {text:row.prompt}]; },
+      praise:function(){ return [pick(PRAISE) + ' That is ' + sayL(id) + '!']; }}; }},
+  'letter-sound':{kind:'L', label:'Letter sounds', how:'hears a picture word and its sound, taps its letter', make:function(row, near){
+    var id = row.answer, cs = itemCase(), glyph = function(x){ return disp(x, cs); }, w = row.word, s = row.sound, se = row.ends ? ' ends with ' : ' starts with ';
+    return {options:shuffle([id].concat(distractors(id, autoChoices(row), near, glyph))), label:glyph, optSay:function(o){ return 'Letter ' + letterName(o); },
+      visual:'<button class="piccard" data-act="ask" aria-label="Hear the picture word"><span class="emoji big" aria-hidden="true">'+row.pic+'</span><span class="emoji spk" aria-hidden="true">🔊</span></button>',
+      prompt:[{text:w + '!', gap:300}, {text:s + ', ' + s + ', ' + w + '.', gap:300}, {text:row.prompt}],
+      again:function(o){ return [{text:'That is ' + sayL(o) + '.', gap:300}, {text:'Listen. ' + s + ', ' + w + '.'}]; },
+      praise:function(){ return [pick(PRAISE) + ' ' + w + se + sayL(id) + '!']; }}; }},
+  'number-find':{kind:'N', label:'Finding numbers', how:'hears a number, taps the numeral', make:function(row){
+    var id = row.answer;
+    return {options:numOptions(id, autoChoices(row), numMax(id)), label:function(o){ return o; }, optSay:function(o){ return 'Number ' + numWord(o); }, visual:ASK_BUB,
+      prompt:[{text:row.prompt}],
+      again:function(o){ return [{text:'That is ' + numWord(o) + '.', gap:300}, {text:row.prompt}]; },
+      praise:function(){ return [pick(PRAISE) + ' That is ' + numWord(id) + '!']; }}; }},
+  'number-count':{kind:'N', label:'Counting', how:'counts things by tapping each one, then taps the number', count:true}
+};
+function rowGlyph(r){ return r.answer; }
+/* a small burst of stars from a spot (the big instant celebration) */
+function burstAt(el){
+  if (reducedMotion() || !el || !el.getBoundingClientRect) return;
+  var r = el.getBoundingClientRect(), b = document.createElement('div'), h = '';
+  b.className = 'burst'; b.style.left = Math.round(r.left + r.width / 2 + window.scrollX) + 'px'; b.style.top = Math.round(r.top + r.height / 2 + window.scrollY) + 'px';
+  for (var k=0;k<8;k++) h += '<i style="--a:'+(k * 45)+'deg">'+ICON.star+'</i>';
+  b.innerHTML = h; document.body.appendChild(b);
+  setTimeout(function(){ if (b.parentNode) b.parentNode.removeChild(b); }, 1000);
+}
+/* one "tap the right bubble" item inside #play. h = {first, onRight(firstTry), onNext()} */
+function playChoice(it, id, h){
+  var play = $('#play'), missed = 0, done = false;
+  play.innerHTML = '<div id="visual">'+it.visual+'</div><div class="bubs'+(it.options.length === 2 ? ' two' : '')+'" id="bubs">'+bubblesHTML(it.options, it.label, it.optSay)+'</div>';
+  play.setAttribute('data-choices', it.options.length);
+  var ask = function(){ Speech.seq(it.prompt); };
+  setRepeat(ask); $all('#visual [data-act=ask]').forEach(function(b){ b.onclick = ask; });
+  if (h.first) intro(it.prompt); else later(ask, 300);
+  $all('#bubs .bub').forEach(function(b){ b.onclick = function(){
+    if (done) return; var o = b.getAttribute('data-v');
+    if (o === id){
+      done = true; b.classList.add('yes'); Sfx.yes(); addStar(); burstAt(b); cheer(); swingTo(xInStage(b)); h.onRight(missed === 0);
+      var moved = false, adv = function(){ if (moved) return; moved = true; h.onNext(); };
+      Speech.seq(it.praise(), function(){ later(adv, 400); }); later(adv, 3200);
+    } else {
+      missed++; Sfx.soft(); b.classList.remove('nope'); void b.offsetWidth; b.classList.add('nope');
+      if (missed >= 2 || it.options.length - missed <= 1) $all('#bubs .bub').forEach(function(x){ if (x.getAttribute('data-v') === id) x.classList.add('hint'); });
+      Speech.seq(it.again(o));
+    }
+  }; });
+}
+/* one Count & Catch item inside #play */
+function playCount(row, h){
+  var id = row.answer, total = +id, R = numMax(id), thing = pick(COUNT_THINGS), got = 0, missed = 0, done = false, picking = false;
+  var cols = total <= 4 ? total : (total <= 6 ? 3 : (total <= 12 ? 4 : 5)), play = $('#play');
+  var o = ''; for (var k=0;k<total;k++) o += '<button class="obj" data-k="'+k+'" aria-label="'+esc(thing.one)+'">'+thingSVG(thing)+'<span class="webwrap">'+netSVG('#C2306F', .55)+'</span><span class="badge"></span></button>';
+  play.innerHTML = '<div class="catch'+(total > 10 ? ' many' : '')+'" id="catch"><div class="counter"><span class="num" id="cnum">0</span><div class="pips" id="pips"></div></div><div class="objs" id="objs" style="grid-template-columns:repeat('+cols+', auto)">'+o+'</div></div><div class="bubs" id="bubs"></div>';
+  play.setAttribute('data-counted', 0);
+  var countSay = [{text:'Let\'s count the ' + thing.many + '!', gap:250}, {text:'Tap each one.'}], pickSay = [{text:row.prompt}];
+  setRepeat(function(){ Speech.seq(picking ? pickSay : [{text:'Tap each ' + thing.one + ' to count it.'}]); });
+  if (h.first) intro(countSay); else later(function(){ Speech.seq(countSay); }, 300);
+  $all('#objs .obj').forEach(function(b){ b.onclick = function(){
+    if (b.classList.contains('caught')){ Speech.say(numWord(b.querySelector('.badge').textContent)); return; }
+    got++; b.classList.add('caught'); b.querySelector('.badge').textContent = got; play.setAttribute('data-counted', got);
+    var num = $('#cnum'); num.textContent = got; num.classList.remove('pop'); void num.offsetWidth; num.classList.add('pop');
+    $('#pips').innerHTML = new Array(got + 1).join('<i></i>'); Sfx.count(got);
+    if (got < total){ Speech.say(numWord(got)); return; }
+    picking = true; $('#catch').classList.add('countdone');
+    var opts = numOptions(id, autoChoices(row), R);
+    Speech.seq([{text:numWord(got) + '!', gap:250}, {text:'You counted ' + numWord(total) + ' ' + (total === 1 ? thing.one : thing.many) + '!', gap:250}].concat(pickSay));
+    later(function(){
+      $('#bubs').innerHTML = bubblesHTML(opts, function(x){ return x; }, function(x){ return 'Number ' + numWord(x); }); $('#bubs').classList.toggle('two', opts.length === 2);
+      play.setAttribute('data-choices', opts.length);
+      $all('#bubs .bub').forEach(function(bb){ bb.onclick = function(){
+        if (done) return; var v = bb.getAttribute('data-v');
+        if (v === id){ done = true; bb.classList.add('yes'); Sfx.yes(); addStar(); burstAt(bb); cheer(); swingTo(xInStage(bb)); h.onRight(missed === 0);
+          var moved = false, adv = function(){ if (moved) return; moved = true; h.onNext(); };
+          Speech.seq([pick(PRAISE) + ' ' + numWord(total) + ' ' + (total === 1 ? thing.one : thing.many) + '!'], function(){ later(adv, 400); }); later(adv, 3200); }
+        else { missed++; Sfx.soft(); bb.classList.remove('nope'); void bb.offsetWidth; bb.classList.add('nope');
+          if (missed >= 2 || opts.length - missed <= 1) $all('#bubs .bub').forEach(function(x){ if (x.getAttribute('data-v') === id) x.classList.add('hint'); });
+          Speech.seq([{text:'That is ' + numWord(v) + '.', gap:300}, {text:'We counted ' + numWord(total) + '. Find ' + numWord(total) + '!'}]); }
+      }; });
+    }, 500);
+  }; });
+}
+var forcedSession = null;   /* tests / grown-ups can hand in a list of concept ids */
+function adventure(){
+  var queue = forcedSession ? forcedSession.map(function(c){ return {row:ROW[c], review:conceptState(c) === 'mastered'}; }).filter(function(q){ return q.row; }) : buildSession(ADV_ITEMS);
+  forcedSession = null;
+  if (!queue.length) queue = buildSession(ADV_ITEMS);
+  var n = queue.length, i = 0, first = 0, retried = {};
+  var near = queue.filter(function(q){ return /^letter/.test(q.row.type); }).map(function(q){ return q.row.answer; });
+  shell(dotsHTML(0, n), stageHTML() + '<div class="play adv" id="play" data-key="adventure" data-n="'+n+'" data-plan="'+esc(queue.map(function(q){ return q.row.concept + (q.review ? '*' : ''); }).join(','))+'"></div>');
+  centreHero();
+  function show(){
+    var q = queue[i], row = q.row, id = row.answer, T = TYPES[row.type], firstTry = null;
+    setMid(dotsHTML(i, n));
+    var play = $('#play'); play.setAttribute('data-target', id); play.setAttribute('data-i', i); play.setAttribute('data-concept', row.concept); play.setAttribute('data-type', row.type); play.setAttribute('data-review', q.review ? '1' : '0');
+    var h = {first:i === 0,
+      onRight:function(ft){ firstTry = ft; recordConcept(row.concept, ft); recordAnswer(T.kind, id, ft); if (ft) first++; else retryLater(i, row); },
+      onNext:function(){ i++; if (i >= n) adventureEnd(n, first); else show(); }};
+    if (T.count) playCount(row, h); else playChoice(T.make(row, near), id, h);
+  }
+  /* a missed concept comes back later in the same level (it takes the place of a review item) */
+  function retryLater(at, row){
+    if (retried[row.concept]) return;
+    for (var j=at+2;j<n;j++){ if (queue[j].review && !queue[j].retry && queue[j].row.concept !== row.concept && (!queue[j-1] || queue[j-1].row.concept !== row.concept) && (!queue[j+1] || queue[j+1].row.concept !== row.concept)){ queue[j] = {row:row, review:false, retry:true}; retried[row.concept] = 1; return; } }
+  }
+  show();
+}
+/* stickers for map stops reached since last time (at most one bonus at a time) */
+function claimStops(){ var d = load(), ms = mapState(), got = null; if (ms.unlocked > (d.mapSeen || 1)){ got = MAP_STOPS[ms.unlocked - 1]; d.mapSeen = ms.unlocked; save(); } return got; }
+function confettiHTML(){ if (reducedMotion()) return ''; var c = ['#FF5FA2', '#1EBFC7', '#F5B82E', '#B79CF0', '#fff'], h = '<div class="confetti" aria-hidden="true">';
+  for (var k=0;k<28;k++) h += '<i style="left:'+Math.round(Math.random() * 100)+'%;background:'+c[k % c.length]+';animation-delay:'+(Math.random() * .7).toFixed(2)+'s;--r:'+Math.round(Math.random() * 720 - 360)+'deg;--x:'+Math.round(Math.random() * 80 - 40)+'px"></i>';
+  return h + '</div>'; }
+function miniMapHTML(ms, hop){
+  var h = '<div class="minimap" aria-hidden="true">';
+  MAP_STOPS.forEach(function(s, k){ h += (k ? '<b class="'+(k < ms.unlocked ? 'on' : '')+'"></b>' : '') + '<span class="mstop'+(k < ms.unlocked ? ' on' : '')+(k === ms.current ? ' cur' : '')+(k === hop ? ' hop' : '')+'"><span class="emoji">'+(k < ms.unlocked ? s.e : '')+'</span></span>'; });
+  return h + '</div>';
+}
+function adventureEnd(n, first){
+  logRound('adventure', n, first);
+  var d = load(); d.sessions.push({d:todayStr(), n:n, f:first}); if (d.sessions.length > 300) d.sessions = d.sessions.slice(-300); save();
+  var s = awardSticker(), stop = claimStops(), bonus = stop ? awardSticker() : null, ms = mapState(), days = streak();
+  var stars = ''; for (var k=0;k<n;k++) stars += '<span class="st" style="animation-delay:'+(0.25 + k * 0.12).toFixed(2)+'s">'+ICON.star+'</span>';
+  shell('<div class="tb-title">You did it!</div>', stageHTML(true) +
+    '<div class="endcard finish" id="endcard" data-sticker="'+s.id+'"'+(bonus ? ' data-bonus="'+bonus.id+'"' : '')+(stop ? ' data-stop="'+stop.id+'"' : '')+' data-stars="'+n+'" data-streak="'+days+'">' + confettiHTML() +
+      (stop ? '<div class="newstop" aria-label="New stop on the map: '+esc(stop.name)+'"><span class="emoji">'+stop.e+'</span></div>' : '') +
+      '<div class="wonrow"><div class="won" aria-label="New sticker: '+esc(s.name)+'">'+stickerSVG(s.id)+'</div>' + (bonus ? '<div class="won" aria-label="Bonus sticker: '+esc(bonus.name)+'">'+stickerSVG(bonus.id)+'</div>' : '') + '</div>' +
+      '<div class="endstars" aria-label="'+n+' stars">'+stars+'</div>' +
+      (days >= 2 ? '<div class="pill sunpill" aria-label="'+days+' days in a row"><span class="emoji" aria-hidden="true">☀️</span><span>'+days+'</span></div>' : '') +
+      miniMapHTML(ms, stop ? ms.current : -1) +
+      '<div class="endbtns"><button class="bigbtn again" data-act="again" aria-label="Play another adventure">'+ICON.again+'</button><button class="bigbtn tomap" data-act="tomap" aria-label="Web map">'+ICON.map+'</button><button class="bigbtn gohome" data-act="gohome" aria-label="Home">'+ICON.home+'</button></div>' +
+    '</div>');
+  centreHero(); Sfx.sticker(); cheer();
+  later(function(){ var st = $('#stage'); if (st) swingTo(st.clientWidth * 0.3); }, 300);
+  var steps = [{text:'You did it, Noelle!', gap:250}, {text:'You finished today\'s adventure!', gap:250}, {text:'You got ' + numWord(n) + ' stars!', gap:300}];
+  if (stop) steps.push({text:'Wow! You swung all the way to ' + stop.name + '!', gap:300});
+  steps.push({text:'You got a sticker! ' + s.name + '!', gap:300});
+  if (bonus) steps.push({text:'And a bonus sticker! ' + bonus.name + '!', gap:300});
+  if (days >= 2) steps.push({text:'That is ' + numWord(days) + ' days in a row!', gap:300});
+  steps.push({text:'Tap the pink button to play again.'});
+  setRepeat(function(){ Speech.seq(steps); });
+  Speech.seq(steps);
+  $('[data-act=again]').onclick = function(){ Sfx.tap(); pendingIntro = 'Here we go!'; go('adventure'); };
+  $('[data-act=tomap]').onclick = function(){ Sfx.tap(); go('map'); };
+  $('[data-act=gohome]').onclick = function(){ Sfx.tap(); go('home'); };
+}
+
+/* ---------------- the map screen ---------------- */
+var MAP_X = [50, 76, 54, 24, 46, 76, 58, 26, 44, 74, 56, 30];
+function mapScreen(){
+  var ms = mapState(), stop = claimStops(), bonus = stop ? awardSticker() : null, N = MAP_STOPS.length, STEP = 124, TOP = 70, Hh = TOP + (N - 1) * STEP + 90;
+  function y(k){ return TOP + (N - 1 - k) * STEP; }
+  var path = '', done = '';
+  for (var k=1;k<N;k++){ var x0 = MAP_X[k-1], y0 = y(k-1), x1 = MAP_X[k], y1 = y(k), seg = 'M'+x0+' '+y0+' C'+x0+' '+(y0 - STEP * .55)+' '+x1+' '+(y1 + STEP * .55)+' '+x1+' '+y1+' ';
+    if (k < ms.unlocked) done += seg; else path += seg; }
+  var h = '<div class="mapwrap" id="map" data-unlocked="'+ms.unlocked+'" data-mastered="'+ms.mastered+'"><div class="mapbox" style="height:'+Hh+'px">' +
+    '<div class="sky">'+skylineSVG(600, Hh, 5)+'</div>' +
+    '<svg class="mappath" viewBox="0 0 100 '+Hh+'" preserveAspectRatio="none" aria-hidden="true"><path d="'+path+'" stroke="#fff" stroke-opacity=".45" stroke-width="4" stroke-dasharray="2 10" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"/>' +
+      '<path d="'+done+'" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"/></svg>';
+  MAP_STOPS.forEach(function(s, k){
+    var st = k < ms.unlocked ? (k === ms.current ? 'cur' : 'on') : (k === ms.unlocked ? 'next' : 'locked');
+    var ring = st === 'next' ? '<svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="7"/><circle cx="50" cy="50" r="46" fill="none" stroke="#F5B82E" stroke-width="7" stroke-linecap="round" stroke-dasharray="'+(289 * Math.max(0.04, ms.frac)).toFixed(1)+' 289" transform="rotate(-90 50 50)"/></svg>' : '';
+    h += '<button class="stop '+st+'" data-k="'+k+'" data-state="'+st+'" style="left:'+MAP_X[k]+'%;top:'+y(k)+'px" aria-label="'+esc(s.name)+(st === 'locked' || st === 'next' ? ' (not open yet)' : '')+'">'+ring+'<span class="emoji">'+(st === 'locked' || st === 'next' ? '🔒' : s.e)+'</span>'+(k < ms.unlocked ? '<i class="ok">'+ICON.star+'</i>' : '')+'</button>';
+  });
+  function heroAt(k){ return 'left:calc('+MAP_X[k]+'% + '+(MAP_X[k] > 50 ? -74 : 74)+'px);top:'+(y(k) - 80)+'px'; }
+  h += '<div class="maphero" id="maphero" style="'+heroAt(ms.current)+'"><div class="thread"></div>'+HERO_SVG+'</div>';
+  h += '</div><div class="mapplay"><button class="advbtn" data-act="play" aria-label="Play today\'s adventure"><span class="play-ic">'+ICON.play+'</span><span class="advtxt">Play today\'s adventure</span></button></div></div>';
+  shell('<div class="tb-title">Web Map</div>', h, 'mapscreen');
+  var cur = $('.stop.cur'); if (cur){ var top = cur.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.45; window.scrollTo(0, Math.max(0, top)); }
+  var hello = stop ? [{text:'Hooray! You swung all the way to ' + stop.name + '!', gap:300}, {text:'You got a bonus sticker! ' + bonus.name + '!', gap:300}] : [];
+  var sayIt = hello.concat([{text:'This is your web map!', gap:250}, {text:'You are at ' + MAP_STOPS[ms.current].name + '.', gap:250}, {text:'Tap the pink button to play.'}]);
+  setRepeat(function(){ Speech.seq(sayIt); });
+  intro(sayIt);
+  if (stop) Sfx.sticker();
+  $all('.stop').forEach(function(b){ b.onclick = function(){
+    var k = +b.getAttribute('data-k'), s = MAP_STOPS[k], st = b.getAttribute('data-state');
+    if (st === 'locked' || st === 'next'){ Sfx.soft(); Speech.say(st === 'next' ? 'Keep playing to swing to ' + s.name + '!' : 'This stop is waiting for you!'); return; }
+    Sfx.swing(); var hero = $('#maphero'); hero.setAttribute('style', heroAt(k)); Speech.say(s.name.charAt(0).toUpperCase() + s.name.slice(1) + '!');
+  }; });
+  $('[data-act=play]').onclick = function(){ Sfx.tap(); pendingIntro = 'Today\'s adventure!'; Speech.say('Today\'s adventure!'); go('adventure'); };
 }
 
 /* =====================================================================================
@@ -1255,7 +1754,7 @@ function trace(){
   function show(){
     var g = items[i], nm = glyphName(g);
     setMid(dotsHTML(i, n));
-    var host = $('#pad'); host.removeAttribute('data-done'); host.setAttribute('data-glyph', g); host.setAttribute('data-i', i);
+    var host = $('#pad'); host.removeAttribute('data-done'); host.setAttribute('data-glyph', g); host.setAttribute('data-i', i); host.setAttribute('data-concept', (/[A-Za-z]/.test(g) ? 'letter-' + g.toUpperCase() : 'number-' + g) + '-trace');
     $('[data-act=next]').classList.remove('ready');
     var say = [{text:'Trace ' + nm + '!', gap:250}, {text:'Start at the green dot.'}];
     setRepeat(function(){ Speech.seq(pad && pad.done() ? [{text:'You traced ' + nm + '!'}] : say); });
@@ -1294,6 +1793,45 @@ function stickers(){
     Sfx.sticker(); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
     Speech.say(stickerById(id).name + (have > 1 ? '! You have ' + numWord(have) + '!' : '!'));
   }; });
+}
+
+/* v2 parent view: mastered / still learning / not started per concept + what to practise together */
+function tipFor(r){
+  if (r.tip) return r.tip;
+  var a = r.answer;
+  if (r.type === 'letter-name') return 'Point out ' + a + ' on signs, books and boxes and name it together (“' + a + ', ' + letterName(a) + '!”). Try writing a big ' + a + ' in the air or in sand.';
+  if (r.type === 'letter-sound') return 'Play “I spy” with the ' + a + ' sound (/' + r.sound + '/): ' + r.word + ' and other things that ' + (r.ends ? 'end' : 'start') + ' with it.';
+  if (r.type === 'number-find') return 'Spot the number ' + a + ' on doors, clocks, buses and book pages.';
+  if (r.type === 'number-count') return 'Count out ' + a + ' things together (snacks, stairs, toys), touching each one as you say the number.';
+  return 'Practise ' + r.concept + ' together.';
+}
+function conceptLabel(r){ return ({'letter-name':'letter ' + r.answer + ' (name)', 'letter-sound':'letter ' + r.answer + ' (sound)', 'number-find':'number ' + r.answer + ' (find)', 'number-count':'counting ' + r.answer})[r.type] || r.concept; }
+function masteryCardHTML(){
+  var d = load(), M = d.M, ms = mapState(), c = {mastered:0, learning:0, 'new':0};
+  CONTENT.forEach(function(r){ c[conceptState(r.concept)]++; });
+  var h = '<div class="gcard" id="mastery"><h2>Skills (mastery)</h2><div class="sumgrid three">' +
+    '<div class="sum ms-m" id="sumMastered"><b>'+c.mastered+'</b><span>mastered</span></div>' +
+    '<div class="sum ms-l" id="sumLearning"><b>'+c.learning+'</b><span>still learning</span></div>' +
+    '<div class="sum ms-n" id="sumNew"><b>'+c['new']+'</b><span>not started</span></div></div>' +
+    '<p class="small" id="advstats"><b>Adventures played:</b> '+d.sessions.length+' · <b>days in a row:</b> '+streak()+' · <b>map:</b> '+esc(MAP_STOPS[ms.current].name)+' ('+ms.unlocked+' of '+MAP_STOPS.length+' stops'+(ms.next ? ', ' + ms.toNext + ' more mastered to reach ' + esc(ms.next.name) : '')+')</p>';
+  TYPE_ORDER.forEach(function(t){
+    var rows = CONTENT.filter(function(r){ return r.type === t; }); if (!rows.length) return;
+    var mk = rows.filter(function(r){ return conceptState(r.concept) === 'mastered'; }).length;
+    h += '<h3>'+esc(TYPES[t].label)+' <span class="small">('+mk+' of '+rows.length+' mastered · she '+esc(TYPES[t].how)+')</span></h3><div class="mgrid" data-type="'+t+'">' + rows.map(function(r){
+      var st = conceptState(r.concept), m = M[r.concept];
+      return '<div class="mcell cc '+(st === 'mastered' ? 'known' : (st === 'learning' ? 'learning' : ''))+'" data-concept="'+r.concept+'" data-state="'+st+'" title="'+esc(conceptLabel(r))+'">'+esc(rowGlyph(r))+'<small>'+(st === 'mastered' ? '★' : (st === 'learning' ? m.streak + '/' + MASTER_AT : '·'))+'</small></div>'; }).join('') + '</div>';
+  });
+  h += '<div class="legend"><i style="background:#fff"></i>not started<i style="background:#FFEAF3;border-color:#F7B6D2"></i>still learning (right-in-a-row / '+MASTER_AT+')<i style="background:#D2F4F5;border-color:#1EBFC7"></i>mastered</div>';
+  var shaky = CONTENT.filter(function(r){ return conceptState(r.concept) === 'learning'; }).sort(function(a, b){ var p = M[a.concept], q = M[b.concept]; return (q.miss - p.miss) || (p.streak - q.streak) || (a.i - b.i); }).slice(0, 5);
+  var next = freshRows(activeRows()).slice(0, 4);
+  h += '<h3>Practise together</h3><ul class="help" id="suggest">';
+  if (shaky.length) shaky.forEach(function(r){ h += '<li data-concept="'+r.concept+'"><b>'+esc(conceptLabel(r))+':</b> '+esc(tipFor(r))+'</li>'; });
+  else if (c.mastered) h += '<li>Nothing shaky right now. Wonderful! Keep reviewing with a short adventure now and then.</li>';
+  else h += '<li>Play a first adventure together and suggestions will appear here.</li>';
+  h += '</ul>';
+  if (next.length) h += '<p class="small" id="nextup"><b>Coming up next in her adventures:</b> '+esc(next.map(conceptLabel).join(', '))+'.</p>';
+  h += '<p class="small">A skill is <b>mastered</b> after '+MASTER_AT+' right-first-tap answers in a row; one miss moves it back to <b>still learning</b>. Missed skills come back soon and more often; mastered ones come back now and then for review (after about 1, 2, 4, then 8 days). Each adventure is '+ADV_ITEMS+' items: about 70% new or still-learning skills and 30% review. Map stops open as more skills are mastered.</p></div>';
+  return h;
 }
 
 /* =====================================================================================
@@ -1339,6 +1877,7 @@ function dashboard(){
       '<h3>Numbers</h3>' + cells('N', numPool(20), function(id){ return 'Number ' + id; }) +
       '<div class="legend"><i style="background:#fff"></i>new<i style="background:#FFEAF3;border-color:#F7B6D2"></i>learning<i style="background:#D2F4F5;border-color:#1EBFC7"></i>known · pink ring = in focus now · small number = right first try / times asked</div>' +
       '<p class="small">A letter or number counts as <b>known</b> after she finds it on the first tap 3 times more than she needed a second try (a miss moves it back one step). Rounds pick letters/numbers that are not known yet, plus one known one for confidence.</p></div>' +
+    masteryCardHTML() +
     '<div class="gcard" id="settings"><h2>Settings</h2>' +
       '<h3>Letter order</h3>' + optRow('order', st.order, [['abc', 'ABC order (A–F, G–L, M–R, S–Z)'], ['montessori', 'Montessori groups (c m a t, s r i p …)']]) +
       '<h3>Letter level</h3>' + optRow('level', st.level, lvOpts) +
@@ -1354,11 +1893,12 @@ function dashboard(){
       '<div class="row" style="justify-content:flex-start"><button class="btn" data-act="testletters">Test all letter voices</button><button class="btn alt" data-act="testnums">Test numbers 1–20</button></div>' +
       '<p class="small" id="voicenow" role="status" aria-live="polite"></p>' +
       '<p class="small">Spoken as: ' + ABC.map(function(c){ return '<b>' + c + '</b> “' + esc(letterName(c)) + '”'; }).join(', ') + '.</p></div>' +
-    '<div class="gcard"><h2>Start over</h2><p class="small">Erases stars, stickers and letter/number progress on this device. Settings stay.</p>' +
+    '<div class="gcard"><h2>Start over</h2><p class="small">Erases stars, stickers, skills (mastery), the map and letter/number progress on this device. Settings stay.</p>' +
       '<div class="row" style="justify-content:flex-start"><button class="btn warn" data-act="reset">Reset progress…</button></div>' +
       (confirmReset ? '<div class="confirm" id="confirmBox"><p><b>Erase all of Noelle\'s progress?</b> This cannot be undone.</p><div class="row" style="justify-content:flex-start"><button class="btn danger" data-act="resetyes">Yes, erase it</button><button class="btn alt" data-act="resetno">Cancel</button></div></div>' : '') + '</div>' +
     '<div class="gcard"><h2>How it works</h2><ul class="help">' +
       '<li>Everything is spoken; she never needs to read. The big 🔊 button repeats the instruction.</li>' +
+      '<li><b>Play today\'s adventure</b> (the big pink button) makes a '+ADV_ITEMS+'-item level just for her: skills she is still learning or has not started, plus some review. Finishing a level gives stars and a sticker, and mastered skills open new stops on the web map.</li>' +
       '<li>Rounds are short (6 items, 5 for Count &amp; Catch and Trace It). No timers, no “wrong” sounds: a wrong bubble just says its name and fades.</li>' +
       '<li>Each finished round gives a sticker; finishing a letter level (or a number range) gives a bonus sticker.</li>' +
       '<li>Trace It accepts wobbly lines that mostly follow the wide path, in any order or direction, but not scribbles. “Grown-up: count it” accepts a try anyway.</li>' +
@@ -1395,7 +1935,7 @@ function dashboard(){
 /* =====================================================================================
    ROUTER
    ===================================================================================== */
-var routes = {home:home, letters:letters, find:find, sounds:sounds, count:count, numbers:numbers, trace:trace, stickers:stickers, grownups:grownups};
+var routes = {home:home, adventure:adventure, map:mapScreen, letters:letters, find:find, sounds:sounds, count:count, numbers:numbers, trace:trace, stickers:stickers, grownups:grownups};
 function route(){
   clearTimers(); Speech.stop(); setRepeat(null);
   var h = (location.hash || '#home').replace('#', '').split(/[?&]/)[0];
@@ -1404,7 +1944,9 @@ function route(){
   fn();
 }
 window.addEventListener('hashchange', route);
-window.__noelle = {BUILD:'letter-voices-2026-09-29', LETTER_NAMES:LETTER_NAMES, letterName:letterName, numWord:numWord, speakable:speakable, LETTERS:LETTERS, TracePad:TracePad, TRACE_RULES:TRACE_RULES, load:load, save:save, isKnown:isKnown, focusLetters:focusLetters, numRange:numRange, autoLevel:autoLevel, pickTargets:pickTargets, KEY:KEY, reset:function(){ mem = null; }};
+window.__noelle = {BUILD:'v2-mastery-2026-09-29', CONTENT:CONTENT, ROW:ROW, TYPES:TYPES, MAP_STOPS:MAP_STOPS, MASTER_AT:MASTER_AT, BOX_HOURS:BOX_HOURS, ADV_ITEMS:ADV_ITEMS,
+  recordConcept:recordConcept, conceptState:conceptState, buildSession:buildSession, mapState:mapState, masteredCount:masteredCount, streak:streak, migrate:migrate,
+  setClock:function(ms){ clockSkew = ms; }, nowMs:function(){ return nowMs(); }, playSession:function(list){ forcedSession = list; go('adventure'); }, LETTER_NAMES:LETTER_NAMES, letterName:letterName, numWord:numWord, speakable:speakable, LETTERS:LETTERS, TracePad:TracePad, TRACE_RULES:TRACE_RULES, load:load, save:save, isKnown:isKnown, focusLetters:focusLetters, numRange:numRange, autoLevel:autoLevel, pickTargets:pickTargets, KEY:KEY, reset:function(){ mem = null; }};
 route();
 })();
 </script>
