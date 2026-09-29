@@ -383,6 +383,30 @@ button:focus-visible{outline:4px solid #F2A900; outline-offset:3px}
 .wtools + .feedback:empty{min-height:0; padding:0; margin:4px 0 0}
 .wgot .btn{font-size:23px; padding:10px 12px; line-height:1.25}
 .m-write-nav .count{font-size:17px; white-space:nowrap}
+/* Write It: roomier pad, fun pens, gems, bubble, burst */
+.wtop{position:relative}
+.wpad{height:clamp(270px, 84vw, 420px)}
+.wpad .wp-fx{pointer-events:none}
+.wgem{position:absolute; z-index:2; pointer-events:none; line-height:0; animation:gempop .5s ease-out both}
+.wgem svg{width:100%; height:100%; display:block}
+@keyframes gempop{0%{transform:translateY(16px) scale(.2); opacity:0}60%{transform:translateY(-5px) scale(1.2); opacity:1}100%{transform:translateY(0) scale(1); opacity:1}}
+.pens{display:flex; align-items:center; justify-content:center; gap:10px; margin:0 0 8px}
+.pens-lbl{font-size:18px; font-weight:700; color:var(--ink-soft)}
+.penbtn{width:60px; height:54px; padding:6px 10px; border-radius:10px; background:#fff; border:3px solid #BFAF8A; box-shadow:0 4px 0 #BFAF8A; line-height:0}
+.penbtn svg{width:100%; height:100%; display:block}
+.penbtn[aria-pressed="true"]{border-color:var(--pe); box-shadow:0 4px 0 var(--pe), inset 0 0 0 3px var(--pc); background:#FFFBEA}
+.wmode > b{transition:opacity .2s}
+.wtop.talking .wmode > b{opacity:0}
+.wbubble{position:absolute; right:72px; top:0; max-width:calc(100% - 162px); background:#fff; color:var(--ink); border:3px solid #3B3B3B; border-radius:8px; padding:6px 12px;
+  font-size:20px; font-weight:700; line-height:1.25; white-space:nowrap; box-shadow:0 3px 0 rgba(0,0,0,.18); opacity:0; transform:translateY(6px); transition:opacity .2s, transform .2s; pointer-events:none; z-index:3}
+.wbubble.show{opacity:1; transform:none}
+.wbubble::after{content:''; position:absolute; right:-12px; top:12px; border-style:solid; border-width:8px 0 8px 10px; border-color:transparent transparent transparent #3B3B3B}
+.avatar.nod svg{animation:hop .35s ease-in-out 1}
+.wburst{position:fixed; width:0; height:0; pointer-events:none; z-index:45}
+.wburst i{position:absolute; left:0; top:0; border:2px solid rgba(0,0,0,.25); box-sizing:border-box; animation:wb 1.1s cubic-bezier(.2,.7,.4,1) both}
+@keyframes wb{0%{transform:translate(0,0) scale(.5); opacity:1}60%{transform:translate(var(--bx), var(--by)) scale(1); opacity:1}100%{transform:translate(var(--bx), calc(var(--by) + 60px)); opacity:0}}
+.fbgem{display:inline-block; width:30px; height:30px; vertical-align:-6px; margin:0 4px 0 6px; line-height:0}
+.fbgem svg{width:100%; height:100%}
 </style>
 </head>
 <body>
@@ -826,7 +850,8 @@ var Speech = (function(){
       one(s.text, s.rate, function(){ if (my !== token) return; setTimeout(next, s.gap == null ? 250 : s.gap); });
     })();
   }
-  return {ok:ok, say:say, seq:seq, stop:stop, unlock:unlock, RATE:RATE};
+  function busy(){ try { return ok && !!(synth.speaking || synth.pending); } catch(e){ return false; } }
+  return {ok:ok, say:say, seq:seq, stop:stop, unlock:unlock, busy:busy, RATE:RATE};
 })();
 document.addEventListener('touchend', Speech.unlock, {capture:true, passive:true});
 document.addEventListener('click', Speech.unlock, true);
@@ -1358,28 +1383,210 @@ function strokePath(ctx, pts, W, H){
   }
   ctx.stroke();
 }
-function WritePad(host, word, onChange){
-  host.innerHTML = '<canvas class="wp-bg" aria-hidden="true"></canvas><canvas class="wp-ink" role="img" aria-label="Writing area. Write the word here with your finger or pencil."></canvas>';
-  var bg = host.firstChild, ink = host.lastChild, strokes = [], cur = null, trace = false, locked = false, L = null, W = 0, H = 0, raf = 0, penSeen = false;
+/* ---- The writing pad: school-paper lines (dashed midline halfway), smaller letters, lots of room ----
+   Tracing letters are a wide, soft "path" built from a simple stroke skeleton for each letter.
+   Skeleton units: x in x-heights from the letter's left edge; y in line units
+   (0 = baseline, 1 = dashed midline, 2 = top line, -1 = descender line). The first point is the start dot. */
+function skArc(cx, cy, rx, ry, a0, a1){
+  var n = Math.max(6, Math.ceil(Math.abs(a1 - a0) / 10)), p = [];
+  for (var k=0;k<=n;k++){ var a = (a0 + (a1 - a0) * k / n) * Math.PI / 180; p.push([cx + rx * Math.cos(a), cy + ry * Math.sin(a)]); }
+  return p;
+}
+var SK = (function(){
+  function bowl(){ return skArc(.36, .5, .34, .5, 40, 400); }        /* a d g q: start at 1 o'clock, go round to the left */
+  function hump(x0, x1, ry){ var cx = (x0 + x1) / 2; return skArc(cx, 1 - ry, (x1 - x0) / 2, ry, 180, 0).concat([[x1, 0]]); }
+  return {
+    a:{w:.78, s:[bowl(), [[.72,1],[.72,0]]]},
+    b:{w:.8,  s:[[[.1,2],[.1,0]], skArc(.44,.5,.34,.5,180,-180)]},
+    c:{w:.74, s:[skArc(.4,.5,.34,.5,40,320)]},
+    d:{w:.78, s:[bowl(), [[.72,2],[.72,0]]]},
+    e:{w:.76, s:[[[.06,.5],[.72,.5]].concat(skArc(.39,.5,.33,.5,0,320))]},
+    f:{w:.56, s:[skArc(.4,1.62,.2,.34,20,180).concat([[.2,0]]), [[0,1],[.48,1]]]},
+    g:{w:.78, s:[bowl(), [[.72,1],[.72,-.5]].concat(skArc(.4,-.5,.32,.42,0,-165))]},
+    h:{w:.8,  s:[[[.1,2],[.1,0]], hump(.1,.72,.42)]},
+    i:{w:.2,  s:[[[.1,1],[.1,0]], [[.1,1.45]]]},
+    j:{w:.42, s:[[[.3,1],[.3,-.55]].concat(skArc(.08,-.55,.22,.4,0,-160)), [[.3,1.45]]]},
+    k:{w:.74, s:[[[.1,2],[.1,0]], [[.64,1],[.12,.42],[.68,0]]]},
+    l:{w:.2,  s:[[[.1,2],[.1,0]]]},
+    m:{w:1.2, s:[[[.1,1],[.1,0]], hump(.1,.6,.38), hump(.6,1.1,.38)]},
+    n:{w:.8,  s:[[[.1,1],[.1,0]], hump(.1,.72,.42)]},
+    o:{w:.8,  s:[skArc(.4,.5,.38,.5,70,430)]},
+    p:{w:.8,  s:[[[.1,1],[.1,-1]], skArc(.44,.5,.34,.5,180,-180)]},
+    q:{w:.8,  s:[bowl(), [[.72,1],[.72,-1]]]},
+    r:{w:.56, s:[[[.1,1],[.1,0]], skArc(.38,.52,.28,.42,180,40)]},
+    s:{w:.66, s:[skArc(.34,.75,.28,.25,20,270).concat(skArc(.34,.25,.28,.25,90,-160).slice(1))]},
+    t:{w:.56, s:[[[.24,1.7],[.24,.22]].concat(skArc(.44,.22,.2,.22,180,300).slice(1)), [[0,1],[.52,1]]]},
+    u:{w:.8,  s:[[[.1,1],[.1,.42]].concat(skArc(.4,.42,.3,.42,180,360).slice(1)).concat([[.7,1]]), [[.7,1],[.7,0]]]},
+    v:{w:.76, s:[[[0,1],[.38,0],[.76,1]]]},
+    w:{w:1.1, s:[[[0,1],[.26,0],[.55,.9],[.84,0],[1.1,1]]]},
+    x:{w:.72, s:[[[.04,1],[.68,0]], [[.68,1],[.04,0]]]},
+    y:{w:.76, s:[[[.04,1],[.38,0]], [[.72,1],[.06,-.95]]]},
+    z:{w:.72, s:[[[.06,1],[.68,1],[.06,0],[.72,0]]]}
+  };
+})();
+function padLayout(word, W, H){
+  var gapU = .46, units = gapU * (word.length - 1);
+  word.split('').forEach(function(c){ units += (SK[c] || {w:.7}).w; });
+  var mx = Math.max(22, W * 0.07);
+  var xh = Math.max(12, Math.min(H * 0.21, (W - 2 * mx) / units, 110));   /* the 3 line gaps use ~63% of the height */
+  var x = (W - units * xh) / 2, top = (H - 3 * xh) / 2 + xh * 0.04;
+  var xs = [], ws = [];
+  word.split('').forEach(function(c){ var w = (SK[c] || {w:.7}).w * xh; xs.push(x); ws.push(w); x += w + gapU * xh; });
+  var pen = Math.max(5, Math.min(10, xh * 0.11));
+  return {fs:xh / 0.53, xh:xh, top:top, mid:top + xh, base:top + 2 * xh, desc:top + 3 * xh, xs:xs, ws:ws, W:W, H:H, pen:pen, lane:pen * 2.8};
+}
+function lanePaths(word, L){
+  return word.split('').map(function(c, i){
+    var g = SK[c] || {w:.7, s:[[[.35,1],[.35,0]]]};
+    return g.s.map(function(st){ return st.map(function(p){ return [L.xs[i] + p[0] * L.xh, L.base - p[1] * L.xh]; }); });
+  });
+}
+function paintLane(ctx, paths, L){
+  ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  function each(fn){ paths.forEach(function(letter){ letter.forEach(fn); }); }
+  function poly(s){ ctx.beginPath(); ctx.moveTo(s[0][0], s[0][1]); if (s.length === 1) ctx.lineTo(s[0][0] + 0.1, s[0][1]); for (var k=1;k<s.length;k++) ctx.lineTo(s[k][0], s[k][1]); ctx.stroke(); }
+  ctx.strokeStyle = '#DDD3BD'; ctx.lineWidth = L.lane + 3; each(poly);      /* soft edge */
+  ctx.strokeStyle = '#EAE4D6'; ctx.lineWidth = L.lane; each(poly);          /* the wide light path */
+  ctx.setLineDash([0.5, Math.max(6, L.pen * 1.3)]); ctx.strokeStyle = '#C3B697'; ctx.lineWidth = Math.max(2, L.pen * 0.3);
+  each(function(s){ if (s.length > 1) poly(s); });                           /* faint dotted centre line */
+  ctx.setLineDash([]);
+  paths.forEach(function(letter){ var s = letter[0][0];                       /* green start dot per letter */
+    ctx.beginPath(); ctx.arc(s[0], s[1], Math.max(4.5, L.pen * 0.65), 0, Math.PI * 2);
+    ctx.fillStyle = '#36A94A'; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = '#FFFFFF'; ctx.stroke(); });
+  ctx.restore();
+}
+/* Fun pens (colours of the Block Mine gems). Ink = dark edge + bright core + light shine, so it stands out on the path. */
+var PENS = [
+  {id:'gem',   name:'Diamond blue',  core:'#22B5D4', edge:'#0B4F60', hi:'#D2FAFF'},
+  {id:'gold',  name:'Gold',          core:'#F3BB22', edge:'#7A5300', hi:'#FFF3B8'},
+  {id:'green', name:'Emerald green', core:'#2FBF62', edge:'#0E5528', hi:'#C9F7D8'},
+  {id:'ruby',  name:'Redstone red',  core:'#E23B30', edge:'#6A120E', hi:'#FFC4BE'}
+];
+function penById(id){ for (var i=0;i<PENS.length;i++) if (PENS[i].id === id) return PENS[i]; return PENS[0]; }
+function curPen(){ return penById(load().pen).id; }
+function inkStrokes(x, strokes, W, H, L, pen){
+  x.lineCap = 'round'; x.lineJoin = 'round';
+  x.strokeStyle = pen.edge; x.lineWidth = L.pen + 3.5; strokes.forEach(function(p){ strokePath(x, p, W, H); });
+  x.strokeStyle = pen.core; x.lineWidth = L.pen; strokes.forEach(function(p){ strokePath(x, p, W, H); });
+  x.globalAlpha = 0.8; x.strokeStyle = pen.hi; x.lineWidth = Math.max(1.5, L.pen * 0.26); strokes.forEach(function(p){ strokePath(x, p, W, H); });
+  x.globalAlpha = 1;
+}
+var COVER_OK = 0.5;    /* a letter counts as traced when about half of its path has ink near it (any order, any direction) */
+function WritePad(host, word, onChange, opts){
+  opts = opts || {};
+  host.innerHTML = '<canvas class="wp-bg" aria-hidden="true"></canvas><canvas class="wp-ink" role="img" aria-label="Writing area. Write the word here with your finger or pencil."></canvas><canvas class="wp-fx" aria-hidden="true"></canvas>';
+  var bg = host.querySelector('.wp-bg'), ink = host.querySelector('.wp-ink'), fx = host.querySelector('.wp-fx');
+  var strokes = [], cur = null, trace = false, locked = false, L = null, W = 0, H = 0, raf = 0, penSeen = false;
+  var pen = penById(opts.pen), paths = [], samples = [], popped = [], parts = [], fxRaf = 0, fxLast = 0, travel = 0, lastXY = null;
+  var rAF = window.requestAnimationFrame ? function(f){ return window.requestAnimationFrame(f); } : function(f){ return setTimeout(f, 16); };
+  function now(){ return (window.performance && performance.now) ? performance.now() : Date.now(); }
   function inkCtx(){ return ink.getContext('2d'); }
-  function drawBg(){ if (!W) return; var x = bg.getContext('2d'); x.clearRect(0, 0, W, H); paintLines(x, L); if (trace) paintWord(x, word, L, 'trace'); }
+  function drawBg(){ if (!W) return; var x = bg.getContext('2d'); x.clearRect(0, 0, W, H); paintLines(x, L); if (trace) paintLane(x, paths, L); }
   function drawInk(){
     raf = 0; if (!W) return;
     var x = inkCtx(); x.clearRect(0, 0, W, H);
-    x.strokeStyle = '#1E2638'; x.lineCap = 'round'; x.lineJoin = 'round'; x.lineWidth = Math.max(5, L.fs * 0.075);
-    strokes.forEach(function(p){ strokePath(x, p, W, H); });
+    inkStrokes(x, strokes, W, H, L, pen);
     host.setAttribute('data-strokes', strokes.length);
   }
-  function schedule(){ if (!raf) raf = (window.requestAnimationFrame || setTimeout)(drawInk); }
+  function schedule(){ if (!raf) raf = rAF(drawInk); }
+  /* ---- lenient coverage: sample points along each letter's path; a sample is covered if any ink is within a generous distance ---- */
+  function buildSamples(){
+    var step = Math.max(3, L.lane / 3);
+    samples = paths.map(function(letter){
+      var out = [];
+      letter.forEach(function(st){
+        if (st.length === 1){ out.push({x:st[0][0], y:st[0][1], hit:false}); return; }
+        for (var k=1;k<st.length;k++){
+          var a = st[k-1], b = st[k], n = Math.max(1, Math.round(Math.sqrt((b[0]-a[0])*(b[0]-a[0]) + (b[1]-a[1])*(b[1]-a[1])) / step));
+          for (var q = (k === 1 ? 0 : 1); q <= n; q++) out.push({x:a[0] + (b[0]-a[0]) * q / n, y:a[1] + (b[1]-a[1]) * q / n, hit:false});
+        }
+      });
+      return out;
+    });
+  }
+  function applyInk(pts){
+    if (!L || !pts.length) return;
+    var P = [], tol = L.lane * 0.5 + L.pen, t2 = tol * tol;
+    for (var k=0;k<pts.length;k++){
+      var x = pts[k].x * W, y = pts[k].y * H;
+      if (k){ var px = pts[k-1].x * W, py = pts[k-1].y * H, n = Math.ceil(Math.sqrt((x-px)*(x-px) + (y-py)*(y-py)) / 3); for (var q=1;q<n;q++) P.push([px + (x-px)*q/n, py + (y-py)*q/n]); }
+      P.push([x, y]);
+    }
+    samples.forEach(function(ss){ ss.forEach(function(s){
+      if (s.hit) return;
+      for (var j=0;j<P.length;j++){ var dx = P[j][0] - s.x, dy = P[j][1] - s.y; if (dx*dx + dy*dy <= t2){ s.hit = true; return; } }
+    }); });
+  }
+  function shares(){ return samples.map(function(ss){ var h = 0; ss.forEach(function(s){ if (s.hit) h++; }); return ss.length ? h / ss.length : 0; }); }
+  function recompute(){ if (!L) return; buildSamples(); strokes.forEach(applyInk); host.setAttribute('data-cover', shares().map(function(v){ return Math.round(v * 100); }).join(',')); }
+  function nPopped(){ return popped.filter(Boolean).length; }
+  function evaluate(){
+    if (!L) return;
+    var sh = shares();
+    host.setAttribute('data-cover', sh.map(function(v){ return Math.round(v * 100); }).join(','));
+    if (!trace || locked) return;
+    var fresh = [];
+    sh.forEach(function(v, i){ if (!popped[i] && v >= COVER_OK){ popped[i] = true; fresh.push(i); } });
+    if (!fresh.length) return;
+    host.setAttribute('data-popped', nPopped());
+    fresh.forEach(function(i, n){ gemBadge(i, n); });
+    if (opts.onLetter) opts.onLetter(fresh, nPopped(), word.length);
+  }
+  /* a little gem pops up above each traced letter and stays there */
+  function placeBadge(g){
+    var i = +g.getAttribute('data-i'), size = Math.round(Math.max(18, Math.min(32, L.xh * 0.42)));
+    g.style.width = g.style.height = size + 'px';
+    g.style.left = Math.round(L.xs[i] + L.ws[i] / 2 - size / 2) + 'px';
+    g.style.top = Math.round(Math.max(2, L.top - size - 6)) + 'px';
+  }
+  function gemBadge(i, n){
+    var g = document.createElement('div'); g.className = 'wgem'; g.setAttribute('data-i', i); g.setAttribute('aria-hidden', 'true');
+    g.innerHTML = dropSVG(pen.id); g.style.animationDelay = (n * 90) + 'ms';
+    host.appendChild(g); placeBadge(g);
+    if (!reducedMotion()){ var cx = L.xs[i] + L.ws[i] / 2, cy = L.top - 10; burstAt(cx, cy, 8, 3); }
+  }
+  function clearBadges(){ popped = []; host.removeAttribute('data-popped'); $all('.wgem', host).forEach(function(g){ g.parentNode.removeChild(g); }); }
+  /* ---- sparkle trail + little block bursts (drawn on a top canvas that ignores touches) ---- */
+  function addPart(p){ if (parts.length < 140) parts.push(p); }
+  function kick(){ if (!fxRaf){ fxLast = now(); fxRaf = rAF(fxTick); } }
+  function sparkle(x, y, n){
+    if (reducedMotion() || !L) return;
+    for (var k=0;k<n;k++) addPart({x:x + (Math.random() - .5) * L.pen * 1.6, y:y + (Math.random() - .5) * L.pen * 1.6,
+      vx:(Math.random() - .5) * 0.06, vy:-0.015 - Math.random() * 0.05, t:0, life:500 + Math.random() * 300,
+      s:Math.random() < .35 ? 0 : (Math.random() < .5 ? 4 : 5), c:pick([pen.core, pen.core, pen.edge, '#F5C542'])});
+    kick();
+  }
+  function burstAt(x, y, n, sz){
+    if (reducedMotion()) return;
+    var cols = [pen.core, pen.edge, pen.core, '#F5C542'];
+    for (var k=0;k<n;k++){ var a = Math.random() * Math.PI * 2, v = 0.06 + Math.random() * 0.12;
+      addPart({x:x, y:y, vx:Math.cos(a) * v, vy:Math.sin(a) * v - 0.05, t:0, life:520 + Math.random() * 260, s:sz + Math.floor(Math.random() * 3), c:pick(cols)}); }
+    kick();
+  }
+  function fxTick(){
+    fxRaf = 0; if (!W) return;
+    var t = now(), dt = Math.min(50, t - fxLast), x = fx.getContext('2d'); fxLast = t;
+    x.clearRect(0, 0, W, H);
+    parts = parts.filter(function(p){ p.t += dt; return p.t < p.life; });
+    parts.forEach(function(p){
+      p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 0.00018 * dt;
+      x.globalAlpha = Math.max(0, 1 - p.t / p.life); x.fillStyle = p.c;
+      if (!p.s){ x.fillRect(Math.round(p.x) - 1, Math.round(p.y) - 4, 3, 9); x.fillRect(Math.round(p.x) - 4, Math.round(p.y) - 1, 9, 3); }  /* tiny pixel twinkle */
+      else x.fillRect(Math.round(p.x - p.s / 2), Math.round(p.y - p.s / 2), p.s, p.s);
+    });
+    x.globalAlpha = 1;
+    if (parts.length && document.body.contains(host)) fxRaf = rAF(fxTick);
+  }
   function layout(){
     if (!document.body.contains(host)) return;
     var nW = Math.round(host.clientWidth), nH = Math.round(host.clientHeight);
     if (!nW || !nH) return;
     W = nW; H = nH;
-    sizeCanvas(bg, W, H); sizeCanvas(ink, W, H);
-    L = lineLayout(bg.getContext('2d'), word, W, H);
-    host.setAttribute('data-layout', JSON.stringify({xs:L.xs, ws:L.ws, top:L.top, mid:L.mid, base:L.base, desc:L.desc, fs:L.fs}));
-    drawBg(); drawInk();
+    sizeCanvas(bg, W, H); sizeCanvas(ink, W, H); sizeCanvas(fx, W, H);
+    L = padLayout(word, W, H); paths = lanePaths(word, L);
+    host.setAttribute('data-layout', JSON.stringify({xs:L.xs, ws:L.ws, top:L.top, mid:L.mid, base:L.base, desc:L.desc, fs:L.fs, xh:L.xh, pen:L.pen, lane:L.lane}));
+    recompute(); drawBg(); drawInk();
+    $all('.wgem', host).forEach(placeBadge);
   }
   function pt(e){ var r = ink.getBoundingClientRect(); return {x:(e.clientX - r.left) / r.width, y:(e.clientY - r.top) / r.height}; }
   ink.addEventListener('pointerdown', function(e){
@@ -1387,16 +1594,20 @@ function WritePad(host, word, onChange){
     if (e.pointerType === 'pen') penSeen = true; else if (penSeen && e.pointerType === 'touch') return; /* ignore the palm when using Apple Pencil */
     e.preventDefault();
     try { ink.setPointerCapture(e.pointerId); } catch(x){}
-    cur = {id:e.pointerId, pts:[pt(e)]}; strokes.push(cur.pts); schedule();
+    var p = pt(e); cur = {id:e.pointerId, pts:[p]}; strokes.push(cur.pts); schedule();
+    travel = 0; lastXY = [p.x * W, p.y * H]; sparkle(lastXY[0], lastXY[1], 3);
+    if (opts.onStroke) opts.onStroke(strokes.length);
   });
   ink.addEventListener('pointermove', function(e){
     if (!cur || e.pointerId !== cur.id) return;
     e.preventDefault();
     var evs = (e.getCoalescedEvents && e.getCoalescedEvents()) || []; if (!evs.length) evs = [e];
-    evs.forEach(function(ev){ cur.pts.push(pt(ev)); });
+    evs.forEach(function(ev){ var p = pt(ev); cur.pts.push(p);
+      var X = p.x * W, Y = p.y * H; if (lastXY){ travel += Math.sqrt((X - lastXY[0]) * (X - lastXY[0]) + (Y - lastXY[1]) * (Y - lastXY[1])); } lastXY = [X, Y];
+      if (travel > 9){ travel = 0; sparkle(X, Y, Math.random() < .3 ? 2 : 1); } });
     schedule();
   });
-  function end(e){ if (!cur || (e && e.pointerId !== cur.id)) return; cur = null; schedule(); if (onChange) onChange(); }
+  function end(e){ if (!cur || (e && e.pointerId !== cur.id)) return; var done = cur.pts; cur = null; schedule(); applyInk(done); evaluate(); if (onChange) onChange(); }
   ink.addEventListener('pointerup', end); ink.addEventListener('pointercancel', end);
   /* stop page scrolling / zooming while writing (older iOS) */
   ['touchstart', 'touchmove'].forEach(function(t){ ink.addEventListener(t, function(e){ e.preventDefault(); }, {passive:false}); });
@@ -1406,16 +1617,25 @@ function WritePad(host, word, onChange){
   layout();
   if (document.fonts && document.fonts.load){ Promise.all([document.fonts.load('400 60px Andika'), document.fonts.load('700 60px Andika')]).then(function(){ layout(); }, function(){}); }
   return {
-    clear: function(){ strokes = []; cur = null; drawInk(); if (onChange) onChange(); },
-    undo: function(){ strokes.pop(); cur = null; drawInk(); if (onChange) onChange(); },
+    clear: function(){ strokes = []; cur = null; clearBadges(); recompute(); drawInk(); if (onChange) onChange(); },
+    undo: function(){ strokes.pop(); cur = null; recompute(); drawInk(); if (onChange) onChange(); },   /* gems already earned stay */
     count: function(){ return strokes.length; },
-    setTrace: function(on){ trace = !!on; host.setAttribute('data-trace', trace ? '1' : '0'); drawBg(); },
+    setTrace: function(on){ trace = !!on; host.setAttribute('data-trace', trace ? '1' : '0'); drawBg(); evaluate(); },
     lock: function(on){ locked = !!on; host.classList.toggle('locked', locked); },
+    setPen: function(id){ pen = penById(id); host.setAttribute('data-pen', pen.id); drawInk(); $all('.wgem', host).forEach(function(g){ g.innerHTML = dropSVG(pen.id); }); },
+    pen: function(){ return pen.id; },
+    celebrate: function(){ if (!L) return; for (var i=0;i<word.length;i++) burstAt(L.xs[i] + L.ws[i] / 2, (L.mid + L.base) / 2, 7, 4); },
     snapshot: function(){
-      /* his writing on the lines (no tracing letters), for the quiz review */
+      /* his writing on the lines (no tracing path), for the quiz review */
       var c = document.createElement('canvas'), x = sizeCanvas(c, W, H);
-      paintLines(x, L); x.strokeStyle = '#1E2638'; x.lineCap = 'round'; x.lineJoin = 'round'; x.lineWidth = Math.max(5, L.fs * 0.075);
-      strokes.forEach(function(p){ strokePath(x, p, W, H); });
+      paintLines(x, L); inkStrokes(x, strokes, W, H, L, pen);
+      /* crop to the writing (lines + ink) so the review thumbnail isn't mostly empty margin */
+      var pad = L.xh * 0.4, x0 = L.xs[0], x1 = L.xs[L.xs.length-1] + L.ws[L.ws.length-1], y0 = L.top, y1 = L.desc;
+      strokes.forEach(function(s){ s.forEach(function(q){ x0 = Math.min(x0, q.x * W); x1 = Math.max(x1, q.x * W); y0 = Math.min(y0, q.y * H); y1 = Math.max(y1, q.y * H); }); });
+      x0 = Math.max(0, x0 - pad); x1 = Math.min(W, x1 + pad); y0 = Math.max(0, y0 - pad * 0.6); y1 = Math.min(H, y1 + pad * 0.6);
+      var cw = Math.round(x1 - x0), ch = Math.round(y1 - y0), out = document.createElement('canvas'), dpr = window.devicePixelRatio || 1;
+      if (cw > 20 && ch > 20){ out.width = Math.round(cw * dpr); out.height = Math.round(ch * dpr);
+        out.getContext('2d').drawImage(c, Math.round(x0 * dpr), Math.round(y0 * dpr), out.width, out.height, 0, 0, out.width, out.height); c = out; }
       try { return c.toDataURL('image/png'); } catch(e){ return ''; }
     }
   };
@@ -1424,6 +1644,50 @@ function writeTools(){
   return '<div class="row wtools"><button class="btn alt" data-act="clear"><span class="emoji" aria-hidden="true">🧽</span>Clear</button>' +
     '<button class="btn alt" data-act="undo" aria-label="Undo stroke">'+SVG_UNDO+'<span>Undo stroke</span></button></div>';
 }
+/* big tap buttons to pick the pen colour (remembered on this device) */
+function penRow(){
+  var c = curPen();
+  return '<div class="pens" role="group" aria-label="Pick your pen"><span class="pens-lbl" aria-hidden="true">Pen</span>' + PENS.map(function(p){
+    return '<button class="penbtn" data-pen="'+p.id+'" aria-label="'+p.name+' pen" aria-pressed="'+(p.id === c)+'" style="--pc:'+p.core+';--pe:'+p.edge+'">'+dropSVG(p.id)+'</button>'; }).join('') + '</div>';
+}
+function bindPens(pad){
+  $all('.penbtn').forEach(function(b){ b.onclick = function(){
+    var id = b.getAttribute('data-pen'), d = load(); d.pen = id; save(); pad.setPen(id);
+    $all('.penbtn').forEach(function(x){ x.setAttribute('aria-pressed', x === b); });
+    Sfx.blip(3);
+  }; });
+}
+/* Luke's character says short, kind things in a speech bubble (only a few are read aloud) */
+var LETTER_CHEERS = ['Nice lines!', 'Keep going!', 'Looking good!', 'Wobbly is OK!', 'Super!'];
+var wobblySaid = false, bubbleTimer = 0;
+function avSay(text, speak){
+  var b = $('#wbub'); if (!b) return;
+  var top = b.parentNode;
+  b.textContent = text; b.classList.remove('show'); void b.offsetWidth; b.classList.add('show'); top.classList.add('talking');
+  clearTimeout(bubbleTimer); bubbleTimer = later(function(){ b.classList.remove('show'); top.classList.remove('talking'); }, 2400);
+  if (speak && !Speech.busy()) Speech.say(text);
+}
+function nod(el){ if (!el || el.classList.contains('cheer')) return; el.classList.remove('nod'); void el.offsetWidth; el.classList.add('nod'); }
+/* +1 gem into the Block Mine hotbar (stops at a full 10 so crafting still happens in Block Mine) */
+function awardGem(ore){
+  var m = mineData(), have = 0; ORES.forEach(function(o){ have += m.inv[o.id] || 0; });
+  if (have >= 10) return false;
+  m.inv[ore] = (m.inv[ore] || 0) + 1; save(); return true;
+}
+/* short pixel-block burst from an element (finishing a word) */
+function blockBurst(el, colors){
+  if (!el || reducedMotion()) return;
+  var r = el.getBoundingClientRect(), wrap = document.createElement('div'); wrap.className = 'wburst'; wrap.setAttribute('aria-hidden', 'true');
+  wrap.style.left = (r.left + r.width / 2) + 'px'; wrap.style.top = (r.top + r.height / 2) + 'px';
+  for (var k=0;k<34;k++){
+    var i = document.createElement('i'), sz = 8 + Math.floor(Math.random() * 8), a = Math.random() * Math.PI * 2, d = 60 + Math.random() * Math.min(170, r.width * 0.45);
+    i.style.width = i.style.height = sz + 'px'; i.style.background = pick(colors);
+    i.style.setProperty('--bx', Math.round(Math.cos(a) * d) + 'px'); i.style.setProperty('--by', Math.round(Math.sin(a) * d * 0.7 - 30) + 'px');
+    i.style.animationDelay = Math.round(Math.random() * 120) + 'ms';
+    wrap.appendChild(i);
+  }
+  document.body.appendChild(wrap); setTimeout(function(){ if (wrap.parentNode) wrap.parentNode.removeChild(wrap); }, 1500);
+}
 var writeIdx = 0, writePass = 'trace';
 function write(){
   if (writeIdx >= WORDS.length) writeIdx = 0;
@@ -1431,10 +1695,12 @@ function write(){
   shell('Write It',
     '<div class="wtop">' +
       '<button class="btn speak" data-act="say" aria-label="Hear the word"><span class="emoji" aria-hidden="true">🔊</span></button>' +
-      '<div class="wmode"><b>' + (test ? 'Now write it by yourself!' : 'Listen, then trace the word.') + '</b>' +
+      '<div class="wmode"><b>' + (test ? 'Now write it by yourself!' : 'Listen, then trace the path.') + '</b>' +
         '<button class="btn alt toggle" data-act="trace" aria-pressed="' + (!test) + '"><span class="emoji" aria-hidden="true">✏️</span>Trace: <b data-tr>' + (test ? 'off' : 'on') + '</b></button></div>' +
       avatarHTML('wav') +
+      '<div class="wbubble" id="wbub" role="status" aria-live="polite"></div>' +
     '</div>' +
+    penRow() +
     '<div class="wpad" id="pad"></div>' +
     writeTools() +
     '<div class="feedback" id="fb" role="status"></div>' +
@@ -1442,9 +1708,18 @@ function write(){
     '<div id="reveal" hidden><p class="prompt">This is how we spell it:</p><div class="wreveal"><canvas></canvas></div>' +
       '<div class="row wgot"><button class="btn go huge flex1" data-act="got">I got it ✅</button><button class="btn alt huge flex1" data-act="again">Practice again 🔁</button></div></div>' +
     '<div class="navrow m-write-nav"><button class="btn alt arrow" data-act="prev" aria-label="Back">'+SVG_LEFT+'</button><span class="count">'+(writeIdx+1)+' of '+WORDS.length+(test ? ' · test' : ' · trace')+'</span><button class="btn alt arrow" data-act="next" aria-label="Next word">'+SVG_RIGHT+'</button></div>');
-  var fb = $('#fb'), av = $('.avatar');
-  var pad = WritePad($('#pad'), w, function(){ if (!checked){ fb.className = 'feedback'; fb.textContent = ''; } });
+  var fb = $('#fb'), av = $('.wtop .avatar');
+  var pad = WritePad($('#pad'), w, function(){ if (!checked){ fb.className = 'feedback'; fb.textContent = ''; } }, {
+    pen: curPen(),
+    onStroke: function(n){ if (n === 1 && $('#pad').getAttribute('data-trace') === '1'){ avSay('Wobbly is OK!', !wobblySaid); wobblySaid = true; } },
+    onLetter: function(fresh, done, total){
+      Sfx.blip(done);
+      if (done >= total){ cheer(av); pad.celebrate(); later(function(){ Sfx.twinkle(); }, 160); avSay('You did it!', true); }
+      else { nod(av); avSay(pick(LETTER_CHEERS)); }
+    }
+  });
   pad.setTrace(!test);
+  bindPens(pad);
   $('[data-act=say]').onclick = function(){ speakWordSentence(o); };
   $('[data-act=trace]').onclick = function(){ var on = $('#pad').getAttribute('data-trace') !== '1'; pad.setTrace(on); this.setAttribute('aria-pressed', on); $('[data-tr]').textContent = on ? 'on' : 'off'; };
   $('[data-act=clear]').onclick = function(){ if (!checked) pad.clear(); };
@@ -1455,6 +1730,7 @@ function write(){
     if (!triedStar){ triedStar = true; addStar(e.currentTarget); } /* a star for trying */
     $('#checkRow').hidden = true; $('.wtools').hidden = true; $('#reveal').hidden = false; fb.className = 'feedback'; fb.textContent = '';
     paintReveal($('#reveal canvas'), w);
+    avSay('Nice lines!');
     Speech.seq([{text:'Great try! This is how we spell ' + w + '.', gap:250}, {text:w.split('').join(', '), rate:0.7, gap:250}, {text:w}]);
     later(function(){ var r = $('#reveal'); if (r && r.scrollIntoView) r.scrollIntoView({behavior:'smooth', block:'nearest'}); }, 200);
   };
@@ -1462,12 +1738,21 @@ function write(){
   $('[data-act=got]').onclick = function(e){
     if (gotDone) return; gotDone = true;
     addStar(e.currentTarget); cheer(av);
-    if (test){ record('write', w, true, true); writeIdx = (writeIdx + 1) % WORDS.length; writePass = 'trace'; }
-    else writePass = 'test';
     var msg = pick(PRAISE);
-    fb.className = 'feedback good'; fb.textContent = msg + (test ? '' : ' Now try it without tracing.');
+    fb.className = 'feedback good';
+    if (test){
+      record('write', w, true, true); writeIdx = (writeIdx + 1) % WORDS.length; writePass = 'trace';
+      /* finished the word: a little block burst + a gem (in the pen's colour) for the Block Mine hotbar */
+      var ore = pad.pen(), added = awardGem(ore), pn = penById(ore);
+      blockBurst($('#pad'), [pn.core, pn.hi, pn.edge, '#F5C542', '#6DBB45', '#9A6534']);
+      Sfx.sparkle(); avSay('You did it!');
+      fb.innerHTML = esc(msg) + (added ? ' <span class="fbgem" aria-hidden="true">' + dropSVG(ore) + '</span>+1 ' + esc(oreById(ore).name) + ' for your hotbar!' : '');
+    } else {
+      writePass = 'test'; avSay('Nice lines!');
+      fb.textContent = msg + ' Now try it without tracing.';
+    }
     var moved = false; function go2(){ if (moved) return; moved = true; write(); }
-    Speech.say(msg + (test ? '' : ' Now write it without the dotted letters.'), null, function(){ later(go2, 200); });
+    Speech.say(msg + (test ? '' : ' Now write it by yourself.'), null, function(){ later(go2, test ? 700 : 200); });
     later(go2, 3500);
     $('#reveal').hidden = true;
   };
@@ -1488,11 +1773,11 @@ function writeQuiz(){
     shell('Writing Quiz', progressDots(i, items.length) +
       '<div class="wtop"><button class="btn speak" data-act="say" aria-label="Hear the word"><span class="emoji" aria-hidden="true">🔊</span></button>' +
         '<div class="wmode"><b>Listen and write the word.</b></div>' + avatarHTML('wav') + '</div>' +
-      '<div class="wpad" id="pad"></div>' + writeTools() +
+      penRow() + '<div class="wpad" id="pad"></div>' + writeTools() +
       '<div class="row"><button class="btn go huge" data-act="next" disabled>Next <span aria-hidden="true">'+SVG_RIGHT.replace('<svg','<svg width="30" height="30"')+'</span></button></div>');
     var nextBtn = $('[data-act=next]');
-    var pad = WritePad($('#pad'), w, function(){ nextBtn.disabled = !pad.count(); });
-    pad.setTrace(false);
+    var pad = WritePad($('#pad'), w, function(){ nextBtn.disabled = !pad.count(); }, {pen:curPen()});
+    pad.setTrace(false); bindPens(pad);
     $('[data-act=say]').onclick = function(){ speakWordSentence(o); };
     $('[data-act=clear]').onclick = function(){ pad.clear(); };
     $('[data-act=undo]').onclick = function(){ pad.undo(); };
@@ -1603,7 +1888,13 @@ var Sfx = (function(){
   function chunk(){ var c = ac(); if (!c) return; try { var t = c.currentTime; noise(c, t, 0.13, 700, 0.9); tone(c, 190, t, 0.1, 'square', 0.1, 70); } catch(e){} }
   function collect(){ var c = ac(); if (!c) return; try { var t = c.currentTime; [660, 880, 1320].forEach(function(f, k){ tone(c, f, t + k*0.07, 0.1, 'square', 0.07); }); } catch(e){} }
   function craft(){ var c = ac(); if (!c) return; try { var t = c.currentTime; [523, 659, 784, 1047, 784, 1047].forEach(function(f, k){ tone(c, f, t + k*0.12, k === 5 ? 0.45 : 0.14, 'square', 0.08); }); } catch(e){} }
-  return {chunk:chunk, collect:collect, craft:craft, unlock:ac};
+  /* soft, quiet blips for handwriting rewards (triangle wave, low volume) */
+  function soft(freqs, gap, dur, vol){ var c = ac(); if (!c) return; try { var t = c.currentTime; freqs.forEach(function(f, k){ tone(c, f, t + k*gap, dur, 'triangle', vol); }); } catch(e){} }
+  var PENTA = [523, 587, 659, 784, 880, 1047, 1175, 1319, 1568, 1760];
+  function blip(n){ var f = PENTA[Math.max(0, Math.min(PENTA.length - 1, (n || 1) - 1))]; soft([f, f * 1.5], 0.06, 0.12, 0.05); }
+  function twinkle(){ soft([784, 988, 1175, 1568], 0.08, 0.16, 0.045); }
+  function sparkle(){ soft([659, 784, 988, 1319, 1568], 0.09, 0.18, 0.05); }
+  return {chunk:chunk, collect:collect, craft:craft, blip:blip, twinkle:twinkle, sparkle:sparkle, unlock:ac};
 })();
 function reducedMotion(){ try { return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){ return false; } }
 function mineData(){ var d = load(); if (!d.mine || typeof d.mine !== 'object') d.mine = {total:0, inv:{}, crafts:[]}; if (!d.mine.inv) d.mine.inv = {}; if (!d.mine.crafts) d.mine.crafts = []; return d.mine; }
@@ -1847,7 +2138,7 @@ function grownups(){
       '<li><b>Build the Word</b>: he hears a word and taps letter tiles to spell it. Tap a filled box to take that letter back out, or tap <b>Undo</b> to take back the last letter.</li>' +
       '<li><b>Word Hunt</b>: he hears a word and picks the right spelling from 3 choices.</li>' +
       '<li><b>'+esc(mathTitle())+'</b>: dots come in groups of 5, and the number line shows the “hop”' + (LIST.math.op === '-' ? 's back. Taken-away dots are crossed out.' : ' to the answer.') + ' <b>Count with me</b> counts the dots out loud.</li>' +
-      '<li><b>Write It</b>: he hears the word and writes it with a finger, Apple Pencil or mouse on handwriting lines. First pass has dotted letters to trace (Trace on); the second pass is without. <b>Check</b> shows the real spelling under his writing; he decides “I got it” or “Practice again” (no auto-grading). Stars for trying and for “got it”. The <b>Handwritten Quiz</b> (in Quiz Practice) has him write up to 10 words, then review each drawing next to the correct spelling. Results show in the “Written” column below.</li>' +
+      '<li><b>Write It</b>: he hears the word and writes it with a finger, Apple Pencil or mouse on handwriting lines. First pass has a wide, soft path to trace (Trace on) with a green dot where each letter starts; wobbly lines still count, and a little gem pops up when a letter is roughly covered (there is never a “wrong”). The second pass is without the path. He can pick a pen colour (blue, gold, green, red); finishing a word adds a gem to his Block Mine hotbar. <b>Check</b> shows the real spelling under his writing; he decides “I got it” or “Practice again” (no auto-grading). Stars for trying and for “got it”. The <b>Handwritten Quiz</b> (in Quiz Practice) has him write up to 10 words, then review each drawing next to the correct spelling. Results show in the “Written” column below.</li>' +
       '<li><b>Block Mine</b>: a blocky mining game. He hears a word or a math problem, then taps the ore block with the right answer to mine it. No timer, nothing to lose: a wrong tap just shakes the block and repeats the question, and after 2 misses the right block glows. Every 10 blocks mined crafts a reward (pickaxe, sword, helmet, house…) for his <b>My Crafts</b> shelf. The helmet shows up on his character.</li>' +
       '<li><b>Quiz Practice</b>: items in a new shuffled order every time (the real quiz order is different from the practice sheet). No timer, same gentle help.</li>' +
     '</ul>' +
