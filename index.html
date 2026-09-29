@@ -8,6 +8,40 @@
 <meta name="apple-mobile-web-app-title" content="Luke Study">
 <meta name="theme-color" content="#FFF8E7">
 <title>Luke's Word &amp; Math Practice</title>
+<script>
+/* =====================================================================================
+   BUILT-IN WEEKLY LISTS  (the only part you need to edit to add a new week)
+   To add a week: copy the { ... } block below, paste it after the last one (add a comma
+   between blocks), change the values, run build.py and republish. That's it.
+     id      short, unique, never change or reuse it (w2, w3, ...). Progress is linked to it.
+     label   what Luke sees on the home screen, e.g. 'Week 2: short i'
+     date    the day the week starts, 'YYYY-MM-DD'. The newest week whose date has arrived
+             becomes "this week" by itself (unless a grown-up picked a week in the app).
+     pattern letters shown in blue ('a', 'ee', 'sh'); '' = color every vowel
+     words   1 to 20 of {w:'word', pic:'emoji', s:'Short sentence.'} (pic and s are optional)
+     math    {op:'+' or '-', k:number to add/take away, from:first number, to:last number}
+             or your own problems: {custom:'3+4, 10-2, 7+7'}
+   Republishing never wipes stars, levels or progress on the device. Changing a built-in week
+   here updates it on the device too, unless a grown-up edited that week in the app (their
+   version wins until they tap "Restore built-in version" on the Edit screen).
+   ===================================================================================== */
+window.LUKE_BUILTIN_WEEKS = [
+  {id:'w1', label:'Week 1: short a', date:'2026-09-28', pattern:'a',
+   words:[
+     {w:'bag', pic:'👜', s:'I put my toys in a bag.'},
+     {w:'cap', pic:'🧢', s:'Dad wears a red cap.'},
+     {w:'fan', pic:'🪭', s:'The fan keeps us cool.'},
+     {w:'jam', pic:'🍓🫙', s:'I like jam on my toast.'},
+     {w:'nap', pic:'😴', s:'The baby takes a nap.'},
+     {w:'pad', pic:'📝', s:'I draw on a pad of paper.'},
+     {w:'pan', pic:'🍳', s:'Mom cooks eggs in a pan.'},
+     {w:'rag', pic:'🧽', s:'Wipe the table with a rag.'},
+     {w:'wax', pic:'🕯️', s:'The candle is made of wax.'},
+     {w:'yam', pic:'🍠', s:'I ate a yam for dinner.'}
+   ],
+   math:{op:'+', k:1, from:1, to:12}}
+];
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%AD%90%3C/text%3E%3C/svg%3E">
 <style>
 /* Andika: a typeface designed for beginning readers (SIL Open Font License). Embedded, subset to basic Latin. */
@@ -408,6 +442,78 @@ button:focus-visible{outline:4px solid #F2A900; outline-offset:3px}
 .linkbtn{background:none; border:0; padding:8px 6px; font-size:16px; color:var(--ink-soft); text-decoration:underline; min-height:40px; letter-spacing:.04em}
 .fbgem{display:inline-block; width:30px; height:30px; vertical-align:-6px; margin:0 4px 0 6px; line-height:0}
 .fbgem svg{width:100%; height:100%}
+/* ---------- Weeks + Block Mine levels ---------- */
+.weekchip{display:inline-flex; align-items:center; gap:6px; margin:2px 0 0; padding:3px 12px 3px 8px; background:#FFF; border:2px solid var(--line); border-radius:999px; font-size:18px; font-weight:700; color:var(--ink-soft); letter-spacing:.04em; line-height:1.3}
+.weekchip .emoji{font-size:18px}
+.lvlbadge{display:inline-flex; align-items:center; gap:6px; padding:4px 10px 4px 5px; border-radius:10px; background:#fff; border:3px solid #BFAF8A; box-shadow:0 3px 0 #BFAF8A; font-weight:700; font-size:18px; letter-spacing:.04em; min-height:44px}
+.lvlbadge .px, .lvlname .px, .lvlsum .px{width:28px; height:28px; flex:0 0 auto; outline:2px solid rgba(0,0,0,.25); outline-offset:-2px}
+.lvlbar{display:flex; align-items:center; gap:8px; margin:0 0 6px; padding:5px 8px; background:#fff; border:2px solid var(--line); border-radius:10px; font-size:16px; letter-spacing:.03em}
+.lvlname{display:inline-flex; align-items:center; gap:6px; white-space:nowrap}
+.xpmeter{flex:1; height:14px; min-width:60px; background:#E9E2D0; border:2px solid #BFB39A; border-radius:4px; overflow:hidden}
+.xpmeter i{display:block; height:100%; background:linear-gradient(#8EE06A, #5DA83A); transition:width .6s ease}
+.xpnum{font-weight:700; white-space:nowrap; min-width:3.2em; text-align:right}
+.quarry.lv-wood{background:linear-gradient(transparent calc(100% - 18px), #6B4222 calc(100% - 18px)), linear-gradient(#E4F4DA, #F5EEDC)}
+.quarry.lv-stone{background:linear-gradient(transparent calc(100% - 18px), #5A5A5A calc(100% - 18px)), linear-gradient(#E6F2FA, #E4E4E0)}
+.quarry.lv-iron{background:linear-gradient(transparent calc(100% - 18px), #5E4A3C calc(100% - 18px)), linear-gradient(#F2E8DD, #DCCBBB)}
+.quarry.lv-gold{background:linear-gradient(transparent calc(100% - 18px), #A8823A calc(100% - 18px)), linear-gradient(#FFF6D6, #F3DE9C)}
+.quarry.lv-diamond{background:linear-gradient(transparent calc(100% - 18px), #34425A calc(100% - 18px)), linear-gradient(#D8F3FA, #A9D9E8)}
+.quarry.lv-crystal{background:linear-gradient(transparent calc(100% - 18px), #4F3E66 calc(100% - 18px)), linear-gradient(#F3EAFB, #D9C6EF)}
+.quarry.lv-star{background:linear-gradient(transparent calc(100% - 18px), #1E2440 calc(100% - 18px)), radial-gradient(circle at 12% 20%, #FFF7C2 0 2px, transparent 3px), radial-gradient(circle at 78% 14%, #FFF7C2 0 2px, transparent 3px), radial-gradient(circle at 46% 30%, #fff 0 1.5px, transparent 2.5px), radial-gradient(circle at 90% 46%, #fff 0 1.5px, transparent 2.5px), linear-gradient(#2A3160, #46508A)}
+.quarry.lv-rainbow{background:linear-gradient(transparent calc(100% - 18px), #8A5A7A calc(100% - 18px)), linear-gradient(#FFE3E3, #FFF3D6 30%, #E3F8E3 55%, #DDEBFF 80%, #EFE0FF)}
+.lvlpop{position:fixed; inset:0; z-index:62; background:rgba(40,30,20,.5); display:flex; align-items:center; justify-content:center; padding:16px}
+.lvlcard{position:relative; overflow:hidden; background:var(--card); border:4px solid #C98A00; border-radius:14px; box-shadow:0 8px 0 #A87A0A; padding:16px; max-width:420px; width:100%; text-align:center; animation:lvin .7s ease-out both}
+.lvlcard > *{position:relative}
+.lvlcard h2{font-size:38px; margin:0; text-shadow:2px 2px 0 #FFE7A0}
+.lvlrow{display:flex; align-items:center; justify-content:center; gap:14px; margin:4px 0}
+.lvlrow .avatar{width:96px}
+.lvlbig .px{width:96px; height:96px; outline:4px solid rgba(0,0,0,.28); outline-offset:-4px; animation:lvbob 3s ease-in-out infinite}
+.lvltitle{font-size:30px; margin:4px 0}
+.lvlnew{font-size:20px; margin:6px 0}
+.lvlitem{display:inline-flex; align-items:center; gap:6px; white-space:nowrap}
+.lvlitem .px.mini{width:34px; height:34px}
+.lvlglow{position:absolute !important; left:50%; top:42%; width:520px; height:520px; margin:-260px 0 0 -260px; pointer-events:none; background:repeating-conic-gradient(rgba(255,210,63,.20) 0 10deg, transparent 10deg 30deg); border-radius:50%; animation:lvspin 16s linear infinite}
+.lvlsparks{position:absolute !important; inset:0; pointer-events:none}
+.lvlsparks i{position:absolute; width:10px; height:10px; background:#FFD23F; transform:rotate(45deg); opacity:0; animation:lvtw 2.4s ease-in-out infinite}
+.lvlpop.still .lvlcard, .lvlpop.still .lvlglow, .lvlpop.still .lvlbig .px{animation:none}
+@keyframes lvin{0%{transform:translateY(24px) scale(.92); opacity:0}100%{transform:none; opacity:1}}
+@keyframes lvspin{to{transform:rotate(360deg)}}
+@keyframes lvbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes lvtw{0%,100%{opacity:0; transform:rotate(45deg) scale(.4)}50%{opacity:.9; transform:rotate(45deg) scale(1)}}
+.lvlcard.lv-stone{border-color:#6E6E6E; box-shadow:0 8px 0 #4E4E4E}
+.lvlcard.lv-iron{border-color:#8A6A4F; box-shadow:0 8px 0 #5E4A3C}
+.lvlcard.lv-diamond{border-color:#1F9AAE; box-shadow:0 8px 0 #146B7A}
+.lvlcard.lv-crystal{border-color:#6B3FA0; box-shadow:0 8px 0 #4A2B70}
+.lvlcard.lv-star{border-color:#3B466E; box-shadow:0 8px 0 #262F4F}
+.lvlcard.lv-rainbow{border-color:#C2185B; box-shadow:0 8px 0 #8A1040}
+.m-review{background:#E3DCF5}
+.review-off{grid-column:1 / -1; font-size:17px; color:var(--ink-soft); background:#fff; border:2px dashed var(--line); border-radius:10px; padding:10px 14px; text-align:left; line-height:1.45}
+.mode small{font-size:18px; font-weight:700; opacity:.85}
+.hint.center{text-align:center; font-size:17px; color:var(--ink-soft)}
+.lvlsum{display:flex; align-items:center; gap:12px; background:#fff; border:2px solid var(--line); border-radius:12px; padding:8px 12px; margin:8px 0; line-height:1.5}
+.lvlsum .px{width:40px; height:40px}
+.wksums{display:grid; gap:10px; margin:6px 0 14px}
+.wksum{background:#fff; border:2px solid var(--line); border-radius:12px; padding:8px 12px; line-height:1.5}
+.wksum.cur{border-color:#9CC98A; background:#FBFFF7}
+.wksum h4{font-size:20px; margin:0}
+.wksum .wkdate{margin:0; font-size:16px; color:var(--ink-soft)}
+.wksum ul{margin:4px 0 0; padding-left:1.1em}
+.wksum li{margin:2px 0}
+.qchip{display:inline-block; background:#F7EED8; border-radius:8px; padding:0 8px; margin:2px 2px 2px 0; white-space:nowrap; font-size:16px}
+.qchip small{color:var(--ink-soft)}
+.muted{color:var(--ink-soft)}
+.topr{color:#8A5A00}
+.curtag{display:inline-block; font-style:normal; font-size:14px; font-weight:700; background:#DDF0D0; color:#2F5E1F; border-radius:999px; padding:0 8px; letter-spacing:.03em; vertical-align:2px}
+.wklist{display:grid; gap:8px; margin:6px 0 4px}
+.wkbtn{position:relative; display:flex; flex-direction:column; align-items:flex-start; text-align:left; gap:0; padding:8px 12px; min-height:60px; border-radius:12px; border:3px solid var(--line); background:#fff; font-size:19px; box-shadow:0 3px 0 var(--line); letter-spacing:.04em}
+.wkbtn span{font-size:15px; color:var(--ink-soft)}
+.wkbtn.on{border-color:var(--btn); background:var(--vowel-bg); box-shadow:0 3px 0 var(--btn)}
+.wkbtn.new{border-style:dashed}
+.wkbtn .curtag{position:absolute; right:10px; top:10px}
+.wkacts{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:10px}
+.wkacts .smallbtn[disabled]{opacity:.5}
+.wklbl{font-weight:700}
+.ed input[type=date]{font-family:inherit; font-size:20px; padding:8px 12px; border:3px solid var(--line); border-radius:14px; background:#fff; color:var(--ink); min-height:54px}
+.btn.danger{border-color:#D69A1E}
 </style>
 </head>
 <body>
@@ -418,21 +524,10 @@ button:focus-visible{outline:4px solid #F2A900; outline-offset:3px}
 (function(){
 'use strict';
 
-/* ---------------- This week's default content (a grown-up can change it on the Edit screen) ---------------- */
-var DEFAULT_TITLE = 'Unit 1 · Short A · Week 1';
-var DEFAULT_PATTERN = 'a';
-var DEFAULT_WORDS = [
-  {w:'bag', pic:'👜', s:'I put my toys in a bag.'},
-  {w:'cap', pic:'🧢', s:'Dad wears a red cap.'},
-  {w:'fan', pic:'🪭', s:'The fan keeps us cool.'},
-  {w:'jam', pic:'🍓🫙', s:'I like jam on my toast.'},
-  {w:'nap', pic:'😴', s:'The baby takes a nap.'},
-  {w:'pad', pic:'📝', s:'I draw on a pad of paper.'},
-  {w:'pan', pic:'🍳', s:'Mom cooks eggs in a pan.'},
-  {w:'rag', pic:'🧽', s:'Wipe the table with a rag.'},
-  {w:'wax', pic:'🕯️', s:'The candle is made of wax.'},
-  {w:'yam', pic:'🍠', s:'I ate a yam for dinner.'}
-];
+/* ---------------- Word lists live in LUKE_BUILTIN_WEEKS at the very top of this file ---------------- */
+var LEGACY_WEEK = 'w1';                       /* the week that the old single list (and old quiz history) belongs to */
+var OLD_DEFAULT_TITLE = 'Unit 1 · Short A · Week 1';
+var FALLBACK_WEEK = {id:'w1', label:'Practice words', date:'', pattern:'', words:[{w:'cat'}, {w:'dog'}, {w:'sun'}], math:{op:'+', k:1, from:1, to:12}};
 /* Word-family chunks for "Sound it out" (spelled so device voices say them well) */
 var RIME = {bag:'ag', cap:'app', fan:'an', jam:'am', nap:'app', pad:'ad', pan:'an', rag:'ag', wax:'ax', yam:'am'};
 var FAMILY = {ag:'ag', ap:'app', an:'an', am:'am', ad:'ad', ax:'ax', at:'at'};
@@ -475,16 +570,18 @@ function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
 function viewW(){ return Math.min(window.innerWidth || document.documentElement.clientWidth || 390, 760); }
 
 /* Blue letters: the week's vowel/pattern (e.g. "a", "ee", "sh"). Blank pattern = every vowel. */
+var PAT_OVERRIDE = null; /* a Review item from another week uses that week's blue letters */
+function curPattern(){ return PAT_OVERRIDE != null ? PAT_OVERRIDE : LIST.pattern; }
 function hiPositions(w){
-  var p = LIST.pattern, out = {}, i;
+  var p = curPattern(), out = {}, i;
   if (!p){ for (i=0;i<w.length;i++) if (isVowel(w[i])) out[i] = 1; return out; }
   i = w.indexOf(p);
   while (i >= 0){ for (var k=0;k<p.length;k++) out[i+k] = 1; i = w.indexOf(p, i + p.length); }
   return out;
 }
-function isHiLetter(c){ if (!c) return false; return LIST.pattern ? LIST.pattern.indexOf(c) >= 0 : isVowel(c); }
+function isHiLetter(c){ if (!c) return false; var p = curPattern(); return p ? p.indexOf(c) >= 0 : isVowel(c); }
 function colorWord(w, pos){ pos = pos || hiPositions(w); return w.split('').map(function(c, i){ return pos[i] ? '<span class="v">'+c+'</span>' : c; }).join(''); }
-function wordObj(w){ for (var i=0;i<WORDS.length;i++) if (WORDS[i].w===w) return WORDS[i]; return null; }
+function wordObj(w){ for (var i=0;i<WORDS.length;i++) if (WORDS[i].w===w) return WORDS[i]; return ALLW[w] || null; } /* this week first, then any week */
 
 /* Emoji fallback for older devices that lack newer emoji (🪭 needs iOS 16.4+, 🫙 iOS 14.5+) */
 var EMOJI_FIX = {};
@@ -544,7 +641,23 @@ var ITEM_ART = {
   torch:   [["....yy......","...yooy.....","..yoOOoy....","...yooy.....","....dd......","....dd......","....dd......","....dd......","....dd......","....dd......","....DD......","............"],
             {y:'#FFE27A', o:'#F59A23', O:'#E0473E', d:'#9A6534', D:'#6B4222'}]
 };
-var ITEM_NAME = {pickaxe:'Pickaxe', sword:'Sword', helmet:'Helmet', house:'House', axe:'Axe', torch:'Torch'};
+/* Crafts unlocked by Block Mine levels (original pixel art) */
+ITEM_ART.shovel = [["....DDDD....","....D..D....","....DDDD....",".....dd.....",".....dd.....",".....dd.....","...GGddGG...","...GgwwgG...","...GgwggG...","...GggggG...","....GggG....",".....GG....."],
+                   {G:'#6E6E6E', g:'#A8A8A8', w:'#D9D9D9', d:'#9A6534', D:'#6B4222'}];
+ITEM_ART.shield = [[".GGGGGGGGGG.",".GwggRRgggG.",".GwggRRgggG.",".GggRRRRggG.",".GggRRRRggG.",".GgggRRgggG.",".GgggRRgggG.","..GggRRggG..","..GggRRggG..","...GgRRgG...","....GRRG....",".....GG....."],
+                   {G:'#5E5E66', g:'#C9CCD3', w:'#EEF0F4', R:'#C8503C'}];
+ITEM_ART.crown  = [["............","............",".Y...YY...Y.",".YY..YY..YY.",".YyY.YY.YyY.",".YyyYyyYyyY.",".YyyyyyyyyY.",".YyRyBByRyY.",".YyyyyyyyyY.",".OOOOOOOOOO.","............","............"],
+                   {Y:'#C98A00', y:'#FFD23F', R:'#E0473E', B:'#1F9AAE', O:'#A87A0A'}];
+ITEM_ART.castle = [["S.S.S..S.S.S","SSSSS..SSSSS","SsssS..SsssS","SsssSSSSsssS","SssssssssssS","SsswsssswssS","SsswsssswssS","SssssDDssssS","SsssDddDsssS","SsssDddDsssS","SsssDddDsssS","gggggggggggg"],
+                   {S:'#4F5F75', s:'#8FA3BC', w:'#5EE0F0', D:'#6B4222', d:'#9A6534', g:'#5DA83A'}];
+ITEM_ART.wand   = [["........P...",".......PpP..","......PpwpP.",".......PpP..","......ddP...",".....dd.....","....dd......","...dd.......","..dd........",".DD.........","DD..........","............"],
+                   {P:'#6B3FA0', p:'#B48CF0', w:'#F3EAFF', d:'#3E3350', D:'#241D30'}];
+ITEM_ART.rocket = [[".....RR.....","....RwwR....","....WwwW....","....WbbW....","....WbbW....","....WWWW....","....WWWW....","...RWWWWR...","..RRWWWWRR..","..R.WWWW.R..",".....oo.....","....oyyo...."],
+                   {R:'#E0473E', w:'#FFB3AC', W:'#D5D9E0', b:'#5EE0F0', o:'#F59A23', y:'#FFE27A'}];
+ITEM_ART.kite   = [[".....RR.....","....RRRR....","...OOOOOO...","..YYYYYYYY..","..GGGGGGGG..","...BBBBBB...","....PPPP....",".....PP.....","......d.....",".....dR.....","......dB....",".....d......"],
+                   {R:'#E0473E', O:'#F59A23', Y:'#FFD23F', G:'#4CD27A', B:'#5EB3F0', P:'#9B6BD8', d:'#6B4222'}];
+var ITEM_NAME = {pickaxe:'Pickaxe', sword:'Sword', helmet:'Helmet', house:'House', axe:'Axe', torch:'Torch',
+  shovel:'Shovel', shield:'Shield', crown:'Crown', castle:'Castle', wand:'Magic Wand', rocket:'Rocket', kite:'Rainbow Kite'};
 var CRAFT_ORDER = ['pickaxe', 'sword', 'helmet', 'house', 'axe', 'torch'];
 function itemSVG(id, cls){ var a = ITEM_ART[id]; return pixSVG(a[0], a[1], cls); }
 var STAR_SVG = pixSVG(["....y....","...yYy...","...yYy...","yyyyYyyyy",".yYYYYYy.","..yYYYy..","..yYyYy..",".yYy.yYy.",".yy...yy."], {y:'#C98A00', Y:'#FFD23F'}, 'pxstar');
@@ -559,7 +672,30 @@ var ORES = [
   {id:'ruby',  name:'red gem',   ore:['#8E2020', '#E0473E', '#FFB3AC']},
   {id:'grass', name:'grass block'}
 ];
-function oreById(id){ for (var i=0;i<ORES.length;i++) if (ORES[i].id === id) return ORES[i]; return ORES[0]; }
+/* Level badge ores (only used for the level icons) */
+var BADGE_ORES = [
+  {id:'iron',     name:'iron',     ore:['#7A5A40', '#D8AF93', '#F6E2D2']},
+  {id:'crystal',  name:'crystal',  ore:['#6B3FA0', '#B48CF0', '#F0E6FF']},
+  {id:'starore',  name:'star ore', ore:['#B98A00', '#FFE27A', '#FFFBE0']},
+  {id:'rainbow',  name:'rainbow',  ore:['#C2185B', '#FF8FB8', '#FFE3EE']}
+];
+function oreById(id){ var all = ORES.concat(BADGE_ORES); for (var i=0;i<all.length;i++) if (all[i].id === id) return all[i]; return ORES[0]; }
+/* ---------------- Block Mine levels: XP = Block Mine answers right within 2 tries ----------------
+   Each level has its own rock colors + quarry background, and unlocks one new craft. */
+var LEVELS = [
+  {id:'wood',    name:'Wood',      rock:['#A77B4B', '#946A3E', '#B98D5C', '#7A5430'], badge:'stone',   craft:null},
+  {id:'stone',   name:'Stone',     rock:['#8F8F8F', '#7E7E7E', '#A3A3A3', '#686868'], badge:'stone',   craft:'shovel'},
+  {id:'iron',    name:'Iron',      rock:['#8E847D', '#7B726B', '#A39991', '#625A54'], badge:'iron',    craft:'shield'},
+  {id:'gold',    name:'Gold',      rock:['#D2B872', '#C0A45C', '#E0CA8C', '#A38A45'], badge:'gold',    craft:'crown'},
+  {id:'diamond', name:'Diamond',   rock:['#5E6F86', '#4F5F75', '#72839A', '#3E4C60'], badge:'gem',     craft:'castle'},
+  {id:'crystal', name:'Crystal',   rock:['#8D76A8', '#7A6495', '#A08BBC', '#5F4C78'], badge:'crystal', craft:'wand'},
+  {id:'star',    name:'Starlight', rock:['#46527E', '#3B466E', '#56639A', '#2C3558'], badge:'starore', craft:'rocket'},
+  {id:'rainbow', name:'Rainbow',   rock:['#D59AB0', '#C688A0', '#E4B0C4', '#AE7090'], badge:'rainbow', craft:'kite'}
+];
+function levelNeed(n){ return 15 + 5 * n; }                    /* answers from level n to n+1: 15, 20, 25, 30, ... */
+function levelStart(n){ var s = 0; for (var i=0;i<n;i++) s += levelNeed(i); return s; } /* 0, 15, 35, 60, 90, 125, 165, 210 */
+function levelFor(xp){ var n = 0; while (n < LEVELS.length - 1 && xp >= levelStart(n + 1)) n++; return n; }
+var LEVEL_NOW = 0; /* level used for drawing blocks (set when the game screen is drawn) */
 function seeded(seed){ var s = seed; return function(){ s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; }; }
 var BLOCK_CACHE = {};
 function blockRows(o){
@@ -574,20 +710,23 @@ function blockRows(o){
   }
   return rows;
 }
-function blockPal(o){
+function blockPal(o, lv){
   if (o.id === 'grass') return {g:'#6DBB45', G:'#5DA83A', h:'#4E9632', d:'#9A6534', D:'#86572A', e:'#6B4222'};
-  var p = {'0':'#8F8F8F', '1':'#7E7E7E', '2':'#A3A3A3', '3':'#686868'};
+  var r = LEVELS[lv == null ? 1 : lv].rock, p = {'0':r[0], '1':r[1], '2':r[2], '3':r[3]};
   if (o.ore){ p.a = o.ore[0]; p.b = o.ore[1]; p.c = o.ore[2]; }
   return p;
 }
-function blockSVG(id, cls){
-  if (!BLOCK_CACHE[id]){ var o = oreById(id); BLOCK_CACHE[id] = pixSVG(blockRows(o), blockPal(o), 'block'); }
-  return cls ? BLOCK_CACHE[id].replace('class="px block"', 'class="px block '+cls+'"') : BLOCK_CACHE[id];
+function blockSVG(id, cls, lv){
+  lv = lv == null ? LEVEL_NOW : lv;
+  var key = id + '/' + lv;
+  if (!BLOCK_CACHE[key]){ var o = oreById(id); BLOCK_CACHE[key] = pixSVG(blockRows(o), blockPal(o, lv), 'block'); }
+  return cls ? BLOCK_CACHE[key].replace('class="px block"', 'class="px block '+cls+'"') : BLOCK_CACHE[key];
 }
+function levelIcon(n, cls){ return blockSVG(LEVELS[n].badge, 'lvicon ' + (cls || ''), n); }
 /* what you collect from each block (shown in the hotbar) */
 function dropSVG(id){
   var o = oreById(id);
-  if (!o.ore) return blockSVG(id, 'drop');
+  if (!o.ore) return blockSVG(id, 'drop', 1);
   return pixSVG(GEM_ROWS, {G:o.ore[0], g:o.ore[1], w:o.ore[2]}, 'drop');
 }
 var CRACKS = [[[5,5],[6,5],[6,6],[4,4]], [[3,3],[7,6],[8,7],[4,6],[3,7],[6,3],[7,2]], [[2,2],[9,8],[10,9],[2,8],[1,9],[8,3],[9,2],[5,8],[5,9],[6,1]]];
@@ -632,15 +771,14 @@ function avatarSVG(opt){
 function avatarHTML(cls, opt){ return '<div class="avatar '+(cls||'')+'" role="img" aria-label="Luke’s block character">' + avatarSVG(opt) + '</div>'; }
 function cheer(el){ if (!el) return; el.classList.remove('cheer', 'swing'); void el.offsetWidth; el.classList.add('cheer'); }
 
-/* ---------------- The word list + math set (saved separately from progress) ---------------- */
-var LIST_KEY = 'lukeStudyApp.list.v1';
-var LIST = null, WORDS = [], FACTS = [];
-function defaultList(){
-  return {v:1, title:DEFAULT_TITLE, pattern:DEFAULT_PATTERN,
-    words:DEFAULT_WORDS.map(function(o){ return {w:o.w, s:o.s, pic:o.pic}; }), math:clone(DEFAULT_MATH)};
-}
+/* ---------------- Weekly word lists + math (saved separately from progress) ----------------
+   Built-in weeks come from LUKE_BUILTIN_WEEKS (top of file). On the device we only store what a
+   grown-up changed: edited copies of built-in weeks, their own weeks, deleted built-ins, and the
+   chosen "this week". Unedited built-in weeks always follow the published file.            */
+var LIST_KEY = 'lukeStudyApp.list.v1';        /* old single list (read once for the move to weeks, never deleted) */
+var WEEKS_KEY = 'lukeStudyApp.weeks.v1';
+var LIST = null, WORDS = [], FACTS = [], WEEKS = [], ALLW = {}, WST = null, BUILTIN = null;
 function isDefaultMath(m){ return m.op === '+' && m.k === 1 && m.from === 1 && m.to === 12 && !m.custom; }
-function isDefaultList(L){ return JSON.stringify(L) === JSON.stringify(defaultList()); }
 function rimeFor(w){
   if (RIME[w]) return RIME[w];
   if (w.length === 3 && !isVowel(w[0]) && FAMILY[w.slice(1)]) return FAMILY[w.slice(1)];
@@ -696,11 +834,21 @@ function cleanPic(p){
   if (/^data:/i.test(p) || p.length > 16) return '';
   return p;
 }
-/* Check and tidy a list (from the editor or an imported code). Returns {list, errors:[{i?, msg}]} */
+function cleanDate(s){
+  s = String(s == null ? '' : s).trim();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return null;
+  var d = new Date(s + 'T12:00:00');
+  return isNaN(d.getTime()) || d.toISOString().slice(0, 10) !== s ? null : s;
+}
+/* Check and tidy one week (from the editor, the built-in data or an imported code). Returns {list, errors:[{i?, msg}]} */
 function cleanList(raw){
-  var errors = [], out = {v:1};
+  var errors = [], out = {};
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return {list:null, errors:[{msg:'That code is not a word list.'}]};
-  out.title = String(raw.title == null ? '' : raw.title).replace(/\s+/g, ' ').trim().slice(0, 60) || 'Spelling words';
+  var lab = raw.label != null ? raw.label : raw.title;
+  out.label = String(lab == null ? '' : lab).replace(/\s+/g, ' ').trim().slice(0, 60) || 'Spelling words';
+  var ds = String(raw.date == null ? '' : raw.date).trim();
+  out.date = ds ? (cleanDate(ds) || '') : '';
+  if (ds && !out.date) errors.push({field:'date', msg:'Start date: please pick a real date (or leave it empty).'});
   var pat = String(raw.pattern == null ? '' : raw.pattern).replace(/\s+/g, '').toLowerCase();
   if (pat && !/^[a-z]{1,4}$/.test(pat)) errors.push({field:'pattern', msg:'Blue letters: use 1 to 4 letters (like a, ee, sh), or leave it blank.'});
   out.pattern = pat;
@@ -735,29 +883,124 @@ function cleanList(raw){
   out.math = mm;
   return {list: out, errors: errors};
 }
-function loadList(){
-  var L = null;
-  try { var raw = localStorage.getItem(LIST_KEY); if (raw){ var r = cleanList(JSON.parse(raw)); if (!r.errors.length) L = r.list; } } catch(e){}
-  applyList(L || defaultList());
+function cleanId(id){ id = String(id == null ? '' : id).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 24); return id || null; }
+function newWeekId(){ var id; do { id = 'my' + Date.now().toString(36) + Math.floor(Math.random() * 1296).toString(36); } while (weekById(id)); return id; }
+function builtinWeeks(){
+  if (BUILTIN) return BUILTIN;
+  BUILTIN = [];
+  var raw = window.LUKE_BUILTIN_WEEKS, seen = {};
+  (Array.isArray(raw) ? raw : []).forEach(function(b){
+    var id = b && cleanId(b.id); if (!id || seen[id]) return;
+    var r = cleanList(b);
+    if (r.errors.length){ try { console.warn('Built-in week ' + id + ' was skipped: ' + r.errors.map(function(e){ return e.msg; }).join(' ')); } catch(e){} return; }
+    r.list.id = id; seen[id] = 1; BUILTIN.push(r.list);
+  });
+  if (!BUILTIN.length){ var f = cleanList(FALLBACK_WEEK).list; f.id = FALLBACK_WEEK.id; BUILTIN.push(f); }
+  return BUILTIN;
 }
-/* Save a (checked) list. Progress for words that were removed is dropped; stars stay. Returns false if storage failed. */
-function commitList(L){
-  var keep = {}; L.words.forEach(function(o){ keep[o.w] = 1; });
-  var d = load(), k;
-  for (k in d.words) if (!keep[k]) delete d.words[k];
-  for (k in d.learned) if (!keep[k]) delete d.learned[k];
-  for (k in d.write) if (!keep[k]) delete d.write[k];
-  save();
-  applyList(L);
+function builtinById(id){ var b = builtinWeeks(); for (var i=0;i<b.length;i++) if (b[i].id === id) return b[i]; return null; }
+function weekCore(w){ return JSON.stringify({label:w.label, date:w.date, pattern:w.pattern, words:w.words, math:w.math}); }
+function weekById(id){ for (var i=0;i<WEEKS.length;i++) if (WEEKS[i].id === id) return WEEKS[i]; return null; }
+function todayStr(){ var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+function fmtDate(s){
+  if (!s) return '';
+  var d = new Date(s + 'T12:00:00'); if (isNaN(d.getTime())) return s;
+  return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()] + ', ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()] + ' ' + d.getDate();
+}
+function blankStore(){ return {v:1, current:'auto', local:[], hidden:[]}; }
+/* One-time move from the old single list: a grown-up's saved list becomes their edited Week 1. Nothing is deleted. */
+function migrateOldList(){
+  var st = blankStore();
   try {
-    if (isDefaultList(L)) localStorage.removeItem(LIST_KEY); else localStorage.setItem(LIST_KEY, JSON.stringify(L));
-    return true;
-  } catch(e){ return false; }
+    var raw = localStorage.getItem(LIST_KEY);
+    if (raw){
+      var r = cleanList(JSON.parse(raw));
+      if (r.list && !r.errors.length){
+        var L = r.list, b = builtinById(LEGACY_WEEK);
+        L.id = LEGACY_WEEK;
+        if (!raw.match(/"label"/) && (L.label === OLD_DEFAULT_TITLE || L.label === 'Spelling words')) L.label = b ? b.label : 'Week 1';
+        L.date = b ? b.date : '2026-09-28';
+        if (!b || weekCore(L) !== weekCore(b)) st.local.push(L);
+        st.movedOldList = true;
+      }
+    }
+  } catch(e){}
+  return st;
 }
-function exportCode(L){
-  var o = {app:'luke-study', v:1, title:L.title, pattern:L.pattern, words:L.words.map(function(x){
-    var r = {w:x.w}; if (x.s) r.s = x.s; if (x.pic) r.pic = x.pic; return r; }), math:L.math};
-  return JSON.stringify(o);
+function saveWeeks(){
+  try { localStorage.setItem(WEEKS_KEY, JSON.stringify({v:1, current:WST.current, local:WST.local, hidden:WST.hidden, movedOldList:WST.movedOldList || undefined})); return true; }
+  catch(e){ return false; }
+}
+function loadWeeks(){
+  var st = null;
+  try { st = JSON.parse(localStorage.getItem(WEEKS_KEY)); } catch(e){ st = null; }
+  if (!st || typeof st !== 'object' || !Array.isArray(st.local)){ WST = migrateOldList(); saveWeeks(); }
+  else {
+    WST = {v:1, current: typeof st.current === 'string' ? st.current : 'auto', local:[], hidden: Array.isArray(st.hidden) ? st.hidden.filter(function(x){ return typeof x === 'string'; }) : [], movedOldList: st.movedOldList};
+    var seen = {};
+    st.local.forEach(function(w){ var id = w && cleanId(w.id); if (!id || seen[id]) return; var r = cleanList(w); if (!r.list || r.errors.length) return; r.list.id = id; seen[id] = 1; WST.local.push(r.list); });
+  }
+  refreshWeeks();
+}
+/* All weeks, oldest first: built-ins (the grown-up's edit wins) + the grown-up's own weeks */
+function effectiveWeeks(){
+  var out = [], loc = {};
+  WST.local.forEach(function(w){ loc[w.id] = w; });
+  builtinWeeks().forEach(function(b, k){
+    if (WST.hidden.indexOf(b.id) >= 0) return;
+    var w = clone(loc[b.id] || b); w.id = b.id; w.builtin = true; w.edited = !!loc[b.id]; w._o = k; out.push(w);
+  });
+  WST.local.forEach(function(w, k){ if (builtinById(w.id)) return; var c = clone(w); c.builtin = false; c.edited = false; c._o = 1000 + k; out.push(c); });
+  out.sort(function(a, b){
+    if (a.date && b.date && a.date !== b.date) return a.date < b.date ? -1 : 1;
+    if (!!a.date !== !!b.date) return a.date ? -1 : 1;
+    return a._o - b._o;
+  });
+  out.forEach(function(w){ delete w._o; });
+  if (!out.length){ var f = clone(builtinWeeks()[0]); f.builtin = true; f.edited = false; out.push(f); }
+  return out;
+}
+/* "This week": the grown-up's pick, or the newest week whose start date has arrived */
+function autoWeekId(){ var t = todayStr(), best = null; WEEKS.forEach(function(w){ if (w.date && w.date <= t) best = w; }); return (best || WEEKS[0]).id; }
+function currentWeekId(){ return (WST.current && WST.current !== 'auto' && weekById(WST.current)) ? WST.current : autoWeekId(); }
+function refreshWeeks(){
+  WEEKS = effectiveWeeks();
+  var cur = weekById(currentWeekId());
+  ALLW = {};
+  WEEKS.slice().reverse().forEach(function(w){ w.words.forEach(function(o){ ALLW[o.w] = {w:o.w, s:o.s || '', pic:o.pic || '', rime:rimeFor(o.w), pat:w.pattern, wk:w.id}; }); });
+  cur.words.forEach(function(o){ ALLW[o.w] = {w:o.w, s:o.s || '', pic:o.pic || '', rime:rimeFor(o.w), pat:cur.pattern, wk:cur.id}; });
+  applyList(cur);
+}
+function stripWeek(w){ return {id:w.id, label:w.label, date:w.date, pattern:w.pattern, words:w.words.map(function(o){ return {w:o.w, s:o.s, pic:o.pic}; }), math:clone(w.math)}; }
+/* Save one (checked) week. Progress is never deleted here: it is keyed by word, so it follows the word into any week. */
+function putWeek(L, id){
+  var w = stripWeek(L); w.id = id;
+  WST.local = WST.local.filter(function(x){ return x.id !== id; });
+  var b = builtinById(id);
+  if (b){ WST.hidden = WST.hidden.filter(function(x){ return x !== id; }); if (weekCore(w) !== weekCore(b)) WST.local.push(w); }
+  else WST.local.push(w);
+}
+function commitWeek(L, id){ putWeek(L, id); var ok = saveWeeks(); refreshWeeks(); return ok; }
+function restoreBuiltin(id){ WST.local = WST.local.filter(function(x){ return x.id !== id; }); WST.hidden = WST.hidden.filter(function(x){ return x !== id; }); var ok = saveWeeks(); refreshWeeks(); return ok; }
+function deleteWeek(id){
+  if (builtinById(id)){ if (WST.hidden.indexOf(id) < 0) WST.hidden.push(id); }
+  WST.local = WST.local.filter(function(x){ return x.id !== id; });
+  if (WST.current === id) WST.current = 'auto';
+  var ok = saveWeeks(); refreshWeeks(); return ok;
+}
+function unhideBuiltins(){ WST.hidden = []; var ok = saveWeeks(); refreshWeeks(); return ok; }
+function setCurrentWeek(id){ WST.current = id || 'auto'; var ok = saveWeeks(); refreshWeeks(); return ok; }
+function nextWeekDate(){
+  var last = ''; WEEKS.forEach(function(w){ if (w.date && w.date > last) last = w.date; });
+  if (!last) return todayStr();
+  var d = new Date(last + 'T12:00:00'); d.setDate(d.getDate() + 7);
+  return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+}
+/* Export code: every week + which one is "this week" */
+function exportCode(){
+  return JSON.stringify({app:'luke-study', v:2, current:WST.current, weeks:WEEKS.map(function(w){
+    var o = {id:w.id, label:w.label}; if (w.date) o.date = w.date; o.pattern = w.pattern;
+    o.words = w.words.map(function(x){ var r = {w:x.w}; if (x.s) r.s = x.s; if (x.pic) r.pic = x.pic; return r; }); o.math = w.math; return o; })});
 }
 function parseCode(text){
   text = String(text || '').trim();
@@ -768,11 +1011,36 @@ function parseCode(text){
   try { return JSON.parse(text.replace(/[“”„]/g, '"').replace(/[‘’]/g, "'")); } catch(e){}
   return null;
 }
+/* Import: a code with weeks is merged by week id (weeks not in the code are kept); an old one-list code replaces the week being edited */
+function importCode(raw, intoId){
+  if (Array.isArray(raw.weeks)){
+    if (!raw.weeks.length) return {errors:[{msg:'That code has no weeks in it.'}]};
+    var errs = [], good = [];
+    raw.weeks.slice(0, 60).forEach(function(w, k){
+      var r = cleanList(w);
+      if (r.errors.length) r.errors.forEach(function(e){ errs.push({msg:(r.list ? r.list.label : 'Week ' + (k+1)) + ': ' + e.msg}); });
+      else { r.list.id = cleanId(w.id) || newWeekId(); good.push(r.list); }
+    });
+    if (errs.length) return {errors:errs};
+    good.forEach(function(L){ putWeek(L, L.id); });
+    if (typeof raw.current === 'string' && (raw.current === 'auto' || good.some(function(L){ return L.id === raw.current; }))) WST.current = raw.current;
+    var ok = saveWeeks(); refreshWeeks();
+    return {ok:ok, count:good.length, errors:[], id: good.length === 1 ? good[0].id : null};
+  }
+  var r1 = cleanList(raw);
+  if (r1.errors.length) return {errors:r1.errors};
+  var target = weekById(intoId) || LIST;
+  if (!raw.date) r1.list.date = target.date;
+  var ok1 = commitWeek(r1.list, target.id);
+  return {ok:ok1, count:1, errors:[], id:target.id};
+}
 
 /* ---------------- Saved progress (localStorage) ---------------- */
 var KEY = 'lukeStudyApp.v1';
 var mem = null;
-function blank(){ return {stars:0, words:{}, math:{}, quiz:[], learned:{}, write:{}, mine:{total:0, inv:{}, crafts:[]}}; }
+function blank(){ return {stars:0, words:{}, math:{}, quiz:[], learned:{}, write:{}, mine:{total:0, inv:{}, crafts:[], xp:0, level:0}}; }
+var QUIZ_KEEP = 300; /* quiz results kept for the grown-ups' week-by-week summary */
+function logQuiz(entry){ var d = load(); entry.date = todayStr(); entry.wk = LIST.id; d.quiz.push(entry); if (d.quiz.length > QUIZ_KEEP) d.quiz = d.quiz.slice(-QUIZ_KEEP); save(); }
 function load(){
   if (mem) return mem;
   try { mem = JSON.parse(localStorage.getItem(KEY)) || blank(); } catch(e){ mem = blank(); }
@@ -880,8 +1148,8 @@ function progressDots(i, n){ var h = '<div class="progress" aria-label="Question
 function home(){
   app.innerHTML =
     '<div class="grassband" aria-hidden="true"></div>' +
-    '<div class="topbar"><div></div>'+starPill()+'</div>' +
-    '<div class="hello-row"><h1 class="hello">Hi Luke!</h1>' + avatarHTML('home-av') + '</div>' +
+    '<div class="topbar">'+levelBadgeHTML()+starPill()+'</div>' +
+    '<div class="hello-row"><div><h1 class="hello">Hi Luke!</h1><p class="weekchip" id="weekChip" data-week="'+esc(LIST.id)+'"><span class="emoji" aria-hidden="true">📅</span><span>'+esc(LIST.label)+'</span></p></div>' + avatarHTML('home-av') + '</div>' +
     '<p class="sub">What do you want to play?</p>' + noSpeechNote() +
     '<div class="modes">' +
       '<button class="mode m-learn" data-go="learn"><span class="emoji" aria-hidden="true">📖</span>Learn Words</button>' +
@@ -973,7 +1241,8 @@ function runRound(cfg){
   function show(){
     if (i >= cfg.items.length) return finish();
     var it = cfg.items[i];
-    shell(cfg.title, progressDots(i, cfg.items.length) + '<div id="stage"></div><div class="row" id="nextRow"></div>');
+    PAT_OVERRIDE = it.pat != null ? it.pat : null;
+    shell(cfg.title, progressDots(i, cfg.items.length) + '<div id="stage" data-items="'+esc(cfg.items.map(function(x){ return x.id; }).join(','))+'"'+(it.pat != null ? ' data-review="1"' : '')+'></div><div class="row" id="nextRow"></div>');
     var stage = $('#stage');
     var render = it.type === 'build' ? renderBuild : it.type === 'hunt' ? renderHunt : renderMath;
     render(stage, it.id, cfg, function(res){
@@ -985,9 +1254,10 @@ function runRound(cfg){
     });
   }
   function finish(){
+    PAT_OVERRIDE = null;
     var n = cfg.items.length, stars = '';
     for (var k=0;k<got;k++) stars += '<span>'+STAR_SVG+'</span>';
-    if (cfg.quiz){ var d = load(); d.quiz.push({date:new Date().toISOString().slice(0,10), kind:cfg.key, got:got, of:n, practice:missed}); if (d.quiz.length > 30) d.quiz = d.quiz.slice(-30); save(); }
+    if (cfg.quiz){ var qe = {kind:cfg.key, got:got, of:n, practice:missed}; if (cfg.review) qe.review = cfg.review; logQuiz(qe); }
     shell(cfg.title,
       '<div class="card end">' +
         avatarHTML('cheer big') +
@@ -1915,7 +2185,7 @@ function writeQuiz(){
       var got = 0, practice = [];
       drawings.forEach(function(d, k){ if (!marks[k]) return; var ok = marks[k] === 'got'; record('write', d.w, ok, ok); if (ok) got++; else practice.push(d.w); });
       for (var s=0;s<got;s++){ var dd = load(); dd.stars++; } save();
-      var d = load(); d.quiz.push({date:new Date().toISOString().slice(0,10), kind:'write', got:got, of:drawings.length, practice:practice}); if (d.quiz.length > 30) d.quiz = d.quiz.slice(-30); save();
+      logQuiz({kind:'write', got:got, of:drawings.length, practice:practice});
       var total = tryStars + got, st = ''; for (var k2=0;k2<total;k2++) st += '<span>'+STAR_SVG+'</span>';
       shell('Writing Quiz',
         '<div class="card end">' + avatarHTML('cheer big') + '<h2>You wrote ' + drawings.length + ' words, Luke!</h2>' +
@@ -1934,8 +2204,48 @@ function writeQuiz(){
 }
 
 /* ---------------- 5. Quiz Practice ---------------- */
+/* ---------------- Word strength (used by Review and the grown-ups' summary) ---------------- */
+/* misses: game/quiz items not right on the first try; again: "Practice again" in Write It */
+function wordNeeds(w){
+  var d = load(), s = d.words[w] || {tries:0, right:0, first:0}, wr = d.write[w] || {tries:0, right:0};
+  var misses = Math.max(0, s.tries - s.first), again = Math.max(0, wr.tries - wr.right);
+  return {misses:misses, again:again, tries:s.tries + wr.tries, weak: 2 * misses + 2 * again - 0.5 * (s.first + wr.right)};
+}
+/* Past-week words he missed or marked "Practice again", heaviest (weakest) first */
+function reviewPool(){
+  var cur = {}, out = [], seen = {};
+  WORDS.forEach(function(o){ cur[o.w] = 1; });
+  WEEKS.forEach(function(wk){
+    if (wk.id === LIST.id || (wk.date && LIST.date && wk.date > LIST.date)) return;
+    wk.words.forEach(function(o){
+      if (cur[o.w] || seen[o.w]) return;
+      var n = wordNeeds(o.w); if (!n.misses && !n.again) return;
+      seen[o.w] = 1; out.push({w:o.w, wk:wk.id, pat:wk.pattern, wt:Math.round(Math.max(0.5, 1 + n.weak) * 10) / 10});
+    });
+  });
+  return out.sort(function(a, b){ return b.wt - a.wt; });
+}
+function weightedPick(pool, n){
+  var left = pool.slice(), out = [];
+  while (out.length < n && left.length){
+    var sum = 0; left.forEach(function(x){ sum += x.wt; });
+    var r = Math.random() * sum, k = 0;
+    for (; k < left.length - 1; k++){ r -= left[k].wt; if (r < 0) break; }
+    out.push(left.splice(k, 1)[0]);
+  }
+  return out;
+}
+function reviewItems(){
+  var pool = reviewPool(), nR = Math.min(5, pool.length), nC = Math.min(10 - nR, WORDS.length);
+  if (nC < 5) nR = Math.min(10 - nC, pool.length);
+  var past = weightedPick(pool, nR);
+  var items = past.map(function(x){ return {type: Math.random() < 0.5 ? 'build' : 'hunt', id:x.w, pat:x.pat}; })
+    .concat(shuffle(WORDS).slice(0, nC).map(function(o){ return {type: Math.random() < 0.5 ? 'build' : 'hunt', id:o.w}; }));
+  return {items:shuffle(items), past:past.map(function(x){ return x.w; })};
+}
+
 function quiz(){
-  var nw = WORDS.length, nm = Math.min(10, FACTS.length);
+  var nw = WORDS.length, nm = Math.min(10, FACTS.length), pool = reviewPool();
   shell('Quiz Practice',
     '<p class="prompt">Pick a quiz. Take your time. There is no timer!</p>' +
     '<div class="modes" style="grid-template-columns:1fr">' +
@@ -1943,6 +2253,8 @@ function quiz(){
       '<button class="mode m-math wide" data-q="math"><span class="emoji" aria-hidden="true">'+(LIST.math.op === '-' && !LIST.math.custom ? '➖' : '➕')+'</span>Math Quiz<br>'+nm+' '+(nm === 1 ? 'fact' : 'facts')+'</button>' +
       '<button class="mode m-write wide" data-q="write"><span class="emoji" aria-hidden="true">✏️</span>Handwritten Quiz<br>'+Math.min(10, nw)+' '+(Math.min(10, nw) === 1 ? 'word' : 'words')+'</button>' +
       '<button class="mode m-hunt wide" data-q="mix"><span class="emoji" aria-hidden="true">🎲</span>Mix of both<br>'+Math.min(5, nw)+' + '+Math.min(5, FACTS.length)+'</button>' +
+      (pool.length ? '<button class="mode m-review wide" data-q="review" data-pool="'+esc(JSON.stringify(pool.map(function(x){ return [x.w, x.wt]; })))+'"><span class="emoji" aria-hidden="true">🔁</span><span>Review mix<br><small>'+Math.min(5, pool.length)+' past-week '+(Math.min(5, pool.length) === 1 ? 'word' : 'words')+' + this week</small></span></button>'
+                   : '<div class="review-off" id="reviewOff"><span class="emoji" aria-hidden="true">🔁</span> <b>Review mix</b> shows up here when there are words from past weeks to practice.</div>') +
     '</div>'
   );
   $all('[data-q]').forEach(function(b){ b.onclick = function(){ startQuiz(b.getAttribute('data-q')); }; });
@@ -1950,13 +2262,14 @@ function quiz(){
 }
 function startQuiz(kind){
   if (kind === 'write') return writeQuiz();
-  var items;
+  var items, rv = null;
+  if (kind === 'review'){ rv = reviewItems(); items = rv.items; }
   if (kind === 'spell') items = shuffle(WORDS).map(function(o){ return {type:'build', id:o.w}; });
   else if (kind === 'math') items = shuffle(FACTS).slice(0, 10).map(function(f){ return {type:'math', id:f.id}; });
-  else items = shuffle(shuffle(WORDS).slice(0,5).map(function(o){ return {type: Math.random() < 0.5 ? 'build' : 'hunt', id:o.w}; })
+  else if (kind === 'mix') items = shuffle(shuffle(WORDS).slice(0,5).map(function(o){ return {type: Math.random() < 0.5 ? 'build' : 'hunt', id:o.w}; })
         .concat(shuffle(FACTS).slice(0,5).map(function(f){ return {type:'math', id:f.id}; })));
-  var names = {spell:'Spelling Quiz', math:'Math Quiz', mix:'Mix Quiz'};
-  var cfg = {title:names[kind], quiz:true, key:kind, items:items};
+  var names = {spell:'Spelling Quiz', math:'Math Quiz', mix:'Mix Quiz', review:'Review Mix'};
+  var cfg = {title:names[kind], quiz:true, key:kind, items:items, review: rv ? rv.past : null};
   cfg.restart = function(){ startQuiz(kind); };
   runRound(cfg);
 }
@@ -1996,8 +2309,61 @@ var Sfx = (function(){
   return {chunk:chunk, collect:collect, craft:craft, blip:blip, twinkle:twinkle, sparkle:sparkle, unlock:ac};
 })();
 function reducedMotion(){ try { return window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){ return false; } }
-function mineData(){ var d = load(); if (!d.mine || typeof d.mine !== 'object') d.mine = {total:0, inv:{}, crafts:[]}; if (!d.mine.inv) d.mine.inv = {}; if (!d.mine.crafts) d.mine.crafts = []; return d.mine; }
-function nextCraft(){ var m = mineData(); return CRAFT_ORDER[m.crafts.length % CRAFT_ORDER.length]; }
+function mineData(){
+  var d = load(); if (!d.mine || typeof d.mine !== 'object') d.mine = {total:0, inv:{}, crafts:[]};
+  var m = d.mine; if (!m.inv) m.inv = {}; if (!m.crafts) m.crafts = [];
+  if (typeof m.xp !== 'number' || !(m.xp >= 0)){ m.xp = Math.max(0, m.total || 0); m.level = levelFor(m.xp); save(); } /* first run with levels: blocks already mined count */
+  if (typeof m.level !== 'number') m.level = levelFor(m.xp);
+  return m;
+}
+function levelInfo(){
+  var m = mineData(), n = levelFor(m.xp), top = n === LEVELS.length - 1;
+  return {n:n, lv:LEVELS[n], xp:m.xp, into:m.xp - levelStart(n), need: top ? 0 : levelNeed(n), next: top ? null : LEVELS[n + 1], top:top};
+}
+/* One right answer in Block Mine. Returns the new level number if he just levelled up. Weeks never touch this. */
+function gainXP(){
+  var m = mineData(); m.xp++;
+  var n = levelFor(m.xp), up = null;
+  if (n > m.level){
+    for (var k = m.level + 1; k <= n; k++){ var c = LEVELS[k].craft; if (c && !m.crafts.some(function(x){ return x.item === c; })) m.crafts.push({item:c, date:todayStr(), lvl:k}); }
+    m.level = n; up = n;
+  }
+  save(); return up;
+}
+/* Crafts he can make: the first six, plus one more for each level reached. New ones come first, then they take turns. */
+function craftPool(){ var n = levelFor(mineData().xp), pool = CRAFT_ORDER.slice(); for (var i=1;i<=n;i++) if (LEVELS[i].craft) pool.push(LEVELS[i].craft); return pool; }
+function nextCraft(){
+  var m = mineData(), pool = craftPool(), made = {};
+  m.crafts.forEach(function(c){ made[c.item] = 1; });
+  for (var i=0;i<pool.length;i++) if (!made[pool[i]]) return pool[i];
+  return pool[m.crafts.filter(function(c){ return !c.lvl; }).length % pool.length];
+}
+function levelBarHTML(){
+  var L = levelInfo(), pct = L.top ? 100 : Math.round(100 * L.into / L.need);
+  return '<div class="lvlbar lv-'+L.lv.id+'" id="lvlbar" data-level="'+L.lv.id+'" data-xp="'+L.xp+'">' +
+    '<span class="lvlname">'+levelIcon(L.n)+'<b>'+L.lv.name+' level</b></span>' +
+    '<span class="xpmeter" role="progressbar" aria-label="'+(L.top ? 'Top level' : L.into+' of '+L.need+' to '+L.next.name+' level')+'" aria-valuemin="0" aria-valuemax="'+(L.need || 1)+'" aria-valuenow="'+(L.top ? 1 : L.into)+'"><i style="width:'+pct+'%"></i></span>' +
+    '<span class="xpnum">'+(L.top ? 'Top level!' : L.into+'/'+L.need)+'</span></div>';
+}
+function levelBadgeHTML(){ var L = levelInfo(); return '<div class="lvlbadge lv-'+L.lv.id+'" id="lvlBadge" data-level="'+L.lv.id+'" aria-label="Block Mine: '+L.lv.name+' level">'+levelIcon(L.n)+'<span>'+L.lv.name+'</span></div>'; }
+function levelUpPop(n, cb){
+  var lv = LEVELS[n], pop = document.createElement('div'), calm = reducedMotion();
+  pop.className = 'lvlpop' + (calm ? ' still' : ''); pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-label', 'Level up! ' + lv.name + ' level!');
+  pop.setAttribute('data-level', lv.id);
+  var sp = ''; if (!calm) for (var k=0;k<10;k++) sp += '<i style="left:'+(8 + Math.round(Math.random() * 84))+'%;top:'+(6 + Math.round(Math.random() * 80))+'%;animation-delay:'+(Math.random() * 1.6).toFixed(2)+'s"></i>';
+  pop.innerHTML = '<div class="lvlcard lv-'+lv.id+'"><div class="lvlglow" aria-hidden="true"></div><div class="lvlsparks" aria-hidden="true">'+sp+'</div>' +
+    '<h2>Level up!</h2>' +
+    '<div class="lvlrow">' + avatarHTML('cheer') + '<div class="lvlbig">' + levelIcon(n, 'big') + '</div></div>' +
+    '<p class="lvltitle"><b>' + lv.name + ' level!</b></p>' +
+    (lv.craft ? '<p class="lvlnew">New craft for your shelf: <span class="lvlitem">' + itemSVG(lv.craft, 'mini') + '<b>' + ITEM_NAME[lv.craft] + '</b></span></p>' : '') +
+    '<div class="row"><button class="btn go huge" data-act="lvlok">Keep mining!</button></div></div>';
+  app.appendChild(pop);
+  Sfx.sparkle(); cheer($('.gtop .avatar'));
+  var steps = [{text:'Level up! ' + lv.name + ' level!', gap:350}];
+  if (lv.craft) steps.push({text:'You unlocked a ' + ITEM_NAME[lv.craft].toLowerCase() + ' for your crafts shelf!'});
+  Speech.seq(steps);
+  $('[data-act=lvlok]', pop).onclick = function(){ if (pop.parentNode) pop.parentNode.removeChild(pop); cb(); };
+}
 function hotbarHTML(){
   var m = mineData(), have = 0;
   ORES.forEach(function(o){ have += m.inv[o.id] || 0; });
@@ -2056,12 +2422,13 @@ function game(){
     }
     var bw = Math.min((viewW() - 60) / 3, 160), maxLen = Math.max.apply(null, choices.map(function(x){ return x.length; }));
     var fs = it.type === 'math' ? Math.round(bw * 0.36) : Math.max(15, Math.min(Math.round(bw * 0.27), Math.floor(bw * 0.8 / (maxLen * 0.72))));
-    var types = shuffle(ORES.map(function(o){ return o.id; })).slice(0, 3);
-    shell('Block Mine', bar() +
+    var types = shuffle(ORES.map(function(o){ return o.id; })).slice(0, 3), lvNow = levelInfo();
+    LEVEL_NOW = lvNow.n;
+    shell('Block Mine', bar() + levelBarHTML() +
       '<div class="gtop">' + avatarHTML('hold', {pickaxe:true}) +
         '<div class="gask"><button class="btn speak" data-act="say" aria-label="Hear it again"><span class="emoji" aria-hidden="true">🔊</span></button>' + promptHTML + '</div>' +
       '</div>' +
-      '<div class="quarry" id="quarry">' + choices.map(function(x, k){
+      '<div class="quarry lv-'+lvNow.lv.id+'" id="quarry">' + choices.map(function(x, k){
         return '<button class="oreblock" data-v="'+x+'" data-type="'+types[k]+'" aria-label="'+x+'" style="width:'+Math.floor(bw)+'px;height:'+Math.floor(bw)+'px">' + blockSVG(types[k]) + crackSVG() +
           '<span class="plate" style="font-size:'+fs+'px">'+label(x)+'</span></button>';
       }).join('') + '</div>' +
@@ -2105,12 +2472,17 @@ function game(){
         fb.className = 'feedback gfeedback good';
         fb.innerHTML = esc(msg) + ' ' + (it.type === 'math' ? factText(factById(it.id)) + ' = ' + answer : '<b>' + colorWord(answer) + '</b>');
         record(it.type === 'math' ? 'math' : 'words', it.id, true, misses === 0);
-        if (earned){ stars++; addStar(b); } else practice.push(it.type === 'math' ? factText(factById(it.id)) : it.id);
+        var up = null;
+        if (earned){ stars++; addStar(b); up = gainXP(); var lb = $('#lvlbar'); if (lb) lb.outerHTML = levelBarHTML(); }
+        else practice.push(it.type === 'math' ? factText(factById(it.id)) : it.id);
         var moved = false;
         function next(){
           if (moved) return; moved = true;
-          var md = mineData(), have = 0; ORES.forEach(function(o){ have += md.inv[o.id] || 0; });
-          if (have >= 10) craftNow(function(){ i++; turn(); }); else { i++; turn(); }
+          function cont(){
+            var md = mineData(), have = 0; ORES.forEach(function(o){ have += md.inv[o.id] || 0; });
+            if (have >= 10) craftNow(function(){ i++; turn(); }); else { i++; turn(); }
+          }
+          if (up != null) levelUpPop(up, cont); else cont();
         }
         Speech.seq([{text:msg, gap:150}, {text: it.type === 'math' ? promptSay + ' is ' + answer + '.' : answer, gap:250}], function(){ later(next, 300); });
         later(next, 5000); /* safety net if the voice never finishes */
@@ -2119,7 +2491,7 @@ function game(){
     later(function(){ Speech.say(askText()); }, 500);
   }
   function particles(b, type){
-    var o = oreById(type), cols = o.ore ? [o.ore[0], o.ore[1], o.ore[2], '#8F8F8F', '#6E6E6E'] : o.id === 'grass' ? ['#6DBB45', '#9A6534', '#6B4222', '#5DA83A'] : ['#8F8F8F', '#A3A3A3', '#6E6E6E'];
+    var rk = LEVELS[LEVEL_NOW].rock, o = oreById(type), cols = o.ore ? [o.ore[0], o.ore[1], o.ore[2], rk[0], rk[3]] : o.id === 'grass' ? ['#6DBB45', '#9A6534', '#6B4222', '#5DA83A'] : [rk[0], rk[2], rk[3]];
     var q = $('#quarry'); if (!q) return;
     var r = b.getBoundingClientRect(), s = q.getBoundingClientRect();
     for (var k=0;k<14;k++){
@@ -2167,7 +2539,7 @@ function game(){
     var conf = '<div class="confetti" aria-hidden="true">';
     for (var c=0;c<44;c++) conf += '<i style="left:'+Math.round(Math.random()*100)+'%;top:'+Math.round(10 + Math.random()*60)+'%;background:'+pick(['#F5C542','#5EE0F0','#4CD27A','#E0473E','#9A6534','#6DBB45'])+';animation-delay:'+(Math.random()*1.2).toFixed(2)+'s"></i>';
     conf += '</div>';
-    shell('Block Mine', bar() +
+    shell('Block Mine', bar() + levelBarHTML() +
       '<div class="card end">' + avatarHTML('cheer big') +
         '<h2>Great mining, Luke!</h2>' +
         '<p style="font-size:24px;margin:0">You earned <b>'+stars+'</b> '+(stars===1?'star':'stars')+'!</p>' +
@@ -2201,6 +2573,7 @@ function crafts(){
     '</div>' +
     (shelf ? '<div class="shelves">' + shelf + '</div>' : '') +
     '<p class="prompt">Next craft: <b>' + ITEM_NAME[nextCraft()] + '</b> · ' + have + ' of 10 blocks</p>' +
+    levelBarHTML() + (function(){ var L = levelInfo(); return L.next && L.next.craft ? '<p class="hint center">Reach <b>' + L.next.name + ' level</b> to unlock the <b>' + ITEM_NAME[L.next.craft] + '</b>!</p>' : ''; })() +
     '<div class="row"><button class="btn go huge" data-act="mine">' + itemSVG('pickaxe', 'mini') + ' Go mining</button></div>');
   var wb = $('[data-act=wear]');
   if (wb) wb.onclick = function(){ m.wear = m.wear === false; save(); crafts(); };
@@ -2222,15 +2595,41 @@ function patternSentence(){
   if (!p) return 'Vowels are always blue,' + split;
   return (p.length === 1 && isVowel(p) ? 'The vowel ' : 'The letters ') + '<span class="v"><b>' + p + '</b></span> ' + (p.length === 1 ? 'is' : 'are') + ' always blue,' + split;
 }
+var QUIZ_NAMES = {spell:'Spelling', math:'Math', mix:'Mix', write:'Handwritten', review:'Review'};
+function weekSummary(wk){
+  var d = load(), words = wk.words.map(function(o){ return o.w; }), practiced = 0, wrT = 0, wrR = 0, toPractice = [];
+  words.forEach(function(w){
+    var s = d.words[w], wr = d.write[w];
+    if ((s && s.tries) || d.learned[w] || (wr && wr.tries)) practiced++;
+    if (wr){ wrT += wr.tries; wrR += wr.right; }
+    if (wordNeeds(w).weak > 0) toPractice.push(w);
+  });
+  var facts = buildFacts(wk.math), mDone = facts.filter(function(f){ return d.math[f.id] && d.math[f.id].tries; }).length;
+  var quizzes = d.quiz.filter(function(q){ return (q.wk || LEGACY_WEEK) === wk.id; });
+  return {words:words.length, practiced:practiced, wrT:wrT, wrR:wrR, toPractice:toPractice, facts:facts.length, mDone:mDone, quizzes:quizzes};
+}
+function weekSummaryHTML(wk){
+  var s = weekSummary(wk), cur = wk.id === LIST.id;
+  var qz = s.quizzes.slice(-4).reverse().map(function(q){ return '<span class="qchip">' + esc(QUIZ_NAMES[q.kind] || q.kind) + ' <b>' + q.got + '/' + q.of + '</b> <small>' + esc(fmtDate(q.date).replace(/^\w+, /, '')) + '</small></span>'; }).join(' ');
+  return '<div class="wksum' + (cur ? ' cur' : '') + '" data-week="' + esc(wk.id) + '">' +
+    '<h4>' + esc(wk.label) + (cur ? ' <span class="curtag">This week</span>' : '') + '</h4>' +
+    (wk.date ? '<p class="wkdate">Starts ' + fmtDate(wk.date) + '</p>' : '') +
+    '<ul>' +
+      '<li>Words practiced: <b>' + s.practiced + ' of ' + s.words + '</b>' + (s.facts ? ' · Math facts: <b>' + s.mDone + ' of ' + s.facts + '</b>' : '') + '</li>' +
+      '<li>Quiz scores: ' + (qz ? qz + (s.quizzes.length > 4 ? ' <small>(' + s.quizzes.length + ' quizzes in all)</small>' : '') : '<span class="muted">none yet</span>') + '</li>' +
+      '<li>Written: ' + (s.wrT ? '<b>' + s.wrR + ' “got it”</b> of ' + s.wrT + ' checked' : '<span class="muted">none yet</span>') + '</li>' +
+      '<li>Words to practice: ' + (s.toPractice.length ? '<b class="topr">' + s.toPractice.map(function(w){ return esc(w); }).join(', ') + '</b>' : '<span class="muted">' + (s.practiced ? 'none right now 🎉' : '—') + '</span>') + '</li>' +
+    '</ul></div>';
+}
 function grownups(){
-  var d = load(), dflt = isDefaultList(LIST);
+  var d = load(), b1 = builtinById(LEGACY_WEEK), dflt = LIST.id === LEGACY_WEEK && !!b1 && weekCore(LIST) === weekCore(b1) && b1.pattern === 'a', L = levelInfo();
   function row(label, s){ s = s || {tries:0, right:0, first:0}; return '<tr><td><b>'+label+'</b></td><td>'+s.right+' / '+s.tries+'</td><td>'+s.first+'</td></tr>'; }
   var wordRows = WORDS.map(function(o){ var wr = d.write[o.w] || {tries:0, right:0}; return row(colorWord(o.w), d.words[o.w]).replace('</tr>', '<td>'+wr.right+' / '+wr.tries+'</td></tr>'); }).join('');
   var mathRows = FACTS.slice().sort(function(a,b){ return a.a - b.a || a.b - b.b; }).map(function(f){ return row(factText(f), d.math[f.id]); }).join('');
   var quizRows = d.quiz.slice(-8).reverse().map(function(q){ return '<tr><td>'+esc(q.date)+'</td><td>'+esc(q.kind)+'</td><td>'+q.got+' / '+q.of+'</td><td>'+esc((q.practice||[]).join(', ') || '—')+'</td></tr>'; }).join('');
   shell('For Grown-ups',
     '<div class="grown">' +
-    '<div class="row" style="justify-content:flex-start; margin-top:4px"><button class="btn" data-act="edit"><span class="emoji" aria-hidden="true">✏️</span>Edit words &amp; math</button></div>' +
+    '<div class="row" style="justify-content:flex-start; margin-top:4px"><button class="btn" data-act="edit"><span class="emoji" aria-hidden="true">✏️</span>Weeks: edit words &amp; math</button></div>' +
     '<h2>How to use this with Luke</h2>' +
     '<ul>' +
       '<li><b>Learn Words</b> first: tap <b>Hear it</b>, then <b>Sound it out</b>. Point to each letter as it lights up. Let Luke say it with the device, then tap <b>I can read it!</b></li>' +
@@ -2238,12 +2637,13 @@ function grownups(){
       '<li><b>Word Hunt</b>: he hears a word and picks the right spelling from 3 choices.</li>' +
       '<li><b>'+esc(mathTitle())+'</b>: dots come in groups of 5, and the number line shows the “hop”' + (LIST.math.op === '-' ? 's back. Taken-away dots are crossed out.' : ' to the answer.') + ' <b>Count with me</b> counts the dots out loud.</li>' +
       '<li><b>Write It</b>: he hears the word and writes it with a finger, Apple Pencil or mouse on handwriting lines. First pass has a wide, soft path to trace (Trace on) with a green dot where each letter starts; wobbly lines that stay mostly on the path count; scribbles, skipped parts (like the b’s stem or the g’s tail) or letters in the wrong spot don’t. A gem pops up for each letter he traces well. On <b>Check</b>, any letter that needs work gets a soft yellow glow and his character says “Let’s try that letter again” (no red X, no buzzer). <b>Try again</b> clears just those letters; the small “Grown-up: count it” link lets you accept it anyway. The second pass is without the path. He can pick a pen colour (blue, gold, green, red); finishing a word adds a gem to his Block Mine hotbar. <b>Check</b> shows the real spelling under his writing; he decides “I got it” or “Practice again” (no auto-grading). Stars for trying and for “got it”. The <b>Handwritten Quiz</b> (in Quiz Practice) has him write up to 10 words, then review each drawing next to the correct spelling. Results show in the “Written” column below.</li>' +
-      '<li><b>Block Mine</b>: a blocky mining game. He hears a word or a math problem, then taps the ore block with the right answer to mine it. No timer, nothing to lose: a wrong tap just shakes the block and repeats the question, and after 2 misses the right block glows. Every 10 blocks mined crafts a reward (pickaxe, sword, helmet, house…) for his <b>My Crafts</b> shelf. The helmet shows up on his character.</li>' +
-      '<li><b>Quiz Practice</b>: items in a new shuffled order every time (the real quiz order is different from the practice sheet). No timer, same gentle help.</li>' +
+      '<li><b>Block Mine</b>: a blocky mining game. He hears a word or a math problem, then taps the ore block with the right answer to mine it. No timer, nothing to lose: a wrong tap just shakes the block and repeats the question, and after 2 misses the right block glows. Every 10 blocks mined crafts a reward (pickaxe, sword, helmet, house…) for his <b>My Crafts</b> shelf. The helmet shows up on his character. <b>Levels:</b> each answer he gets within 2 tries is 1 XP; he moves up through Wood, Stone, Iron, Gold, Diamond, Crystal, Starlight and Rainbow (15 answers, then 20, 25, 30…). Each level has its own block colors and unlocks a new craft, with a short, calm “Level up!” moment read aloud. Levels stay when the week changes.</li>' +
+      '<li><b>Quiz Practice</b>: items in a new shuffled order every time (the real quiz order is different from the practice sheet). No timer, same gentle help. <b>Review mix</b> appears once there are past weeks: 5 words from earlier weeks that he missed or marked “Practice again” (the weakest come up most), plus 5 from this week.</li>' +
+      '<li><b>Weeks</b>: every game uses <b>this week’s</b> list (shown on the home screen). Under <b>Weeks: edit words &amp; math</b> you can add a week (blank or copied), edit or delete one, choose which week is “this week”, and export or import all weeks. Stars, levels and progress are kept when weeks change.</li>' +
     '</ul>' +
     '<div class="tip"><b>Short and often works best:</b> about 10 minutes a day, then stop while it is still fun. Say the sounds together out loud, and have him trace or write the word on paper after he builds it.</div>' +
     '<h3>This week</h3>' +
-    '<p><b>Spelling, '+esc(LIST.title)+':</b> '+WORDS.map(function(o){ return o.w; }).join(', ')+'.' +
+    '<p><b>Spelling, '+esc(LIST.label)+':</b> '+WORDS.map(function(o){ return o.w; }).join(', ')+'.' +
       (dflt ? '<br>Sheet hint: short <span class="v"><b>a</b></span> sounds a little different before <b>m</b> or <b>n</b> (fan, jam, pan, yam). The app points this out on those cards.' : '') + '</p>' +
     (dflt ? '<p><b>Math:</b> +1 facts, 1 + 1 through 12 + 1. The big idea: “plus 1 means the next number.”</p>'
           : '<p><b>Math:</b> ' + esc(mathDescription(LIST)) + '</p>') +
@@ -2262,15 +2662,21 @@ function grownups(){
     '</ul>' +
     '<h3>Progress on this device</h3>' +
     '<p>Stars earned: <b>'+d.stars+'</b>. Blocks mined: <b>'+mineData().total+'</b>. Crafts made: <b>'+mineData().crafts.length+'</b>. (Saved on this device and browser only.)</p>' +
+    '<div class="lvlsum" id="lvlSum">' + levelIcon(L.n) + '<div><b>Block Mine: ' + L.lv.name + ' level</b> (level ' + (L.n + 1) + ' of ' + LEVELS.length + ')<br>' +
+      (L.top ? 'XP ' + L.xp + ' · top level reached!' : 'XP ' + L.xp + ' · ' + L.into + ' of ' + L.need + ' right answers to ' + L.next.name + ' level') + '</div></div>' +
+    '<p class="hint">Levels and stars stay the same when you change weeks. XP is one point for each Block Mine answer he gets within 2 tries.</p>' +
+    '<h3 id="byWeek">Progress by week</h3>' +
+    '<div class="wksums">' + WEEKS.slice().reverse().map(weekSummaryHTML).join('') + '</div>' +
+    '<h3>This week’s words in detail</h3>' +
     '<table><thead><tr><th>Word</th><th>Right / tries</th><th>First try</th><th>Written ✅ / tries</th></tr></thead><tbody>'+wordRows+'</tbody></table>' +
     '<br><table><thead><tr><th>Fact</th><th>Right / tries</th><th>First try</th></tr></thead><tbody>'+mathRows+'</tbody></table>' +
     (quizRows ? '<br><table><thead><tr><th>Date</th><th>Quiz</th><th>Stars</th><th>Practice</th></tr></thead><tbody>'+quizRows+'</tbody></table>' : '') +
-    '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="reset">Reset stars and progress</button></div>' +
+    '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="reset">Reset stars, level and progress</button></div>' +
     '</div>'
   );
   $('[data-act=edit]').onclick = function(){ go('edit'); };
   $('[data-act=reset]').onclick = function(){
-    if (window.confirm('Reset all stars and progress on this device?')){ mem = blank(); save(); grownups(); }
+    if (window.confirm('Reset all stars, Block Mine level, crafts and progress on this device? Your weekly word lists are kept.')){ mem = blank(); save(); grownups(); }
   };
 }
 
@@ -2339,13 +2745,30 @@ function readPicture(file, cb){
 }
 function renderEditor(msg){
   var m = draft.math;
-  shell('Edit words &amp; math',
+  shell('Weeks &amp; words',
     '<div class="ed">' +
     '<div class="row" style="justify-content:flex-start; margin-top:0"><button class="smallbtn" data-act="back">'+SVG_LEFT.replace('<svg','<svg width="20" height="20"')+'Grown-ups</button></div>' +
     '<div class="edmsg" id="edTopMsg"></div>' +
-    '<h2>Spelling list</h2>' +
-    '<label class="lbl" for="edTitle">List title</label>' +
-    '<input id="edTitle" type="text" maxlength="60" value="'+esc(draft.title)+'">' +
+    '<h2>Weeks</h2>' +
+    '<div class="wklist" id="edWeeks" role="list">' + WEEKS.map(function(w){
+      return '<button class="wkbtn'+(w.id === draft.id ? ' on' : '')+(w.id === LIST.id ? ' cur' : '')+'" role="listitem" data-wk="'+esc(w.id)+'" aria-pressed="'+(w.id === draft.id)+'">' +
+        '<b>'+esc(w.label)+'</b><span>'+(w.date ? fmtDate(w.date) + ' · ' : '')+w.words.length+' words'+(w.builtin ? (w.edited ? ' · edited' : ' · built-in') : '')+'</span>' +
+        (w.id === LIST.id ? '<em class="curtag">This week</em>' : '') + '</button>';
+    }).join('') + (draft.isNew ? '<div class="wkbtn on new"><b>'+esc(draft.label || 'New week')+'</b><span>New, not saved yet</span></div>' : '') + '</div>' +
+    '<p class="hint" id="edCurInfo">Luke’s games use <b>'+esc(LIST.label)+'</b>' + (WST.current === 'auto' || !weekById(WST.current) ? ' (picked by date: the newest week that has started).' : ' (you picked it).') + '</p>' +
+    '<div class="wkacts">' +
+      '<button class="smallbtn" data-act="setcur"'+(draft.isNew || draft.id === LIST.id && WST.current === draft.id ? ' disabled' : '')+'><span class="emoji" aria-hidden="true">⭐</span>Use this week now</button>' +
+      (WST.current !== 'auto' ? '<button class="smallbtn" data-act="autocur"><span class="emoji" aria-hidden="true">📅</span>Pick by date</button>' : '') +
+    '</div>' +
+    '<div class="wkacts"><span class="wklbl">New week:</span>' +
+      '<button class="smallbtn" data-act="newblank">+ Blank</button>' +
+      '<button class="smallbtn" data-act="newcopy">+ Copy this one</button>' +
+    '</div>' +
+    '<h2 id="edHead">'+(draft.isNew ? 'New week' : 'Edit this week')+'</h2>' +
+    '<label class="lbl" for="edTitle">Week name</label>' +
+    '<input id="edTitle" type="text" maxlength="60" value="'+esc(draft.label)+'" placeholder="Week 2: short i">' +
+    '<label class="lbl" for="edDate">Start date (optional)</label>' +
+    '<input id="edDate" type="date" value="'+esc(draft.date || '')+'" style="max-width:12em">' +
     '<label class="lbl" for="edPat">Letters to color blue</label>' +
     '<input id="edPat" type="text" maxlength="4" value="'+esc(draft.pattern)+'" autocapitalize="none" autocorrect="off" spellcheck="false" style="max-width:8em; font-size:26px; font-weight:700; color:var(--vowel)">' +
     '<p class="hint">This week’s vowel or pattern, like a, i, ee or sh. Leave blank to color every vowel.</p>' +
@@ -2367,17 +2790,20 @@ function renderEditor(msg){
     '<div class="preview" id="edPrev"></div>' +
     '<div class="savebar"><div class="row"><button class="btn go huge flex1" data-act="save"><span class="emoji" aria-hidden="true">💾</span>Save</button></div>' +
       '<div class="dirty" id="edDirty"></div><div class="edmsg" id="edMsg"></div></div>' +
-    '<h2>Move a list to another device</h2>' +
-    '<p>Tap <b>Export list</b>, copy the code, and send it to yourself (for example in Notes or a message). On the other phone or iPad, open this page, paste the code under <b>Import</b>, and tap <b>Import list</b>.</p>' +
-    '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="export">Export list</button><button class="btn alt" data-act="copy" hidden>Copy code</button></div>' +
+    '<h2>Move weeks to another device</h2>' +
+    '<p>Tap <b>Export all weeks</b>, copy the code, and send it to yourself (for example in Notes or a message). On the other phone or iPad, open this page, paste the code under <b>Import</b>, and tap <b>Import</b>. Weeks with the same name tag are updated; other weeks there are kept. Progress is not in the code.</p>' +
+    '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="export">Export all weeks</button><button class="btn alt" data-act="copy" hidden>Copy code</button></div>' +
     '<textarea id="edExport" readonly hidden aria-label="Export code"></textarea>' +
-    '<label class="lbl" for="edImport">Import a list</label>' +
+    '<label class="lbl" for="edImport">Import weeks</label>' +
     '<textarea id="edImport" placeholder="Paste a code here" autocapitalize="none" autocorrect="off" spellcheck="false"></textarea>' +
-    '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="import">Import list</button></div>' +
+    '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="import">Import</button></div>' +
     '<div class="edmsg" id="edIoMsg"></div>' +
-    '<h2>Start over</h2>' +
-    '<p>Put back this week’s words (bag, cap, fan, jam, nap, pad, pan, rag, wax, yam) and +1 math, 1 to 12. Stars are kept.</p>' +
-    '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="defaults">Reset to this week’s defaults</button></div>' +
+    (draft.isNew ? '' : '<h2>Delete or restore</h2>' +
+      (draft.builtin ? '<p>This week came with the app. <b>Restore built-in version</b> puts back the published words and math for “' + esc((builtinById(draft.id) || draft).label) + '”. Stars and progress are kept.</p>' +
+        '<div class="row" style="justify-content:flex-start"><button class="btn alt" data-act="defaults">Restore built-in version</button></div>' : '') +
+      '<p>Deleting a week removes its word list only. Stars, levels and progress are kept.</p>' +
+      '<div class="row" style="justify-content:flex-start"><button class="btn alt danger" data-act="delweek"'+(WEEKS.length < 2 ? ' disabled' : '')+'><span class="emoji" aria-hidden="true">🗑️</span>Delete this week</button>' +
+      (WST.hidden.length ? '<button class="btn alt" data-act="unhide">Bring back deleted built-in weeks</button>' : '') + '</div>') +
     '</div>');
   var wordsBox = $('#edWords');
   function drawWords(){ wordsBox.innerHTML = draft.words.map(wordRowHTML).join(''); }
@@ -2401,7 +2827,38 @@ function renderEditor(msg){
   if (msg) showMsg($('#edMsg'), msg.kind, msg.html);
 
   $('[data-act=back]').onclick = function(){ go('grownups'); };
-  $('#edTitle').oninput = function(){ draft.title = this.value; setDirty(); };
+  $('#edTitle').oninput = function(){ draft.label = this.value; setDirty(); };
+  $('#edDate').oninput = $('#edDate').onchange = function(){ if (draft.date !== this.value){ draft.date = this.value; setDirty(); } };
+  function leaveOk(){ return !dirty || window.confirm('Your changes to this week are not saved. Leave them?'); }
+  function openWeek(w, msg){ draft = clone(w); dirty = false; renderEditor(msg); window.scrollTo(0, 0); }
+  $all('[data-wk]').forEach(function(b){ b.onclick = function(){ var w = weekById(b.getAttribute('data-wk')); if (!w || (w.id === draft.id && !draft.isNew) || !leaveOk()) return; openWeek(w); }; });
+  $('[data-act=setcur]').onclick = function(){
+    if (draft.isNew) return;
+    if (dirty && !window.confirm('Use this week now? (Unsaved changes are left out until you tap Save.)')) return;
+    var ok = setCurrentWeek(draft.id), keep = draft, wasDirty = dirty; draft = keep; dirty = wasDirty;
+    renderEditor({kind: ok ? 'ok' : 'err', html: ok ? 'Luke’s games now use <b>' + esc(LIST.label) + '</b>.' : 'Switched for now, but this browser could not save that.'});
+  };
+  var autoBtn = $('[data-act=autocur]');
+  if (autoBtn) autoBtn.onclick = function(){ var ok = setCurrentWeek('auto'); renderEditor({kind: ok ? 'ok' : 'err', html:'This week is now picked by date: <b>' + esc(LIST.label) + '</b>.'}); };
+  function newWeek(copy){
+    if (!leaveOk()) return;
+    var n = WEEKS.length + 1, src = copy ? draft : null;
+    draft = {id:newWeekId(), label:'Week ' + n + (copy && src.pattern ? ': ' + src.pattern : ''), date:nextWeekDate(), pattern: copy ? src.pattern : '',
+             words: copy ? clone(src.words) : [{w:'', s:'', pic:''}], math: copy ? clone(src.math) : clone(DEFAULT_MATH), builtin:false, edited:false, isNew:true};
+    dirty = true; renderEditor({kind:'ok', html:'New week started' + (copy ? ' (copied)' : '') + '. Change the name, date and words, then tap <b>Save</b>.'});
+    later(function(){ var el = $('#edTitle'); if (el){ el.focus(); if (el.scrollIntoView) el.scrollIntoView({block:'center'}); } }, 30);
+  }
+  $('[data-act=newblank]').onclick = function(){ newWeek(false); };
+  $('[data-act=newcopy]').onclick = function(){ newWeek(true); };
+  var delBtn = $('[data-act=delweek]');
+  if (delBtn) delBtn.onclick = function(){
+    if (WEEKS.length < 2) return;
+    if (!window.confirm('Delete “' + draft.label + '”? Its word list is removed from this device. Stars, level and progress are kept.')) return;
+    var gone = draft.label, ok = deleteWeek(draft.id);
+    openWeek(LIST, {kind: ok ? 'ok' : 'err', html:'Deleted “' + esc(gone) + '”. Luke’s games use <b>' + esc(LIST.label) + '</b>.'});
+  };
+  var unBtn = $('[data-act=unhide]');
+  if (unBtn) unBtn.onclick = function(){ var ok = unhideBuiltins(); openWeek(weekById(draft.id) || LIST, {kind: ok ? 'ok' : 'err', html:'Built-in weeks are back.'}); };
   $('#edPat').oninput = function(){ draft.pattern = this.value; setDirty(); };
   wordsBox.oninput = function(e){
     var t = e.target, r = t.closest ? t.closest('.wrow') : null; if (!r) return;
@@ -2450,19 +2907,20 @@ function renderEditor(msg){
   $('[data-act=save]').onclick = function(){
     var r = checkDraft();
     if (r.errors.length){ showMsg($('#edMsg'), 'err', errHTML(r.errors)); var bad = $('.wrow.bad', wordsBox); if (bad && bad.scrollIntoView) bad.scrollIntoView({block:'center'}); return; }
-    var ok = commitList(r.list);
-    draft = clone(LIST); dirty = false;
-    renderEditor(ok ? {kind:'ok', html:'Saved! ' + WORDS.length + ' ' + (WORDS.length === 1 ? 'word' : 'words') + ' and ' + FACTS.length + ' math ' + (FACTS.length === 1 ? 'problem' : 'problems') + '. Luke’s games now use this list.'}
+    var id = draft.id, nw = r.list.words.length, nf = buildFacts(r.list.math).length;
+    var ok = commitWeek(r.list, id), isCur = LIST.id === id, w = weekById(id);
+    draft = clone(w); dirty = false;
+    renderEditor(ok ? {kind:'ok', html:'Saved! ' + nw + ' ' + (nw === 1 ? 'word' : 'words') + ' and ' + nf + ' math ' + (nf === 1 ? 'problem' : 'problems') + '. ' +
+                        (isCur ? 'Luke’s games now use this list.' : '“' + esc(w.label) + '” is not this week yet' + (w.date && w.date > todayStr() ? ' (it starts ' + fmtDate(w.date) + ')' : '') + '. Tap <b>Use this week now</b> to switch.')}
                     : {kind:'err', html:'This list is ready to play now, but this browser could not save it for next time (private browsing or storage full).'});
     later(function(){ var el = $('#edMsg'); if (el && el.scrollIntoView) el.scrollIntoView({block:'nearest'}); }, 50);
   };
   $('[data-act=export]').onclick = function(){
-    var r = checkDraft(), io = $('#edIoMsg');
-    if (r.errors.length){ showMsg(io, 'err', errHTML(r.errors)); return; }
-    var ta = $('#edExport'); ta.hidden = false; ta.value = exportCode(r.list);
+    var io = $('#edIoMsg');
+    var ta = $('#edExport'); ta.hidden = false; ta.value = exportCode();
     $('[data-act=copy]').hidden = false;
     ta.focus(); ta.select();
-    showMsg(io, 'ok', 'Here is the code' + (dirty ? ' (it includes your unsaved changes)' : '') + '. Tap <b>Copy code</b>, then paste it on the other device.');
+    showMsg(io, 'ok', 'Here is the code for all ' + WEEKS.length + ' ' + (WEEKS.length === 1 ? 'week' : 'weeks') + (dirty ? ' (save first to include your unsaved changes)' : '') + '. Tap <b>Copy code</b>, then paste it on the other device.');
   };
   $('[data-act=copy]').onclick = function(){
     var ta = $('#edExport'), io = $('#edIoMsg');
@@ -2473,17 +2931,19 @@ function renderEditor(msg){
   $('[data-act=import]').onclick = function(){
     var io = $('#edIoMsg'), raw = parseCode($('#edImport').value);
     if (!raw){ showMsg(io, 'err', 'That doesn’t look like a list code. Copy the whole code (it starts with { and ends with }) and try again.'); return; }
-    var r = cleanList(raw);
-    if (r.errors.length){ showMsg(io, 'err', 'That code has a problem:<ul>' + r.errors.map(function(e){ return '<li>' + esc(e.msg) + '</li>'; }).join('') + '</ul>'); return; }
-    var ok = commitList(r.list);
-    draft = clone(LIST); dirty = false;
-    renderEditor({kind: ok ? 'ok' : 'err', html:(ok ? 'Imported and saved: ' : 'Imported (but this browser could not save it for next time): ') + esc(LIST.title) + ', ' + WORDS.length + ' words, ' + FACTS.length + ' math problems.'});
+    var r = importCode(raw, draft.isNew ? LIST.id : draft.id);
+    if (r.errors.length){ showMsg(io, 'err', 'That code has a problem:<ul>' + r.errors.slice(0, 8).map(function(e){ return '<li>' + esc(e.msg) + '</li>'; }).join('') + '</ul>'); return; }
+    var shown = r.id ? weekById(r.id) : LIST;
+    draft = clone(shown); dirty = false;
+    var nf = buildFacts(shown.math).length, head = r.ok ? 'Imported and saved' : 'Imported (but this browser could not save it for next time)';
+    renderEditor({kind: r.ok ? 'ok' : 'err', html: (r.count === 1 ? head + ': ' : head + ' ' + r.count + ' weeks. This week: ') + esc(shown.label) + ', ' + shown.words.length + ' words, ' + nf + ' math problems.'});
   };
-  $('[data-act=defaults]').onclick = function(){
-    if (!window.confirm('Put back this week’s words and +1 math? Stars are kept. Progress for other words is cleared.')) return;
-    var ok = commitList(defaultList());
-    draft = clone(LIST); dirty = false;
-    renderEditor({kind: ok ? 'ok' : 'err', html: ok ? 'Back to this week’s defaults.' : 'Defaults are back for now, but this browser could not save that.'});
+  var defBtn = $('[data-act=defaults]');
+  if (defBtn) defBtn.onclick = function(){
+    if (!window.confirm('Put back the built-in words and math for this week? Stars and progress are kept.')) return;
+    var ok = restoreBuiltin(draft.id);
+    draft = clone(weekById(draft.id) || LIST); dirty = false;
+    renderEditor({kind: ok ? 'ok' : 'err', html: ok ? 'Back to the built-in version of “' + esc(draft.label) + '”.' : 'The built-in version is back for now, but this browser could not save that.'});
   };
 }
 
@@ -2495,6 +2955,7 @@ function route(){
   var fn = routes[h] || home;
   if (fn !== edit){ draft = null; dirty = false; }             /* leaving the editor drops unsaved changes */
   if (fn !== edit && fn !== grownups) editUnlocked = false;   /* ask again after Luke's screens */
+  PAT_OVERRIDE = null;
   if (fn === learn){ learnIdx = 0; }
   if (fn === write){ writeIdx = 0; writePass = 'trace'; }
   fn();
@@ -2502,7 +2963,7 @@ function route(){
 }
 window.addEventListener('hashchange', route);
 fixEmoji();
-loadList();
+loadWeeks();
 route();
 })();
 </script>
