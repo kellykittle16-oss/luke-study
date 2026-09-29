@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- noelle-build: letter-voices-2026-09-29 -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -278,23 +279,46 @@ svg{display:block}
    ===================================================================================== */
 
 /* ---------------- Letters: spoken name, spoken sound, picture word ----------------
-   n = how the speech voice should say the letter name, s = the letter sound (a speech-voice
-   approximation), w = picture word, p = picture (emoji). Edit here if a voice says one oddly. */
-var LETTERS = {
-  A:{n:'ay', s:'aah', w:'apple', p:'🍎'},     B:{n:'bee', s:'buh', w:'ball', p:'⚽'},
-  C:{n:'see', s:'kuh', w:'cat', p:'🐱'},      D:{n:'dee', s:'duh', w:'dog', p:'🐶'},
-  E:{n:'ee', s:'eh', w:'egg', p:'🥚'},        F:{n:'eff', s:'fff', w:'fish', p:'🐟'},
-  G:{n:'jee', s:'guh', w:'goat', p:'🐐'},     H:{n:'aitch', s:'huh', w:'hat', p:'🎩'},
-  I:{n:'eye', s:'ih', w:'insect', p:'🐛'},    J:{n:'jay', s:'juh', w:'juice', p:'🧃'},
-  K:{n:'kay', s:'kuh', w:'kite', p:'🪁'},     L:{n:'ell', s:'lll', w:'lion', p:'🦁'},
-  M:{n:'em', s:'mmm', w:'moon', p:'🌙'},      N:{n:'en', s:'nnn', w:'nose', p:'👃'},
-  O:{n:'oh', s:'ah', w:'octopus', p:'🐙'},    P:{n:'pee', s:'puh', w:'pig', p:'🐷'},
-  Q:{n:'cue', s:'kwuh', w:'queen', p:'👸'},   R:{n:'are', s:'rrr', w:'rabbit', p:'🐰'},
-  S:{n:'ess', s:'sss', w:'sun', p:'☀️'},      T:{n:'tee', s:'tuh', w:'turtle', p:'🐢'},
-  U:{n:'you', s:'uh', w:'umbrella', p:'☂️'},  V:{n:'vee', s:'vvv', w:'van', p:'🚐'},
-  W:{n:'double you', s:'wuh', w:'whale', p:'🐳'}, X:{n:'ex', s:'ks', w:'fox', p:'🦊', ends:true},
-  Y:{n:'why', s:'yuh', w:'yo-yo', p:'🪀'},    Z:{n:'zee', s:'zzz', w:'zebra', p:'🦓'}
+   LETTER_NAMES is the ONE table for how the speech voice says each letter NAME. Never hand a bare
+   letter ("A", "a") to the voice: iOS reads "A" as the article "uh", and "ay" is in the voice's
+   dictionary as "aye" (= "eye"), which is why A came out as "I". "eigh" (as in "eight") has only
+   the one reading. Use letterName(ch) everywhere. Edit here if a voice says one oddly.
+   s = the letter sound (a speech-voice approximation; every one has a vowel so the voice does not
+   spell it out, e.g. "sss" was read "S S S"), w = picture word, p = picture (emoji). */
+var LETTER_NAMES = {
+  A:'eigh', B:'bee', C:'see', D:'dee', E:'ee', F:'eff', G:'jee', H:'aitch', I:'eye', J:'jay',
+  K:'kay', L:'el', M:'em', N:'en', O:'oh', P:'pee', Q:'cue', R:'ar', S:'ess', T:'tee',
+  U:'you', V:'vee', W:'double you', X:'ex', Y:'why', Z:'zee'
 };
+function letterName(ch){ var n = LETTER_NAMES[String(ch).toUpperCase()]; return n || String(ch); }
+/* numbers are spoken as words too ("one", not "1") */
+var NUM_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+  'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+function numWord(n){ var k = +n; return (String(n).trim() !== '' && k >= 0 && k <= 20 && k === Math.floor(k)) ? NUM_WORDS[k] : String(n); }
+/* last line of defence, applied to every utterance: a whole utterance that is one bare letter becomes
+   its name, "letter X" becomes "letter <name>", and 0-20 written as digits become words */
+function speakable(text){
+  var s = String(text == null ? '' : text);
+  var m = /^\s*([A-Za-z])\s*([.!?]?)\s*$/.exec(s); if (m) return letterName(m[1]) + m[2];
+  s = s.replace(/\b([Ll]etter) ([A-Za-z])\b(?!['\u2019])/g, function(_, w, c){ return w + ' ' + letterName(c); });
+  return s.replace(/\b\d+\b/g, function(d){ return numWord(d); });
+}
+var LETTERS = {
+  A:{s:'aah', w:'apple', p:'🍎'},     B:{s:'buh', w:'ball', p:'⚽'},
+  C:{s:'kuh', w:'cat', p:'🐱'},       D:{s:'duh', w:'dog', p:'🐶'},
+  E:{s:'eh', w:'egg', p:'🥚'},        F:{s:'fuh', w:'fish', p:'🐟'},
+  G:{s:'guh', w:'goat', p:'🐐'},      H:{s:'huh', w:'hat', p:'🎩'},
+  I:{s:'ih', w:'insect', p:'🐛'},     J:{s:'juh', w:'juice', p:'🧃'},
+  K:{s:'kuh', w:'kite', p:'🪁'},      L:{s:'luh', w:'lion', p:'🦁'},
+  M:{s:'mmm', w:'moon', p:'🌙'},      N:{s:'nuh', w:'nose', p:'👃'},
+  O:{s:'ah', w:'octopus', p:'🐙'},    P:{s:'puh', w:'pig', p:'🐷'},
+  Q:{s:'kwuh', w:'queen', p:'👸'},    R:{s:'ruh', w:'rabbit', p:'🐰'},
+  S:{s:'suh', w:'sun', p:'☀️'},       T:{s:'tuh', w:'turtle', p:'🐢'},
+  U:{s:'uh', w:'umbrella', p:'☂️'},   V:{s:'vuh', w:'van', p:'🚐'},
+  W:{s:'wuh', w:'whale', p:'🐳'},     X:{s:'ecks', w:'fox', p:'🦊', ends:true},
+  Y:{s:'yuh', w:'yo-yo', p:'🪀'},     Z:{s:'zuh', w:'zebra', p:'🦓'}
+};
+Object.keys(LETTERS).forEach(function(k){ LETTERS[k].n = LETTER_NAMES[k]; });
 var ABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 /* Letter levels. "abc" = alphabet order in small groups. "montessori" = the sound-first groups
    many Montessori classrooms start with (c m a t, then s r i p ...). */
@@ -593,6 +617,7 @@ var Speech = (function(){
   function stop(){ token++; if (!ok) return; try { if (synth.speaking || synth.pending) synth.cancel(); } catch(e){} }
   function one(text, rate, onend){
     if (!ok){ if (onend) setTimeout(onend, 400); return; }
+    text = speakable(text);
     var u = new SpeechSynthesisUtterance(text);
     if (voice) u.voice = voice;
     u.lang = 'en-US'; u.rate = rate || RATE; u.pitch = 1.12; u.volume = 1;
@@ -726,8 +751,8 @@ function letterBig(id, cs){ return cs === 'both' ? '<span class="up">'+id+'</spa
 function wordHTML(id){ var L = LETTERS[id], w = L.w, i = L.ends ? w.toLowerCase().lastIndexOf(id.toLowerCase()) : 0; return esc(w.slice(0, i)) + '<b>' + esc(w.charAt(i)) + '</b>' + esc(w.slice(i + 1)); }
 function letterSteps(id){
   var L = LETTERS[id];
-  return [{text:L.n + '.', before:function(){ lit('.lbig'); }, gap:300},
-          {text:L.n + ' says ' + L.s + '.', gap:300},
+  return [{text:letterName(id) + '.', before:function(){ lit('.lbig'); }, gap:300},
+          {text:letterName(id) + ' says ' + L.s + '.', gap:300},
           {text:(L.ends ? 'Like in ' : '') + L.w + '!', before:function(){ lit('.lpic'); }}];
 }
 function lit(sel){ var e = $(sel); if (!e) return; e.classList.remove('lit'); void e.offsetWidth; e.classList.add('lit'); }
@@ -753,7 +778,7 @@ function letters(){
   }
   function move(k){ Sfx.tap(); lwIdx = (lwIdx + k + 26) % 26; render(true); var st = $('#stage'); swingTo(st.clientWidth * (0.35 + Math.random() * 0.4)); }
   $('[data-act=letter]').onclick = function(){ Speech.seq(letterSteps(ABC[lwIdx])); };
-  $('[data-act=pic]').onclick = function(){ var L = LETTERS[ABC[lwIdx]]; lit('.lpic'); Speech.seq([L.w + '!', L.ends ? L.w + ' ends with ' + L.n + '.' : L.w + ' starts with ' + L.n + '.']); };
+  $('[data-act=pic]').onclick = function(){ var L = LETTERS[ABC[lwIdx]]; lit('.lpic'); Speech.seq([L.w + '!', L.w + (L.ends ? ' ends with ' : ' starts with ') + 'the letter ' + letterName(ABC[lwIdx]) + '.']); };
   $('[data-act=prev]').onclick = function(){ move(-1); };
   $('[data-act=next]').onclick = function(){ move(1); };
   $all('#strip button').forEach(function(b){ b.onclick = function(){ Sfx.tap(); lwIdx = +b.getAttribute('data-i'); render(true); }; });
@@ -811,7 +836,7 @@ function runChoiceRound(cfg){
   function next(){ i++; if (i >= n) endRound(cfg.key, n, first, cfg.restart); else show(); }
   show();
 }
-function sayL(id){ return LETTERS[id].n; }
+function sayL(id){ return 'the letter ' + letterName(id); }
 
 /* 2. Find the Letter */
 function find(){
@@ -821,7 +846,7 @@ function find(){
     item:function(id){
       var cs = itemCase(), k = choiceCount('L', id), glyph = function(x){ return disp(x, cs); };
       var opts = shuffle([id].concat(distractors(id, k, foc.concat(rev), glyph)));
-      return {options:opts, label:glyph, optSay:function(o){ return 'Letter ' + o; },
+      return {options:opts, label:glyph, optSay:function(o){ return 'Letter ' + letterName(o); },
         visual:'<div class="ask"><button class="askbub" data-act="ask" aria-label="Say it again"><span class="emoji" aria-hidden="true">🔊</span></button></div>',
         prompt:[{text:'Find ' + sayL(id) + '!', gap:300}, {text:'Where is ' + sayL(id) + '?'}],
         again:function(o){ return [{text:'That is ' + sayL(o) + '.', gap:300}, {text:'Find ' + sayL(id) + '!'}]; },
@@ -838,7 +863,7 @@ function sounds(){
     item:function(id){
       var L = LETTERS[id], cs = itemCase(), k = choiceCount('L', id, 2), glyph = function(x){ return disp(x, cs); };
       var opts = shuffle([id].concat(distractors(id, k, foc.concat(rev).filter(function(c){ return !LETTERS[c].ends; }), glyph)));
-      return {options:opts, label:glyph, optSay:function(o){ return 'Letter ' + o; },
+      return {options:opts, label:glyph, optSay:function(o){ return 'Letter ' + letterName(o); },
         visual:'<button class="piccard" data-act="ask" aria-label="Hear the picture word"><span class="emoji big" aria-hidden="true">'+L.p+'</span><span class="emoji spk" aria-hidden="true">🔊</span></button>',
         prompt:[{text:L.w + '!', gap:300}, {text:L.s + ', ' + L.s + ', ' + L.w + '.', gap:300}, {text:'What letter does ' + L.w + ' start with?'}],
         again:function(o){ return [{text:'That is ' + sayL(o) + '.', gap:300}, {text:'Listen. ' + L.s + ', ' + L.w + '.'}]; },
@@ -853,11 +878,11 @@ function numbers(){
   runChoiceRound({key:'numbers', kind:'N', targets:targets, restart:function(){ go('numbers'); },
     item:function(id){
       var k = choiceCount('N', id);
-      return {options:numOptions(id, k, R), label:function(o){ return o; }, optSay:function(o){ return 'Number ' + o; },
+      return {options:numOptions(id, k, R), label:function(o){ return o; }, optSay:function(o){ return 'Number ' + numWord(o); },
         visual:'<div class="ask"><button class="askbub" data-act="ask" aria-label="Say it again"><span class="emoji" aria-hidden="true">🔊</span></button></div>',
-        prompt:[{text:'Find the number ' + id + '!'}],
-        again:function(o){ return [{text:'That is ' + o + '.', gap:300}, {text:'Find ' + id + '!'}]; },
-        praise:function(){ return [pick(PRAISE) + ' That is ' + id + '!']; }};
+        prompt:[{text:'Find the number ' + numWord(id) + '!'}],
+        again:function(o){ return [{text:'That is ' + numWord(o) + '.', gap:300}, {text:'Find ' + numWord(id) + '!'}]; },
+        praise:function(){ return [pick(PRAISE) + ' That is ' + numWord(id) + '!']; }};
     }});
 }
 
@@ -879,31 +904,31 @@ function count(){
     var h = ''; for (var k=0;k<total;k++) h += '<button class="obj" data-k="'+k+'" aria-label="'+esc(thing.one)+'">'+thingSVG(thing)+'<span class="webwrap">'+netSVG('#C2306F', .55)+'</span><span class="badge"></span></button>';
     objs.innerHTML = h;
     var countSay = [{text:'Let\'s count the ' + thing.many + '!', gap:250}, {text:'Tap each one.'}];
-    var pickSay = [{text:'Which number is ' + total + '?'}];
+    var pickSay = [{text:'Which number is ' + numWord(total) + '?'}];
     setRepeat(function(){ Speech.seq(picking ? pickSay : [{text:'Tap each ' + thing.one + ' to count it.'}]); });
     if (i === 0) intro(countSay); else later(function(){ Speech.seq(countSay); }, 300);
     $all('.obj', objs).forEach(function(b){ b.onclick = function(){
-      if (b.classList.contains('caught')){ Speech.say(b.querySelector('.badge').textContent); return; }
+      if (b.classList.contains('caught')){ Speech.say(numWord(b.querySelector('.badge').textContent)); return; }
       got++; b.classList.add('caught'); b.querySelector('.badge').textContent = got;
       play.setAttribute('data-counted', got);
       var num = $('#cnum'); num.textContent = got; num.classList.remove('pop'); void num.offsetWidth; num.classList.add('pop');
       $('#pips').innerHTML = new Array(got + 1).join('<i></i>');
       Sfx.count(got);
-      if (got < total){ Speech.say(String(got)); return; }
+      if (got < total){ Speech.say(numWord(got)); return; }
       picking = true; play.classList.add('countdone');
       var k = choiceCount('N', id), opts = numOptions(id, k, R);
-      Speech.seq([{text:got + '!', gap:250}, {text:'You counted ' + total + ' ' + (total === 1 ? thing.one : thing.many) + '!', gap:250}].concat(pickSay));
+      Speech.seq([{text:numWord(got) + '!', gap:250}, {text:'You counted ' + numWord(total) + ' ' + (total === 1 ? thing.one : thing.many) + '!', gap:250}].concat(pickSay));
       later(function(){
-        $('#bubs').innerHTML = bubblesHTML(opts, function(o){ return o; }, function(o){ return 'Number ' + o; }); $('#bubs').classList.toggle('two', opts.length === 2);
+        $('#bubs').innerHTML = bubblesHTML(opts, function(o){ return o; }, function(o){ return 'Number ' + numWord(o); }); $('#bubs').classList.toggle('two', opts.length === 2);
         play.setAttribute('data-choices', opts.length);
         $all('#bubs .bub').forEach(function(bb){ bb.onclick = function(){
           if (done) return; var o = bb.getAttribute('data-v');
           if (o === id){ done = true; bb.classList.add('yes'); Sfx.yes(); addStar(); recordAnswer('N', id, missed === 0); if (!missed) first++; cheer(); swingTo(xInStage(bb));
             var moved = false, adv = function(){ if (moved) return; moved = true; next(); };
-            Speech.seq([pick(PRAISE) + ' ' + total + ' ' + (total === 1 ? thing.one : thing.many) + '!'], function(){ later(adv, 400); }); later(adv, 3200); }
+            Speech.seq([pick(PRAISE) + ' ' + numWord(total) + ' ' + (total === 1 ? thing.one : thing.many) + '!'], function(){ later(adv, 400); }); later(adv, 3200); }
           else { missed++; Sfx.soft(); bb.classList.remove('nope'); void bb.offsetWidth; bb.classList.add('nope');
             if (missed >= 2 || opts.length - missed <= 1) $all('#bubs .bub').forEach(function(x){ if (x.getAttribute('data-v') === id) x.classList.add('hint'); });
-            Speech.seq([{text:'That is ' + o + '.', gap:300}, {text:'We counted ' + total + '. Find ' + total + '!'}]); }
+            Speech.seq([{text:'That is ' + numWord(o) + '.', gap:300}, {text:'We counted ' + numWord(total) + '. Find ' + numWord(total) + '!'}]); }
         }; });
       }, 500);
     }; });
@@ -921,11 +946,11 @@ function endRound(key, n, first, restart){
   var s = awardSticker();
   if (S().level === 'auto' && !(S().focus && S().focus.length)){
     var lv = autoLevel(), g = groups();
-    if (lv > d.lvlSeen){ d.lvlSeen = lv; save(); bonus = awardSticker(); var old = g[lv - 1].split('').map(sayL).join(', ');
+    if (lv > d.lvlSeen){ d.lvlSeen = lv; save(); bonus = awardSticker(); var old = g[lv - 1].split('').map(letterName).join(', ');
       msgs.push('Wow! You know ' + old + '! New letters are next!'); }
     else if (lv === g.length - 1 && d.lvlSeen === lv && g[lv].split('').every(function(c){ return isKnown('L', c); }) && !d.allLetters){ d.allLetters = 1; save(); bonus = awardSticker(); msgs.push('Wow! You know all your letters!'); }
   }
-  if (S().nums === 'auto'){ var nr = autoNumRange(); if (nr > d.numSeen){ d.numSeen = nr; save(); if (!bonus) bonus = awardSticker(); msgs.push('Wow! Now we can count up to ' + nr + '!'); } }
+  if (S().nums === 'auto'){ var nr = autoNumRange(); if (nr > d.numSeen){ d.numSeen = nr; save(); if (!bonus) bonus = awardSticker(); msgs.push('Wow! Now we can count up to ' + numWord(nr) + '!'); } }
   var stars = ''; for (var k=0;k<n;k++) stars += ICON.star;
   shell('<div class="tb-title">You did it!</div>', stageHTML(true) +
     '<div class="endcard" id="endcard" data-sticker="'+s.id+'"'+(bonus ? ' data-bonus="'+bonus.id+'"' : '')+'>' +
@@ -1218,7 +1243,7 @@ function traceItems(kind){
   var out = []; while (out.length < TRACE_ROUND && byCount.length){ out.push(byCount[out.length % byCount.length]); }
   return out;
 }
-function glyphName(g){ return /[A-Za-z]/.test(g) ? 'the letter ' + LETTERS[g.toUpperCase()].n : 'the number ' + g; }
+function glyphName(g){ return /[A-Za-z]/.test(g) ? 'the letter ' + letterName(g) : 'the number ' + numWord(g); }
 function trace(){
   var items = traceItems(trKind), n = items.length, i = 0, traced = 0;
   shell(dotsHTML(0, n), '<div class="kinds"><button class="kind" data-kind="L" aria-pressed="'+(trKind === 'L')+'" aria-label="Letters">ABC</button><button class="kind n" data-kind="N" aria-pressed="'+(trKind === 'N')+'" aria-label="Numbers">123</button></div>' +
@@ -1260,14 +1285,14 @@ function stickers(){
     STICKERS.map(function(s){ var have = c[s.id] || 0;
       return '<button class="slot'+(have ? ' have' : '')+'" data-id="'+s.id+'" aria-label="'+(have ? esc(s.name) : 'Empty sticker spot')+'">'+(have ? stickerSVG(s.id) + (have > 1 ? '<span class="n">'+have+'</span>' : '') : '')+'</button>'; }).join('') +
     '</div></div>');
-  var sayIt = total ? 'You have ' + total + ' sticker' + (total === 1 ? '' : 's') + '! Tap one to hear it.' : 'Your sticker book is ready! Play a game to get your first sticker.';
+  var sayIt = total ? 'You have ' + numWord(total) + ' sticker' + (total === 1 ? '' : 's') + '! Tap one to hear it.' : 'Your sticker book is ready! Play a game to get your first sticker.';
   setRepeat(function(){ Speech.say(sayIt); });
   intro([{text:sayIt}]);
   $all('.slot').forEach(function(b){ b.onclick = function(){
     var id = b.getAttribute('data-id'), have = c[id] || 0;
     if (!have){ Sfx.soft(); Speech.say('This spot is waiting for a sticker!'); return; }
     Sfx.sticker(); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
-    Speech.say(stickerById(id).name + (have > 1 ? '! You have ' + have + '!' : '!'));
+    Speech.say(stickerById(id).name + (have > 1 ? '! You have ' + numWord(have) + '!' : '!'));
   }; });
 }
 
@@ -1325,6 +1350,10 @@ function dashboard(){
       '<h3>Bubbles to choose from</h3>' + optRow('choices', st.choices, [['auto', 'Auto (2 while new, then 3)'], ['2', 'Always 2'], ['3', 'Always 3']]) +
       '<h3>Sound effects</h3>' + optRow('sfx', st.sfx ? 'on' : 'off', [['on', 'On'], ['off', 'Off']]) +
       '<p class="small" id="saved" role="status"></p></div>' +
+    '<div class="gcard" id="voicetest"><h2>Read-aloud check</h2><p class="small">Plays every letter name (A to Z), or the numbers 1 to 20, so you can check how this device\'s voice says them. Tap again to stop.</p>' +
+      '<div class="row" style="justify-content:flex-start"><button class="btn" data-act="testletters">Test all letter voices</button><button class="btn alt" data-act="testnums">Test numbers 1–20</button></div>' +
+      '<p class="small" id="voicenow" role="status" aria-live="polite"></p>' +
+      '<p class="small">Spoken as: ' + ABC.map(function(c){ return '<b>' + c + '</b> “' + esc(letterName(c)) + '”'; }).join(', ') + '.</p></div>' +
     '<div class="gcard"><h2>Start over</h2><p class="small">Erases stars, stickers and letter/number progress on this device. Settings stay.</p>' +
       '<div class="row" style="justify-content:flex-start"><button class="btn warn" data-act="reset">Reset progress…</button></div>' +
       (confirmReset ? '<div class="confirm" id="confirmBox"><p><b>Erase all of Noelle\'s progress?</b> This cannot be undone.</p><div class="row" style="justify-content:flex-start"><button class="btn danger" data-act="resetyes">Yes, erase it</button><button class="btn alt" data-act="resetno">Cancel</button></div></div>' : '') + '</div>' +
@@ -1351,6 +1380,16 @@ function dashboard(){
     $('[data-act=resetno]').onclick = function(){ confirmReset = false; dashboard(); };
   }
   $('[data-act=lock]').onclick = function(){ unlocked = false; go('home'); };
+  var testing = null;
+  function runTest(kind, items, label){
+    var now = $('#voicenow');
+    if (testing === kind){ testing = null; Speech.stop(); if (now) now.textContent = 'Stopped.'; return; }
+    testing = kind;
+    Speech.seq(items.map(function(x){ return {text:label(x) + '.', gap:450, before:function(){ var e = $('#voicenow'); if (e) e.textContent = 'Now: ' + x + ' (\u201c' + label(x) + '\u201d)'; }}; }),
+      function(){ testing = null; var e = $('#voicenow'); if (e) e.textContent = 'Done.'; });
+  }
+  $('[data-act=testletters]').onclick = function(){ runTest('L', ABC, letterName); };
+  $('[data-act=testnums]').onclick = function(){ runTest('N', numPool(20), numWord); };
 }
 
 /* =====================================================================================
@@ -1365,7 +1404,7 @@ function route(){
   fn();
 }
 window.addEventListener('hashchange', route);
-window.__noelle = {TracePad:TracePad, TRACE_RULES:TRACE_RULES, load:load, save:save, isKnown:isKnown, focusLetters:focusLetters, numRange:numRange, autoLevel:autoLevel, pickTargets:pickTargets, KEY:KEY, reset:function(){ mem = null; }};
+window.__noelle = {BUILD:'letter-voices-2026-09-29', LETTER_NAMES:LETTER_NAMES, letterName:letterName, numWord:numWord, speakable:speakable, LETTERS:LETTERS, TracePad:TracePad, TRACE_RULES:TRACE_RULES, load:load, save:save, isKnown:isKnown, focusLetters:focusLetters, numRange:numRange, autoLevel:autoLevel, pickTargets:pickTargets, KEY:KEY, reset:function(){ mem = null; }};
 route();
 })();
 </script>
